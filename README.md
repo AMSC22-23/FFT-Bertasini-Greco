@@ -1,2 +1,2 @@
-# FFT-B-ernoulli--D-irac--G-auss-
-FFT project done by Bertasini, Ditrani and Greco
+# FFT-B(ernoulli)D(irac)G(auss)
+An FFT project by Bertasini, Ditrani and Greco
