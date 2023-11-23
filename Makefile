@@ -3,13 +3,19 @@ SHELL := /bin/bash
 IDIR = include
 SDIR = src
 BINDIR = bin
-ODIR=obj
+ODIR = obj
+OUTDIR = output
 
 CXX := g++
 
 O_LEVEL = 3
 
-CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra
+IPYTHON := "/opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10"
+LPYTHON := "/opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/lib"
+INUMPY := "/opt/homebrew/lib/python3.10/site-packages/numpy/core/include"
+
+CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra
+LDFLAGS = -L$(LPYTHON) -lpython3.10
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
@@ -37,7 +43,7 @@ $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 clean:
 	rm -f $(ODIR)/*.o $(TARGET)
 
-init: | $(BINDIR) $(SDIR) $(IDIR) $(ODIR)
+init: | $(BINDIR) $(SDIR) $(IDIR) $(ODIR) $(OUTDIR)
 
 $(ODIR):
 	mkdir -p $(ODIR)
@@ -50,3 +56,6 @@ $(SDIR):
 
 $(IDIR):
 	mkdir -p $(IDIR)
+
+$(OUTDIR):
+	mkdir -p $(OUTDIR)
