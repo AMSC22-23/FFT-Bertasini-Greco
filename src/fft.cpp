@@ -4,9 +4,9 @@
 using namespace std;
 
 // compute fft
-vcpx fft(vcpx x)
+auto fft(vcpx x) -> vcpx
 {
-    int N = x.size();
+    unsigned int N = x.size();
     // if not power of 2 add zeros
     if (N == 1) return vcpx {x[0]};
     vcpx x_even(N/2, 0);
@@ -27,13 +27,13 @@ vcpx fft(vcpx x)
 }
 
 // compute ifft
-vcpx ifft(vcpx X)
+auto ifft(vcpx X) -> vcpx
 {
     transform(X.begin(), X.end(), X.begin(), [ ](cpx c){return conj(c);});
     vcpx x = fft(X);
     transform(x.begin(), x.end(), x.begin(), [ ](cpx c){return conj(c);});
     
-    transform(x.begin(), x.end(), x.begin(), [x](cpx c){return cpx(c.real()/x.size(), c.imag()/x.size());});
+    transform(x.begin(), x.end(), x.begin(), [x](cpx c){return cpx(c.real()/(double)x.size(), c.imag()/(double)x.size());});
 
     return x;
 }

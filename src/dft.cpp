@@ -3,9 +3,9 @@
 
 using namespace std;
 
-vcpx dft(vcpx x)
+auto dft(vcpx x) -> vcpx
 {
-    int N = x.size();
+    unsigned int N = x.size();
     vector<complex<double>> X(N, 0);
     for (int k = 0; k < N; k++){
         for (int n = 0; n < N; n++){
@@ -16,9 +16,9 @@ vcpx dft(vcpx x)
     return X;
 }
 
-vcpx idft(vcpx X)
+auto idft(vcpx X) -> vcpx
 {   
-    int N = X.size();
+    unsigned int N = X.size();
     vcpx x(N, 0);
     for (int n = 0; n < N; n++){
         for (int k = 0; k < N; k++){
