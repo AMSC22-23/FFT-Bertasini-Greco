@@ -10,12 +10,23 @@ CXX := g++
 
 O_LEVEL = 3
 
-IPYTHON := "/opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10"
-LPYTHON := "/opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/lib"
-INUMPY := "/opt/homebrew/lib/python3.10/site-packages/numpy/core/include"
+# IPYTHON := /opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10
+# LPYTHON := /opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/lib
+# INUMPY := /opt/homebrew/lib/python3.10/site-packages/numpy/core/include
+
+# find the python include and lib directories
+IPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('include'))")
+LPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('stdlib'))")
+INUMPY  := $(shell python3 -c "import numpy; print(numpy.get_include())")
+
+# remove last part of LPYTHON
+LPYTHON := $(shell dirname $(LPYTHON))
+
+# get full python version
+PYTHON_VERSION := $(shell python3 -c "import sys; print('{}.{}'.format(sys.version_info.major, sys.version_info.minor))")
 
 CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra
-LDFLAGS = -L$(LPYTHON) -lpython3.10
+LDFLAGS = -L$(LPYTHON) -lpython${PYTHON_VERSION}
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
