@@ -10,6 +10,7 @@
 
 namespace plt = matplotlibcpp;
 using namespace std;
+using namespace sequential;
 
 // generate signal as sum of sin with different frequencies
 auto generate_signal(vector<double> x, vector<double> freqs, vector<double> amps, int N) -> vcpx
@@ -24,7 +25,7 @@ auto generate_signal(vector<double> x, vector<double> freqs, vector<double> amps
 auto main() -> int
 {
     // generate signal
-    int N = 10000;
+    const int N = 10000;
     vector<double> x (N, 0);
     for (int i = 0; i < N; i++) x[i] = i*M_PI*2/N;
 
