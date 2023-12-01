@@ -7,10 +7,12 @@
 #include <matplotlibcpp.h>
 #include <dft.hpp>
 #include <fft.hpp>
+#include <fft_it.hpp>
+#include <ifft.hpp>
 
 namespace plt = matplotlibcpp;
 using namespace std;
-using namespace sequential;
+using namespace recursive;
 
 // generate signal as sum of sin with different frequencies
 auto generate_signal(vector<double> x, vector<double> freqs, vector<double> amps, int N) -> vcpx
@@ -37,7 +39,8 @@ auto main() -> int
     if (N != pow(2, floor(log2(N)))) y.resize((size_t)pow(2, ceil(log2(N))), 0);
 
     // compute fft
-    auto FFT = fft(y);
+    auto FFT = y;
+    fft(FFT);
 
     vector<double> FFT_freqs(FFT.size(), 0);
     // filter conjugate symmetric frequencies
@@ -49,9 +52,11 @@ auto main() -> int
     for (size_t i = 0; i < FFT.size(); i++) if (i > freq_flat) FFT[i] = 0;
     
     // compute ifft
-    vcpx y2 = ifft(FFT);
+    vcpx y2 = ifft(FFT, fft);
 
-    auto FFT_filtered = fft(y2);
+    auto FFT_filtered = y2;
+    fft(FFT_filtered);
+
     vector<double> FFT_filtered_freqs(FFT_filtered.size(), 0);
     // filter conjugate frequencies
     transform(FFT_filtered.begin(), FFT_filtered.end(), FFT_filtered_freqs.begin(), [](cpx c){if (c.imag() < 0) return abs(c); else return 0.0;});
