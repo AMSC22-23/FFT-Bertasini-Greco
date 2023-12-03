@@ -6,6 +6,8 @@ BINDIR = bin
 ODIR = obj
 OUTDIR = output
 
+SUBDIRS = $(IDIR) $(SDIR) $(BINDIR) $(ODIR) $(OUTDIR)
+
 CXX := g++
 
 O_LEVEL = 3
@@ -19,14 +21,14 @@ IPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('inclu
 LPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('stdlib'))")
 INUMPY  := $(shell python3 -c "import numpy; print(numpy.get_include())")
 
+# get the last part of the python lib directory
+LIBPYTHON := $(shell basename $(LPYTHON))
+
 # remove last part of LPYTHON
 LPYTHON := $(shell dirname $(LPYTHON))
 
-# get full python version
-PYTHON_VERSION := $(shell python3 -c "import sys; print('{}.{}'.format(sys.version_info.major, sys.version_info.minor))")
-
 CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra
-LDFLAGS = -L$(LPYTHON) -lpython${PYTHON_VERSION}
+LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) 
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
@@ -36,37 +38,25 @@ CXXFILES = $(notdir $(_CXXFILES))
 _OBJ = $(_CXXFILES:.cpp=.o)
 OBJ = $(patsubst $(SDIR)/%,$(ODIR)/%,$(_OBJ))
 
-TARGET = $(BINDIR)/app
+TARGET := $(BINDIR)/app
 
-$(TARGET): $(OBJ) | init
-	$(CXX) -o $@ $^ $(LDFLAGS)
+build: subdirs $(TARGET)
 
-all: $(TARGET) run
-
-run: $(TARGET)
+run: build $(TARGET)
 	./$(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-.PHONY: clean run init
-
 clean:
 	rm -f $(ODIR)/*.o $(TARGET)
 
-init: | $(BINDIR) $(SDIR) $(IDIR) $(ODIR) $(OUTDIR)
+.PHONY: clean run subdirs
 
-$(ODIR):
-	mkdir -p $(ODIR)
+subdirs: | $(SUBDIRS)
 
-$(BINDIR): 
-	mkdir -p $(BINDIR)
-
-$(SDIR):
-	mkdir -p $(SDIR)
-
-$(IDIR):
-	mkdir -p $(IDIR)
-
-$(OUTDIR):
-	mkdir -p $(OUTDIR)
+$(SUBDIRS):
+	mkdir -p $@
