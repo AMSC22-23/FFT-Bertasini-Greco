@@ -12,7 +12,7 @@
 
 namespace plt = matplotlibcpp;
 using namespace std;
-using namespace recursive;
+using namespace iterative;
 
 // generate signal as sum of sin with different frequencies
 auto generate_signal(vector<double> x, vector<double> freqs, vector<double> amps, int N) -> vcpx

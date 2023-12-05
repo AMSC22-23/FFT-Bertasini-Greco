@@ -15,6 +15,7 @@ auto iterative::fft (vcpx& x) -> void {
     for (unsigned int s = 1; s <= log2(N); s++){
         auto m = (unsigned int)pow(2, s);
         cpx Wm = polar(1.0, -2*M_PI/m);
+        #pragma omp parallel for schedule(static) 
         for (unsigned int k = 0; k < N; k += m){
             cpx W = 1;
             for (unsigned int j = 0; j < m/2; j++){

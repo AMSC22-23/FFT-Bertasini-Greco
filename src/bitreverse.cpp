@@ -1,5 +1,6 @@
 #include <bitreverse.hpp>
 #include <typedefs.hpp>
+#include <omp.h>
 
 auto bit_reverse(unsigned int i, unsigned int N) -> unsigned int
 {
@@ -17,6 +18,7 @@ auto bit_reverse_copy(vcpx& v) -> void
 {
     unsigned int N = v.size();
     vcpx v_copy = v;
+    #pragma omp parallel for
     for (unsigned int i = 0; i < N; i++){
         v[i] = v_copy[bit_reverse(i, N)];
     }

@@ -27,8 +27,17 @@ LIBPYTHON := $(shell basename $(LPYTHON))
 # remove last part of LPYTHON
 LPYTHON := $(shell dirname $(LPYTHON))
 
-CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra
-LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) 
+# if macos add these flags
+ifeq ($(shell uname), Darwin)
+	CXXOMPFLAGS := -I/opt/homebrew/opt/libomp/include -Xclang -fopenmp
+	LOMPFLAGS := -L/opt/homebrew/opt/libomp/lib -lomp
+else
+	CXXOMPFLAGS := -fopenmp
+	LOMPFLAGS := -fopenmp
+endif
+
+CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS)
+LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
