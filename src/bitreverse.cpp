@@ -23,3 +23,16 @@ auto bit_reverse_copy(vcpx& v) -> void
         v[i] = v_copy[bit_reverse(i, N)];
     }
 }
+
+auto next_power_of_2(long unsigned int n) -> long unsigned int
+{
+    n--;
+    n |= n >> 1;   // Divide by 2^k for consecutive doublings of k up to 32,
+    n |= n >> 2;   // and then or the results.
+    n |= n >> 4;
+    n |= n >> 8;
+    n |= n >> 16;
+    n |= n >> 32;  // This is now a number of the form 2^k - 1 (where
+    n++;
+    return n;
+}
