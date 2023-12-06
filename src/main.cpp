@@ -15,7 +15,7 @@
 namespace plt = matplotlibcpp;
 using namespace std;
 
-auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N) {
+auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool truncate = true) {
     const int width = 1400;
     const int height = 700;
 
@@ -24,10 +24,12 @@ auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N) {
     auto y2 = s_filtered.get_real_signal();
     
     // truncate to N
-    y.resize(N);
-    y2.resize(N);
-    x.resize(N);
-
+    if (truncate) {
+        x.resize(N);
+        y.resize(N);
+        y2.resize(N);
+    }
+    
     // print x and y sizes 
     int rows = 2; int cols = 2;
     plt::figure_size(width, height);
@@ -54,14 +56,12 @@ auto main() -> int
     vector<double> freqs = {1,100};
     vector<double> amps = {1,.1};
 
-    Signal s(freqs, amps, N);
-
-    s.transform_signal(iterative::fft);
+    Signal s(freqs, amps, N, iterative::fft);
 
     Signal s_filtered = s;
 
     const int freq_flat = 50;
-    s_filtered.filter_freqs(freq_flat, iterative::fft);
+    s_filtered.filter_freqs(freq_flat);
 
     plot_stuff(s, s_filtered, N);
 }

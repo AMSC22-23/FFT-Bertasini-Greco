@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_samples, bool padding)
+Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_samples, const function<auto (vcpx&) -> void>& _fft, bool padding) : fft(_fft)
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
@@ -15,11 +15,9 @@ Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_sampl
     this->signal.resize(correct_padding, 0);
     this->generate_signal(n_samples);
     this->x.resize(correct_padding);
-}
 
-Signal::Signal(vcpx _signal)
-{
-    move(_signal.begin(), _signal.end(), back_inserter(this->signal));
+    this->transform_signal();
+    this->compute_freqs();
 }
 
 auto Signal::generate_signal(unsigned int n_samples) -> void
@@ -30,17 +28,16 @@ auto Signal::generate_signal(unsigned int n_samples) -> void
             signal[n] += amps[i] * sin(freqs[i] * x[n]);
 }
 
-auto Signal::transform_signal(const function<auto (vcpx&) -> void>& fft) -> void
+auto Signal::transform_signal() -> void
 {
     this->transformed_signal = this->signal;
-    fft(this->transformed_signal);
-    this->compute_freqs();
+    this->fft(this->transformed_signal);
 }
 
-auto Signal::inverse_transform_signal(const function<auto (vcpx&) -> void>& fft) -> void {
+auto Signal::inverse_transform_signal() -> void {
     this->signal = this->transformed_signal;
     transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [ ](cpx c){return conj(c);});
-    fft(this->signal);
+    this->fft(this->signal);
     transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [ ](cpx c){return conj(c);});
     transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [this](cpx c){return cpx(c.real()/(double)this->signal.size(), c.imag()/(double)this->signal.size());});
 }
@@ -56,14 +53,14 @@ auto Signal::compute_freqs() -> void
     );
 }
 
-auto Signal::filter_freqs(unsigned int freq_flat, const function<auto (vcpx&) -> void>& fft) -> void
+auto Signal::filter_freqs(unsigned int freq_flat) -> void
 {
     if (freq_flat > this->transformed_signal.size() / 2)
         throw invalid_argument("freq_flat must be less than half the size of the transformed signal");
     if (freq_flat < 0)
         throw invalid_argument("freq_flat must be greater than 0");
     if (this->transformed_signal.size() == 0)
-        this->transform_signal(fft);
+        this->transform_signal();
     // filter high frequencies using stl transform
     transform(
         this->transformed_signal.begin(), 
@@ -71,7 +68,8 @@ auto Signal::filter_freqs(unsigned int freq_flat, const function<auto (vcpx&) ->
         this->transformed_signal.begin(), 
         [i = 0, freq_flat](cpx c) mutable { return i++ > (int)freq_flat ? 0 : c; }
     );
-    this->inverse_transform_signal(fft);
+    this->compute_freqs();
+    this->inverse_transform_signal();
 }
 
 auto Signal::get_real_signal() const -> vector<double>
