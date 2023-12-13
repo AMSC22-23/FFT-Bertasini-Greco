@@ -3,6 +3,6 @@
 
 #include <typedefs.hpp>
 
-namespace recursive { auto fft (vcpx& x) -> void; }
+namespace recursive { auto fft (vcpx&, bool) -> void; }
 
 #endif

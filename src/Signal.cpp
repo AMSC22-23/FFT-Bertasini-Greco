@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_samples, const function<auto (vcpx&) -> void>& _fft, bool padding) : fft(_fft)
+Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_samples, const function<auto (vcpx&, bool) -> void>& _fft, bool padding) : fft(_fft)
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
@@ -31,15 +31,7 @@ auto Signal::generate_signal(unsigned int n_samples) -> void
 auto Signal::transform_signal() -> void
 {
     this->transformed_signal = this->signal;
-    this->fft(this->transformed_signal);
-}
-
-auto Signal::inverse_transform_signal() -> void {
-    this->signal = this->transformed_signal;
-    transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [ ](cpx c){return conj(c);});
-    this->fft(this->signal);
-    transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [ ](cpx c){return conj(c);});
-    transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [this](cpx c){return cpx(c.real()/(double)this->signal.size(), c.imag()/(double)this->signal.size());});
+    this->fft(this->transformed_signal, false);
 }
 
 auto Signal::compute_freqs() -> void
@@ -51,6 +43,12 @@ auto Signal::compute_freqs() -> void
         fft_freqs.begin(), 
         [](cpx c){ return abs(c); }
     );
+}
+
+auto Signal::inverse_transform_signal() -> void {
+    this->signal = this->transformed_signal;
+    this->fft(this->signal, true);
+    transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [this](cpx c){return cpx(c.real()/(double)this->signal.size()*2, c.imag()/(double)this->signal.size()*2);});
 }
 
 auto Signal::filter_freqs(unsigned int freq_flat) -> void
