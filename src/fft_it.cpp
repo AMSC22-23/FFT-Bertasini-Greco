@@ -5,16 +5,15 @@
 
 using namespace std;
 
-auto iterative::fft (vcpx& x) -> void {
+auto iterative::fft (vcpx& x, bool is_inverse) -> void {
     unsigned int N = x.size();
-    // if not power of 2 add zeros
     if (N == 1) return;
     // bit reverse copy of x
     bit_reverse_copy(x);
     // butterfly
     for (unsigned int s = 1; s <= log2(N); s++){
         auto m = (unsigned int)pow(2, s);
-        cpx Wm = polar(1.0, -2*M_PI/m);
+        cpx Wm = polar(1.0, (1-2*is_inverse)*-2*M_PI/m);
         #pragma omp parallel for schedule(static) 
         for (unsigned int k = 0; k < N; k += m){
             cpx W = 1;
