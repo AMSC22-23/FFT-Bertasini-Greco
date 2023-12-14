@@ -2,11 +2,12 @@ SHELL := /bin/bash
 
 IDIR = include
 SDIR = src
+TDIR = test_src
 BINDIR = bin
 ODIR = obj
 OUTDIR = output
 
-SUBDIRS = $(IDIR) $(SDIR) $(BINDIR) $(ODIR) $(OUTDIR)
+SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test
 
 CXX := g++
 
@@ -20,6 +21,7 @@ O_LEVEL = 3
 IPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('include'))")
 LPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('stdlib'))")
 INUMPY  := $(shell python3 -c "import numpy; print(numpy.get_include())")
+PYTHONINTERP := $(shell python3 -c "import sys; print(sys.executable)")
 
 # get the last part of the python lib directory
 LIBPYTHON := $(shell basename $(LPYTHON))
@@ -47,12 +49,28 @@ CXXFILES = $(notdir $(_CXXFILES))
 _OBJ = $(_CXXFILES:.cpp=.o)
 OBJ = $(patsubst $(SDIR)/%,$(ODIR)/%,$(_OBJ))
 
+_TESTCXXFILES = $(wildcard $(TDIR)/*.cpp)
+TESTCXXFILES = $(notdir $(_TESTCXXFILES))
+
+_TESTOBJ = $(_TESTCXXFILES:.cpp=.o)
+TEST_OBJ = $(patsubst $(TDIR)/%,$(ODIR)/test/%,$(_TESTOBJ))
+
 TARGET := $(BINDIR)/app
+TEST_TARGET := $(BINDIR)/test
 
 build: subdirs $(TARGET)
 
 run: build $(TARGET)
 	./$(TARGET)
+
+build_test: subdirs $(TEST_TARGET)
+
+test: build_test $(TEST_TARGET)
+	@mkdir -p $(TDIR)/data
+	@./$(TEST_TARGET) $(TDIR)/data
+	@$(PYTHONINTERP) $(TDIR)/generate_fft.py $(TDIR)/data/signal.txt      $(TDIR)/data/numpy_fft.txt
+	@$(PYTHONINTERP) $(TDIR)/compare_fft.py  $(TDIR)/data/transformed.txt $(TDIR)/data/numpy_fft.txt
+	@$(PYTHONINTERP) $(TDIR)/plot_same.py    $(TDIR)/data/numpy_fft.txt   $(TDIR)/data/transformed.txt 
 
 $(TARGET): $(OBJ)
 	$(CXX) -o $@ $^ $(LDFLAGS)
@@ -60,8 +78,14 @@ $(TARGET): $(OBJ)
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
+$(TEST_TARGET): $(TEST_OBJ) $(filter-out $(ODIR)/main.o, $(OBJ))
+	$(CXX) -o $@ $^ $(LDFLAGS)	
+
+$(ODIR)/test/%.o: $(TDIR)/%.cpp $(DEPS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS)
+
 clean:
-	rm -f $(ODIR)/*.o $(TARGET)
+	rm -f $(ODIR)/*.o $(TARGET) $(TEST_TARGET) $(ODIR)/test/*.o
 
 .PHONY: clean run subdirs
 

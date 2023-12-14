@@ -38,6 +38,7 @@
 obj
 bin
 output
+test_src/data
 
 # Mac
 .DS_Store
