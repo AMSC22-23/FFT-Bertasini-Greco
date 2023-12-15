@@ -13,13 +13,13 @@ class Signal {
     auto generate_signal(unsigned int n_samples) -> void;
     vcpx transformed_signal;
     std::vector<double> fft_freqs;
-    std::function<auto (vcpx&, bool) -> void> fft;
+    ft fft;
     auto compute_freqs() -> void;
     auto transform_signal() -> void;
     auto inverse_transform_signal() -> void;
 
     public:
-    Signal(std::vector<double> freqs, std::vector<double> amps, unsigned int N, const std::function<auto (vcpx&, bool) -> void>& _fft = iterative::fft, bool padding = true);
+    Signal(std::vector<double> freqs, std::vector<double> amps, unsigned int N, const ft& _fft = iterative::fft, bool padding = true);
     Signal(const Signal& other) = default;
     Signal(Signal&& other) = default;
     auto operator=(const Signal& other) -> Signal& = default;

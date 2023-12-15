@@ -54,15 +54,8 @@ auto main() -> int
 
     // generate signal
     const int N = 10000;
-    vector<double> freqs = {1};
-    vector<double> amps = {1};
-    
-    const int number_of_noises = 100;
-    // create noised with random freqs (high) and amps (low)
-    for (int i = 0; i < number_of_noises; i++) {
-        freqs.push_back(arc4random() % 1000 + 200);
-        amps.push_back((arc4random() % 100) / 1000.0);
-    }
+    vector<double> freqs = {1, 100};
+    vector<double> amps = {1, 0.1};
 
     Signal s(freqs, amps, N, iterative::fft);
 
@@ -72,4 +65,6 @@ auto main() -> int
     s_filtered.filter_freqs(freq_flat);
 
     plot_stuff(s, s_filtered, N);
+
+    return 0;
 }

@@ -7,8 +7,32 @@
 #include <dft.hpp>
 #include <fft.hpp>
 #include <fft_it.hpp>
+#include <time_evaluator.hpp>
 
 using namespace std;
+
+void time_evaluation (const Signal& s)
+{
+    auto time_i = time_ev(s.get_signal(), iterative::fft, -1);
+    auto time_r = time_ev(s.get_signal(), recursive::fft, -1);
+    //auto time_d = time_ev(s.get_signal(), dft, -1);
+    cout << "-----------------------------------------" << endl;
+    cout << "Time for optimal iterative fft: " << time_i << " µs\n";
+    cout << "Time for recursive fft: " << time_r << " µs\n";
+    //cout << "Time for dft: " << time_d << " µs\n";
+
+    cout << "-----------------------------------------" << endl;
+    auto time_0 = time_ev(s.get_signal(), iterative::fft, 1);
+    cout << "Time for  1 processor:  " << time_0 << " µs\n";
+
+    for (int i = 2; i < 20; i++) {
+        auto time = time_ev(s.get_signal(), iterative::fft, i);
+        cout << "Time for " << (i < 10 ? " " : "") << i << " processors: " << time << " µs | ";
+        cout << "Speedup: " << (double)time_0 / time << "\n";
+    }
+    cout << "-----------------------------------------" << endl;
+
+}
 
 auto main(int argc, char ** argv) -> int
 {
@@ -36,7 +60,7 @@ auto main(int argc, char ** argv) -> int
     }
 
     // generate signal
-    const int N = 10000;
+    const int N = 1000000;
     vector<double> freqs = {1};
     vector<double> amps = {1};
 
@@ -64,6 +88,8 @@ auto main(int argc, char ** argv) -> int
 
     output_file_signal.close();
     output_file_transformed.close();
+
+    time_evaluation(s);
     
     return 0;
 }
