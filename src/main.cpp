@@ -10,7 +10,6 @@
 #include <dft.hpp>
 #include <fft.hpp>
 #include <fft_it.hpp>
-#include <ifft.hpp>
 
 namespace plt = matplotlibcpp;
 using namespace std;

@@ -7,7 +7,6 @@
 #include <dft.hpp>
 #include <fft.hpp>
 #include <fft_it.hpp>
-#include <ifft.hpp>
 
 using namespace std;
 
