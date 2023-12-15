@@ -3,7 +3,7 @@
 
 using namespace std;
 
-auto dft(vcpx& x, bool is_inverse) -> void
+auto dft(vcpx& x, const bool is_inverse, const int) -> void
 {
     unsigned int N = x.size();
     vector<complex<double>> X(N, 0);

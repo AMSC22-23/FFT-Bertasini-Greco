@@ -4,7 +4,7 @@
 using namespace std;
 
 // compute fft
-auto recursive::fft(vcpx& x, bool is_inverse) -> void
+auto recursive::fft(vcpx& x, const bool is_inverse, const int n_cores) -> void
 {
     unsigned int N = x.size();
     // if not power of 2 add zeros
@@ -15,8 +15,8 @@ auto recursive::fft(vcpx& x, bool is_inverse) -> void
         x_even[i] = x[2*i];
         x_odd[i] = x[2*i+1];
     }
-    fft(x_even, is_inverse);
-    fft(x_odd, is_inverse);
+    fft(x_even, is_inverse, n_cores);
+    fft(x_odd, is_inverse, n_cores);
     vcpx X(N, 0);
     for (unsigned int k = 0; k < N/2; k++){
         cpx W = polar(1.0, (1-2*is_inverse)*-2*M_PI*k/N) * x_odd[k];

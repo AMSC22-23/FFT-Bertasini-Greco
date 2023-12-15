@@ -2,10 +2,13 @@
 #include <bitreverse.hpp>
 #include <typedefs.hpp>
 #include <cmath>
+#include <omp.h>
 
 using namespace std;
 
-auto iterative::fft (vcpx& x, bool is_inverse) -> void {
+auto iterative::fft (vcpx& x, const bool is_inverse, const int n_cores) -> void {
+
+    if (n_cores != -1) omp_set_num_threads(n_cores);
     unsigned int N = x.size();
     if (N == 1) return;
     // bit reverse copy of x

@@ -3,6 +3,6 @@
 
 #include <typedefs.hpp>
 
-namespace iterative { auto fft (vcpx&, bool) -> void; }
+namespace iterative { auto fft (vcpx&, const bool, const int) -> void; }
 
 #endif

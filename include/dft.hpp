@@ -3,6 +3,6 @@
 
 #include <typedefs.hpp>
 
-auto dft (vcpx&, bool) -> void;
+auto dft (vcpx&, const bool, const int) -> void;
 
 #endif
