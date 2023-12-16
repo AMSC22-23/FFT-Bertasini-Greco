@@ -55,8 +55,6 @@ auto Signal::filter_freqs(unsigned int freq_flat) -> void
 {
     if (freq_flat > this->transformed_signal.size() / 2)
         throw invalid_argument("freq_flat must be less than half the size of the transformed signal");
-    if (freq_flat < 0)
-        throw invalid_argument("freq_flat must be greater than 0");
     if (this->transformed_signal.size() == 0)
         this->transform_signal();
     // filter high frequencies using stl transform

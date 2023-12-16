@@ -3,6 +3,7 @@
 
 #include <complex>
 #include <vector>
+#include <functional>
 
 using cpx = std::complex<double>;
 using vcpx = std::vector<cpx>;
