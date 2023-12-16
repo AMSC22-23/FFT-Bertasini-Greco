@@ -36,13 +36,14 @@ auto Signal::transform_signal() -> void
 
 auto Signal::compute_freqs() -> void
 {
-    fft_freqs.resize(this->transformed_signal.size() / 2, 0);
+    fft_freqs.resize(this->transformed_signal.size(), 0);
     transform(
         this->transformed_signal.begin(), 
         this->transformed_signal.end(), 
         fft_freqs.begin(), 
         [](cpx c){ return abs(c); }
     );
+    fft_freqs.resize(fft_freqs.size() / 2);
 }
 
 auto Signal::inverse_transform_signal() -> void {
