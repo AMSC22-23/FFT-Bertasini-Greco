@@ -6,6 +6,12 @@ auto bit_reverse(unsigned int i, unsigned int N) -> unsigned int
 {
     auto m = (unsigned int)log2(N);
     unsigned int b = i;
+    //@note In this way you have chosen to have unsigned int as index type.
+    //      IN 64 bit architectures, however, size_t is normally a unsigned long int.
+    //      I would suggest to use size_t as index type. But then you have to change
+    //      the "magic numbers".
+    //      An addisional note: modern c== has introduced std::bitset to facilitate
+    //      bit manipulation. You can use it to avoid the "magic numbers".
     b = (((b & 0xaaaaaaaa) >> 1) | ((b & 0x55555555) << 1));
     b = (((b & 0xcccccccc) >> 2) | ((b & 0x33333333) << 2));
     b = (((b & 0xf0f0f0f0) >> 4) | ((b & 0x0f0f0f0f) << 4));

@@ -1,6 +1,10 @@
 #include <dft.hpp>
 #include <typedefs.hpp>
 
+//@note Normally you use 
+// #include "name" instead of #include <name> for local includes.
+// This is because the compiler will look for the file in the local directory
+// before looking in the system directories.
 using namespace std;
 
 auto dft(vcpx& x, const bool is_inverse, const int) -> void
