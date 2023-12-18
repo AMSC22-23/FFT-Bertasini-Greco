@@ -7,9 +7,11 @@
 #include <matplotlibcpp.h>
 
 #include <Signal.hpp>
-#include <dft.hpp>
-#include <fft.hpp>
-#include <fft_it.hpp>
+
+#include <FourierTransform.hpp>
+#include <DiscreteFourierTransform.hpp>
+#include <RecursiveFastFourierTransform.hpp>
+#include <IterativeFastFourierTransform.hpp>
 
 namespace plt = matplotlibcpp;
 using namespace std;
@@ -57,7 +59,9 @@ auto main() -> int
     vector<double> freqs = {1, 100};
     vector<double> amps = {1, 0.1};
 
-    Signal s(freqs, amps, N, iterative::fft);
+    FourierTransform* fft = new IterativeFastFourierTransform(-1);
+
+    Signal s(freqs, amps, N, fft);
 
     Signal s_filtered = s;
 

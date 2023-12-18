@@ -2,7 +2,7 @@
 #define SIGNAL_HPP
 
 #include <typedefs.hpp>
-#include <fft_it.hpp>
+#include <FourierTransform.hpp>
 
 class Signal {
     private:
@@ -13,13 +13,13 @@ class Signal {
     auto generate_signal(size_t n_samples) -> void;
     vcpx transformed_signal;
     std::vector<double> fft_freqs;
-    ft fft;
+    std::shared_ptr<FourierTransform> fft;
     auto compute_freqs() -> void;
     auto transform_signal() -> void;
     auto inverse_transform_signal() -> void;
 
     public:
-    Signal(std::vector<double> freqs, std::vector<double> amps, size_t N, const ft& _fft = iterative::fft, bool padding = true);
+    Signal(std::vector<double> freqs, std::vector<double> amps, size_t N, FourierTransform* fft, bool padding = true);
     Signal(const Signal& other) = default;
     Signal(Signal&& other) = default;
     auto operator=(const Signal& other) -> Signal& = default;

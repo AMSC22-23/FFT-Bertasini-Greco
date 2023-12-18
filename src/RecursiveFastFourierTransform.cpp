@@ -1,10 +1,8 @@
-#include <fft.hpp>
-#include <typedefs.hpp>
+#include <RecursiveFastFourierTransform.hpp>
 
 using namespace std;
 
-// compute fft
-auto recursive::fft(vcpx& x, const bool is_inverse, const int n_cores) -> void
+auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) -> void
 {
     size_t N = x.size();
     // if not power of 2 add zeros
@@ -15,8 +13,8 @@ auto recursive::fft(vcpx& x, const bool is_inverse, const int n_cores) -> void
         x_even[i] = x[2*i];
         x_odd[i] = x[2*i+1];
     }
-    fft(x_even, is_inverse, n_cores);
-    fft(x_odd, is_inverse, n_cores);
+    fft(x_even, is_inverse);
+    fft(x_odd, is_inverse);
     vcpx X(N, 0);
     for (size_t k = 0; k < N/2; k++){
         cpx W = polar(1.0, (1-2*is_inverse)*-2*M_PI*k/N) * x_odd[k];
@@ -24,4 +22,9 @@ auto recursive::fft(vcpx& x, const bool is_inverse, const int n_cores) -> void
         X[k+N/2] = x_even[k] - W;
     }
     x = X;
+}
+
+auto RecursiveFastFourierTransform::operator()(vcpx& x, const bool is_inverse) -> void
+{
+    fft(x, is_inverse);
 }

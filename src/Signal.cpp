@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Signal::Signal(vector<double> _freqs, vector<double> _amps, size_t n_samples, const ft& _fft, bool padding) : fft(_fft)
+Signal::Signal(vector<double> _freqs, vector<double> _amps, size_t n_samples, FourierTransform* fft, bool padding) : fft(fft)
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
@@ -31,7 +31,7 @@ auto Signal::generate_signal(size_t n_samples) -> void
 auto Signal::transform_signal() -> void
 {
     this->transformed_signal = this->signal;
-    this->fft(this->transformed_signal, false, -1);
+    this->fft->operator()(this->transformed_signal, false);
 }
 
 auto Signal::compute_freqs() -> void
@@ -48,7 +48,7 @@ auto Signal::compute_freqs() -> void
 
 auto Signal::inverse_transform_signal() -> void {
     this->signal = this->transformed_signal;
-    this->fft(this->signal, true, -1);
+    this->fft->operator()(this->signal, true);
     transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [this](cpx c){return cpx(c.real()/(double)this->signal.size()*2, c.imag()/(double)this->signal.size()*2);});
 }
 

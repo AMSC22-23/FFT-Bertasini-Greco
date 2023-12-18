@@ -4,29 +4,38 @@
 #include <typedefs.hpp>
 
 #include <Signal.hpp>
-#include <dft.hpp>
-#include <fft.hpp>
-#include <fft_it.hpp>
+
+#include <DiscreteFourierTransform.hpp>
+#include <RecursiveFastFourierTransform.hpp>
+#include <IterativeFastFourierTransform.hpp>
+
 #include <time_evaluator.hpp>
 
 using namespace std;
 
 void time_evaluation (const Signal& s)
 {
-    auto time_i = time_ev(s.get_signal(), iterative::fft, -1);
-    auto time_r = time_ev(s.get_signal(), recursive::fft, -1);
-    //auto time_d = time_ev(s.get_signal(), dft, -1);
+    // FourierTransform * dft = new DiscreteFourierTransform();
+    FourierTransform * i_fft = new IterativeFastFourierTransform(-1);
+    FourierTransform * r_fft = new RecursiveFastFourierTransform();
+    
+
+    auto time_i = time_ev(s.get_signal(), i_fft);
+    auto time_r = time_ev(s.get_signal(), r_fft);
+    //auto time_d = time_ev(s.get_signal(), dft);
     cout << "-----------------------------------------" << endl;
     cout << "Time for optimal iterative fft: " << time_i << " µs\n";
     cout << "Time for recursive fft: " << time_r << " µs\n";
     //cout << "Time for dft: " << time_d << " µs\n";
 
+    i_fft->set_n_cores(1);
     cout << "-----------------------------------------" << endl;
-    auto time_0 = time_ev(s.get_signal(), iterative::fft, 1);
+    auto time_0 = time_ev(s.get_signal(), i_fft);
     cout << "Time for  1 processor:  " << time_0 << " µs\n";
 
     for (int i = 2; i < 20; i++) {
-        auto time = time_ev(s.get_signal(), iterative::fft, i);
+        i_fft->set_n_cores(i);
+        auto time = time_ev(s.get_signal(), i_fft);
         cout << "Time for " << (i < 10 ? " " : "") << i << " processors: " << time << " µs | ";
         cout << "Speedup: " << (double)time_0 / time << "\n";
     }
@@ -71,13 +80,14 @@ auto main(int argc, char ** argv) -> int
         amps.push_back((arc4random() % 100) / 1000.0);
     }
 
-    Signal s(freqs, amps, N, iterative::fft);
+    FourierTransform* fft = new IterativeFastFourierTransform(-1);
+
+    Signal s(freqs, amps, N, fft);
 
     // write signal to file
     auto signal = s.get_real_signal();
     auto transformed = s.get_transformed_signal();
 
-    
     for (auto i : signal) output_file_signal << i << ",";
     output_file_signal.seekp(-1, ios_base::end);    
     output_file_signal << "\n";

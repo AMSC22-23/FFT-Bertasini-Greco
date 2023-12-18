@@ -1,12 +1,10 @@
-#include <fft_it.hpp>
-#include <bitreverse.hpp>
-#include <typedefs.hpp>
-#include <cmath>
+#include <IterativeFastFourierTransform.hpp>
 #include <omp.h>
+#include <bitreverse.hpp>
 
 using namespace std;
 
-auto iterative::fft (vcpx& x, const bool is_inverse, const int n_cores) -> void {
+auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) -> void {
 
     if (n_cores != -1) omp_set_num_threads(n_cores);
     size_t N = x.size();
@@ -29,4 +27,9 @@ auto iterative::fft (vcpx& x, const bool is_inverse, const int n_cores) -> void 
             }
         }
     }
+}
+
+auto IterativeFastFourierTransform::operator()(vcpx& x, const bool is_inverse) -> void
+{
+    fft(x, is_inverse);
 }

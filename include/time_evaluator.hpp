@@ -2,8 +2,9 @@
 #define TIME_EV_HPP
 
 #include <typedefs.hpp>
+#include <FourierTransform.hpp>
 #include <chrono>
 
-auto time_ev ( const vcpx&, const ft&, const int) -> long unsigned int;
+auto time_ev ( const vcpx&, FourierTransform*) -> long unsigned int;
 
 #endif
