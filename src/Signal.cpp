@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_samples, const ft& _fft, bool padding) : fft(_fft)
+Signal::Signal(vector<double> _freqs, vector<double> _amps, size_t n_samples, const ft& _fft, bool padding) : fft(_fft)
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
@@ -20,11 +20,11 @@ Signal::Signal(vector<double> _freqs, vector<double> _amps, unsigned int n_sampl
     this->compute_freqs();
 }
 
-auto Signal::generate_signal(unsigned int n_samples) -> void
+auto Signal::generate_signal(size_t n_samples) -> void
 {   
     generate(x.begin(), x.end(), [i = 0, this]() mutable {return i++ * M_PI * 4 / (double)this->x.size();});
     for (size_t i = 0; i < freqs.size(); i++)
-        for (unsigned int n = 0; n < n_samples; n++)
+        for (size_t n = 0; n < n_samples; n++)
             signal[n] += amps[i] * sin(freqs[i] * x[n]);
 }
 
@@ -52,7 +52,7 @@ auto Signal::inverse_transform_signal() -> void {
     transform(this->signal.begin(), this->signal.end(), this->signal.begin(), [this](cpx c){return cpx(c.real()/(double)this->signal.size()*2, c.imag()/(double)this->signal.size()*2);});
 }
 
-auto Signal::filter_freqs(unsigned int freq_flat) -> void
+auto Signal::filter_freqs(size_t freq_flat) -> void
 {
     if (freq_flat > this->transformed_signal.size() / 2)
         throw invalid_argument("freq_flat must be less than half the size of the transformed signal");

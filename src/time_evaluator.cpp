@@ -2,7 +2,7 @@
 #include <time_evaluator.hpp>
 using namespace std;
 
- auto time_ev (const vcpx& x, const ft& f, const int n_cores) -> unsigned int
+ auto time_ev (const vcpx& x, const ft& f, const int n_cores) -> long unsigned int
  {
     vcpx x_time = x;
     auto start = chrono::high_resolution_clock::now();

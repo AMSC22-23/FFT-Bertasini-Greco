@@ -10,7 +10,7 @@ class Signal {
     std::vector<double> amps;
     std::vector<double>x;
     vcpx signal;
-    auto generate_signal(unsigned int n_samples) -> void;
+    auto generate_signal(size_t n_samples) -> void;
     vcpx transformed_signal;
     std::vector<double> fft_freqs;
     ft fft;
@@ -19,14 +19,14 @@ class Signal {
     auto inverse_transform_signal() -> void;
 
     public:
-    Signal(std::vector<double> freqs, std::vector<double> amps, unsigned int N, const ft& _fft = iterative::fft, bool padding = true);
+    Signal(std::vector<double> freqs, std::vector<double> amps, size_t N, const ft& _fft = iterative::fft, bool padding = true);
     Signal(const Signal& other) = default;
     Signal(Signal&& other) = default;
     auto operator=(const Signal& other) -> Signal& = default;
     auto operator=(Signal&& other) -> Signal& = default;
     ~Signal() = default;
 
-    auto filter_freqs(const unsigned int flat_freq) -> void;
+    auto filter_freqs(const size_t flat_freq) -> void;
     auto get_signal() const -> const vcpx&;
     auto get_real_signal() const -> std::vector<double>;
     auto get_x() const -> const std::vector<double> &;

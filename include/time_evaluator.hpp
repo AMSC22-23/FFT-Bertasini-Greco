@@ -4,6 +4,6 @@
 #include <typedefs.hpp>
 #include <chrono>
 
-auto time_ev ( const vcpx&, const ft&, const int) -> unsigned int;
+auto time_ev ( const vcpx&, const ft&, const int) -> long unsigned int;
 
 #endif
