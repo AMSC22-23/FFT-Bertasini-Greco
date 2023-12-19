@@ -32,21 +32,22 @@ auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool t
         y2.resize(N);
     }
     
+    string color = "tan";
     // print x and y sizes 
     int rows = 2; int cols = 2;
     plt::figure_size(width, height);
     plt::subplot(rows, cols, 1);
     plt::title("Original signal");
-    plt::plot(x, y);
+    plt::plot(x, y, color); // Set plot color to brown
     plt::subplot(rows, cols, 2);
     plt::title("Inverse FFT");
-    plt::plot(x, y2);
+    plt::plot(x, y2, color); // Set plot color to brown
     plt::subplot(rows, cols, 3);
     plt::title("FFT");
-    plt::plot(s.get_fft_freqs());
+    plt::plot(s.get_fft_freqs(), color); // Set plot color to brown
     plt::subplot(rows, cols, 4);
     plt::title("filtered FFT");
-    plt::plot(s_filtered.get_fft_freqs());
+    plt::plot(s_filtered.get_fft_freqs(), color); // Set plot color to brown
     plt::show();
     plt::save("output/fft.png");
 }
