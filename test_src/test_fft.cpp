@@ -15,11 +15,10 @@ using namespace std;
 
 void time_evaluation (const Signal& s)
 {
-    // FourierTransform * dft = new DiscreteFourierTransform();
-    FourierTransform * i_fft = new IterativeFastFourierTransform(-1);
-    FourierTransform * r_fft = new RecursiveFastFourierTransform();
+    // unique_ptr<FourierTransform> dft = make_unique<DiscreteFourierTransform>();
+    unique_ptr<FourierTransform> i_fft = make_unique<IterativeFastFourierTransform>(-1);
+    unique_ptr<FourierTransform> r_fft = make_unique<RecursiveFastFourierTransform>();
     
-
     auto time_i = time_ev(s.get_signal(), i_fft);
     auto time_r = time_ev(s.get_signal(), r_fft);
     //auto time_d = time_ev(s.get_signal(), dft);
@@ -80,7 +79,7 @@ auto main(int argc, char ** argv) -> int
         amps.push_back((arc4random() % 100) / 1000.0);
     }
 
-    FourierTransform* fft = new IterativeFastFourierTransform(-1);
+    shared_ptr<FourierTransform> fft = make_shared<IterativeFastFourierTransform>(-1);
 
     Signal s(freqs, amps, N, fft);
 

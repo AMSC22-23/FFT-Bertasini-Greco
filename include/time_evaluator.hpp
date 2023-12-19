@@ -5,6 +5,6 @@
 #include <FourierTransform.hpp>
 #include <chrono>
 
-auto time_ev ( const vcpx&, FourierTransform*) -> long unsigned int;
+auto time_ev ( const vcpx&, const std::unique_ptr<FourierTransform>&) -> long unsigned int;
 
 #endif

@@ -5,10 +5,10 @@
 
 class RecursiveFastFourierTransform : public FourierTransform {
     private:
-    auto fft(vcpx&, const bool) -> void;
+    auto fft(vcpx&, const bool) const -> void;
     public:
     RecursiveFastFourierTransform() : FourierTransform(-1) {};
-    auto operator()(vcpx&, const bool) -> void override;
+    auto operator()(vcpx&, const bool) const -> void override;
 };
 
 #endif

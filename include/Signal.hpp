@@ -19,7 +19,7 @@ class Signal {
     auto inverse_transform_signal() -> void;
 
     public:
-    Signal(std::vector<double> freqs, std::vector<double> amps, size_t N, FourierTransform* fft, bool padding = true);
+    Signal(std::vector<double> freqs, std::vector<double> amps, size_t N, std::shared_ptr<FourierTransform>& fft, bool padding = true);
     Signal(const Signal& other) = default;
     Signal(Signal&& other) = default;
     auto operator=(const Signal& other) -> Signal& = default;

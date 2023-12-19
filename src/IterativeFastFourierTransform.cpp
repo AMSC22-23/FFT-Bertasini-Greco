@@ -4,8 +4,8 @@
 
 using namespace std;
 
-auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) -> void {
-
+auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -> void 
+{
     if (n_cores != -1) omp_set_num_threads(n_cores);
     size_t N = x.size();
     if (N == 1) return;
@@ -29,7 +29,7 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) -> void
     }
 }
 
-auto IterativeFastFourierTransform::operator()(vcpx& x, const bool is_inverse) -> void
+auto IterativeFastFourierTransform::operator()(vcpx& x, const bool is_inverse) const -> void
 {
     fft(x, is_inverse);
 }

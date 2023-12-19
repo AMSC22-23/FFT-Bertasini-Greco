@@ -5,10 +5,10 @@
 
 class IterativeFastFourierTransform : public FourierTransform {
     private:
-    auto fft(vcpx&, const bool) -> void;
+    auto fft(vcpx&, const bool) const -> void;
     public:
     IterativeFastFourierTransform(const unsigned int n_cores) : FourierTransform(n_cores) {};
-    auto operator()(vcpx&, const bool) -> void override;
+    auto operator()(vcpx&, const bool) const -> void override;
 };
 
 #endif

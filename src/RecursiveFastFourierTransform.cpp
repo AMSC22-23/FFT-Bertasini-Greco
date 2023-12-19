@@ -2,7 +2,7 @@
 
 using namespace std;
 
-auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) -> void
+auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) const -> void
 {
     size_t N = x.size();
     // if not power of 2 add zeros
@@ -24,7 +24,7 @@ auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) -> void
     x = X;
 }
 
-auto RecursiveFastFourierTransform::operator()(vcpx& x, const bool is_inverse) -> void
+auto RecursiveFastFourierTransform::operator()(vcpx& x, const bool is_inverse) const -> void
 {
     fft(x, is_inverse);
 }

@@ -59,7 +59,7 @@ auto main() -> int
     vector<double> freqs = {1, 100};
     vector<double> amps = {1, 0.1};
 
-    FourierTransform* fft = new IterativeFastFourierTransform(-1);
+    shared_ptr<FourierTransform>fft = make_shared<IterativeFastFourierTransform>(-1);
 
     Signal s(freqs, amps, N, fft);
 

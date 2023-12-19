@@ -3,7 +3,7 @@
 
 using namespace std;
 
-auto DiscreteFourierTransform::dft(vcpx& x, const bool is_inverse) -> void
+auto DiscreteFourierTransform::dft(vcpx& x, const bool is_inverse) const -> void
 {
     size_t N = x.size();
     vcpx X(N, 0);
@@ -15,7 +15,7 @@ auto DiscreteFourierTransform::dft(vcpx& x, const bool is_inverse) -> void
     x = X;
 }
 
-auto DiscreteFourierTransform::operator()(vcpx& x, const bool is_inverse) -> void
+auto DiscreteFourierTransform::operator()(vcpx& x, const bool is_inverse) const -> void
 {
     dft(x, is_inverse);
 }

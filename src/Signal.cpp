@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Signal::Signal(vector<double> _freqs, vector<double> _amps, size_t n_samples, FourierTransform* fft, bool padding) : fft(fft)
+Signal::Signal(vector<double> _freqs, vector<double> _amps, size_t n_samples, shared_ptr<FourierTransform>& fft, bool padding) : fft(fft)
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
