@@ -1,6 +1,8 @@
 #include <iostream>
 #include <time_evaluator.hpp>
+
 using namespace std;
+using namespace Typedefs;
 
  auto time_ev (const vcpx& x, const unique_ptr<FourierTransform>& f) -> long unsigned int
  {

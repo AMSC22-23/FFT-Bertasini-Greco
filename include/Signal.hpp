@@ -9,9 +9,9 @@ class Signal {
     std::vector<double> freqs;
     std::vector<double> amps;
     std::vector<double>x;
-    vcpx signal;
+    Typedefs::vcpx signal;
     auto generate_signal(size_t n_samples) -> void;
-    vcpx transformed_signal;
+    Typedefs::vcpx transformed_signal;
     std::vector<double> fft_freqs;
     std::shared_ptr<FourierTransform> fft;
     auto compute_freqs() -> void;
@@ -27,10 +27,10 @@ class Signal {
     ~Signal() = default;
 
     auto filter_freqs(const size_t flat_freq) -> void;
-    auto get_signal() const -> const vcpx&;
+    auto get_signal() const -> const Typedefs::vcpx&;
     auto get_real_signal() const -> std::vector<double>;
     auto get_x() const -> const std::vector<double> &;
-    auto get_transformed_signal() const -> const vcpx&;
+    auto get_transformed_signal() const -> const Typedefs::vcpx&;
     auto get_fft_freqs() const -> const std::vector<double>&;
 };
 

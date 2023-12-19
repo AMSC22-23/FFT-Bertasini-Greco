@@ -5,10 +5,10 @@
 
 class DiscreteFourierTransform : public FourierTransform {
     private:
-    auto dft(vcpx&, const bool) const -> void;
+    auto dft(Typedefs::vcpx&, const bool) const -> void;
     public:
     DiscreteFourierTransform() : FourierTransform(-1) {};
-    auto operator()(vcpx&, const bool) const -> void override;
+    auto operator()(Typedefs::vcpx&, const bool) const -> void override;
 };
 
 #endif

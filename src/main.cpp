@@ -15,6 +15,7 @@
 
 namespace plt = matplotlibcpp;
 using namespace std;
+using namespace Typedefs;
 
 auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool truncate = true) {
     const int width = 1400;

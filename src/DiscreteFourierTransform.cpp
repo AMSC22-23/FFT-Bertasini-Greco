@@ -2,6 +2,7 @@
 #include <cmath>
 
 using namespace std;
+using namespace Typedefs;
 
 auto DiscreteFourierTransform::dft(vcpx& x, const bool is_inverse) const -> void
 {

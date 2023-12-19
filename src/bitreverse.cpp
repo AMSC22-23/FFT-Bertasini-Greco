@@ -5,6 +5,8 @@
 #include <bitset>
 #include <cmath>
 
+using namespace Typedefs;
+
 auto bit_reverse(size_t i, size_t N) -> size_t
 {
     auto m = static_cast<size_t>(log2(N));

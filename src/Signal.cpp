@@ -2,6 +2,7 @@
 #include <bitreverse.hpp>
 
 using namespace std;
+using namespace Typedefs;
 
 Signal::Signal(vector<double> _freqs, vector<double> _amps, size_t n_samples, shared_ptr<FourierTransform>& fft, bool padding) : fft(fft)
 {

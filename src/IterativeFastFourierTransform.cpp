@@ -3,6 +3,7 @@
 #include <bitreverse.hpp>
 
 using namespace std;
+using namespace Typedefs;
 
 auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -> void 
 {

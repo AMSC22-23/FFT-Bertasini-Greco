@@ -1,6 +1,7 @@
 #include <RecursiveFastFourierTransform.hpp>
 
 using namespace std;
+using namespace Typedefs;
 
 auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) const -> void
 {

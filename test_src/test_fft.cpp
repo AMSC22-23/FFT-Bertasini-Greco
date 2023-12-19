@@ -12,6 +12,7 @@
 #include <time_evaluator.hpp>
 
 using namespace std;
+using namespace Typedefs;
 
 void time_evaluation (const Signal& s)
 {
