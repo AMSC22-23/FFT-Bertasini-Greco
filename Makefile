@@ -68,6 +68,7 @@ build_test: subdirs $(TEST_TARGET)
 test: build_test $(TEST_TARGET)
 	@mkdir -p $(TDIR)/data
 	@./$(TEST_TARGET) $(TDIR)/data
+	@$(PYTHONINTERP) $(TDIR)/plot_speed.py  $(TDIR)/data
 	@$(PYTHONINTERP) $(TDIR)/generate_fft.py $(TDIR)/data/signal.txt      $(TDIR)/data/numpy_fft.txt
 	@$(PYTHONINTERP) $(TDIR)/compare_fft.py  $(TDIR)/data/transformed.txt $(TDIR)/data/numpy_fft.txt
 	@$(PYTHONINTERP) $(TDIR)/plot_same.py    $(TDIR)/data/numpy_fft.txt   $(TDIR)/data/transformed.txt 

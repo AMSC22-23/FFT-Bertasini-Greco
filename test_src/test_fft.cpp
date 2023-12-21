@@ -14,7 +14,8 @@
 using namespace std;
 using namespace Typedefs;
 
-void time_evaluation (const Signal& s)
+void time_evaluation (const Signal& s, ofstream& output_file)
+
 {
     // unique_ptr<FourierTransform> dft = make_unique<DiscreteFourierTransform>();
     unique_ptr<FourierTransform> i_fft = make_unique<IterativeFastFourierTransform>(-1);
@@ -38,9 +39,29 @@ void time_evaluation (const Signal& s)
         auto time = time_ev(s.get_signal(), i_fft);
         cout << "Time for " << (i < 10 ? " " : "") << i << " processors: " << time << " µs | ";
         cout << "Speedup: " << (double)time_0 / time << "\n";
+        output_file << i << "," << (double)time_0 / time << "\n";
     }
     cout << "-----------------------------------------" << endl;
 
+}
+
+void scaling_evaluation (ofstream& output_file)
+{
+   // generate incrisingly bigger signals
+    int N = 2;
+    vector<double> freqs = {1, 100};
+    vector<double> amps = {1, 0.1};
+
+    shared_ptr<FourierTransform> fft_signal = make_shared<IterativeFastFourierTransform>(-1);
+    unique_ptr<FourierTransform> fft = make_unique<IterativeFastFourierTransform>(-1);
+
+    // up to 2^24
+    for (N = 2; N <= 16777216; N *= 2) {
+        Signal s(freqs, amps, N, fft_signal);
+        auto time = time_ev(s.get_signal(), fft);
+        cout << "Time for N = " << N << ": " << time << " µs\n";
+        output_file << N << "," << time << "\n";
+    }
 }
 
 auto main(int argc, char ** argv) -> int
@@ -55,6 +76,8 @@ auto main(int argc, char ** argv) -> int
     // output folder / name
     const string signal_file = argv[1] + string("/signal.txt");
     const string transformed_file = argv[1] + string("/transformed.txt");
+    const string scalability_time = argv[1] + string("/scalability_time.txt");
+    const string scalability_speedup = argv[1] + string("/scalability_speedup.txt");
 
     ofstream output_file_signal(signal_file);
     if (!output_file_signal.is_open()) {
@@ -68,8 +91,21 @@ auto main(int argc, char ** argv) -> int
         return 1;
     }
 
+    ofstream output_file_scalability_time(scalability_time);
+    if (!output_file_scalability_time.is_open()) {
+        cout << "Could not open file " << scalability_time << '\n';
+        return 1;
+    }
+
+    ofstream output_file_scalability_speedup(scalability_speedup);
+    if (!output_file_scalability_speedup.is_open()) {
+        cout << "Could not open file " << scalability_speedup << '\n';
+        return 1;
+    }
+
     // generate signal
-    const int N = 1000000;
+    // create N = 2^23
+    const int N = 8388608;
     vector<double> freqs = {1};
     vector<double> amps = {1};
 
@@ -88,6 +124,7 @@ auto main(int argc, char ** argv) -> int
     auto signal = s.get_real_signal();
     auto transformed = s.get_transformed_signal();
 
+    output_file_signal.precision(numeric_limits<double>::max_digits10);
     for (auto i : signal) output_file_signal << i << ",";
     output_file_signal.seekp(-1, ios_base::end);    
     output_file_signal << "\n";
@@ -99,7 +136,8 @@ auto main(int argc, char ** argv) -> int
     output_file_signal.close();
     output_file_transformed.close();
 
-    time_evaluation(s);
-    
+    scaling_evaluation(output_file_scalability_time);
+    time_evaluation(s, output_file_scalability_speedup);
+
     return 0;
 }
