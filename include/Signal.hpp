@@ -3,6 +3,7 @@
 
 #include <typedefs.hpp>
 #include <FourierTransform.hpp>
+#include <memory>
 
 class Signal {
     private:
