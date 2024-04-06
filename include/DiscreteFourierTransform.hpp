@@ -7,7 +7,7 @@ class DiscreteFourierTransform : public FourierTransform {
     private:
     auto dft(Typedefs::vcpx&, const bool) const -> void;
     public:
-    DiscreteFourierTransform() : FourierTransform(-1) {};
+    DiscreteFourierTransform() : FourierTransform() {};
     auto operator()(Typedefs::vcpx&, const bool) const -> void override;
 };
 

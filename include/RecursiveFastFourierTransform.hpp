@@ -7,7 +7,7 @@ class RecursiveFastFourierTransform : public FourierTransform {
     private:
     auto fft(Typedefs::vcpx&, const bool) const -> void;
     public:
-    RecursiveFastFourierTransform() : FourierTransform(-1) {};
+    RecursiveFastFourierTransform() : FourierTransform() {};
     auto operator()(Typedefs::vcpx&, const bool) const -> void override;
 };
 

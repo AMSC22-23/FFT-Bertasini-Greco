@@ -2,13 +2,16 @@ SHELL := /bin/bash
 
 IDIR = include
 SDIR = src
-TDIR = test_src
 BINDIR = bin
 ODIR = obj
 OUTDIR = output
-LIBDIR = lib
 
-SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test $(LIBDIR)
+FFTIDIR = ../../include
+FFTLIBPATH  = ../../lib
+FFTLIB = fft
+
+
+SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test
 
 CXX := g++
 
@@ -39,8 +42,8 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
-CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS)
-LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS)
+CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) -I$(FFTIDIR)
+LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) -L$(FFTLIBPATH) -l$(FFTLIB)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
@@ -50,41 +53,24 @@ CXXFILES = $(notdir $(_CXXFILES))
 _OBJ = $(_CXXFILES:.cpp=.o)
 OBJ = $(patsubst $(SDIR)/%,$(ODIR)/%,$(_OBJ))
 
-_TESTCXXFILES = $(wildcard $(TDIR)/*.cpp)
-TESTCXXFILES = $(notdir $(_TESTCXXFILES))
+TARGET := $(BINDIR)/app
 
-_TESTOBJ = $(_TESTCXXFILES:.cpp=.o)
-TEST_OBJ = $(patsubst $(TDIR)/%,$(ODIR)/test/%,$(_TESTOBJ))
+build: subdirs $(TARGET)
 
-TEST_TARGET := $(BINDIR)/test
-LIBRARY_TARGET := $(LIBDIR)/libfft.a
+run: build $(TARGET)
+	./$(TARGET)
 
-$(LIBRARY_TARGET): $(OBJ)
-	@echo "Building library"
-	ar rcs $@ $^
-
-
-build_test: subdirs $(TEST_TARGET)
-
-test: build_test $(TEST_TARGET)
-	@mkdir -p $(TDIR)/data
-	@./$(TEST_TARGET) $(TDIR)/data
-	@$(PYTHONINTERP) $(TDIR)/plot_speed.py  $(TDIR)/data
-	@$(PYTHONINTERP) $(TDIR)/generate_fft.py $(TDIR)/data/signal.txt      $(TDIR)/data/numpy_fft.txt
-	@$(PYTHONINTERP) $(TDIR)/compare_fft.py  $(TDIR)/data/transformed.txt $(TDIR)/data/numpy_fft.txt
-	@$(PYTHONINTERP) $(TDIR)/plot_same.py    $(TDIR)/data/numpy_fft.txt   $(TDIR)/data/transformed.txt 
+$(TARGET): $(OBJ)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
-
-$(TEST_TARGET): $(TEST_OBJ) $(filter-out $(ODIR)/main.o, $(OBJ))
-	$(CXX) -o $@ $^ $(LDFLAGS)	
 
 $(ODIR)/test/%.o: $(TDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
 clean:
-	rm -f $(ODIR)/*.o $(TARGET) $(TEST_TARGET) $(LIBRARY_TARGET) $(ODIR)/test/*.o 
+	rm -f $(ODIR)/*.o $(TARGET)
 
 .PHONY: clean run subdirs
 
