@@ -59,10 +59,9 @@ TEST_OBJ = $(patsubst $(TDIR)/%,$(ODIR)/test/%,$(_TESTOBJ))
 TEST_TARGET := $(BINDIR)/test
 LIBRARY_TARGET := $(LIBDIR)/libfft.a
 
-$(LIBRARY_TARGET): $(OBJ)
+$(LIBRARY_TARGET): $(OBJ) | subdirs
 	@echo "Building library"
 	ar rcs $@ $^
-
 
 build_test: subdirs $(TEST_TARGET)
 
@@ -73,6 +72,8 @@ test: build_test $(TEST_TARGET)
 	@$(PYTHONINTERP) $(TDIR)/generate_fft.py $(TDIR)/data/signal.txt      $(TDIR)/data/numpy_fft.txt
 	@$(PYTHONINTERP) $(TDIR)/compare_fft.py  $(TDIR)/data/transformed.txt $(TDIR)/data/numpy_fft.txt
 	@$(PYTHONINTERP) $(TDIR)/plot_same.py    $(TDIR)/data/numpy_fft.txt   $(TDIR)/data/transformed.txt 
+
+$(OBJ) : | subdirs
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)

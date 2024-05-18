@@ -10,7 +10,6 @@ FFTIDIR = ../../include
 FFTLIBPATH  = ../../lib
 FFTLIB = fft
 
-
 SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test
 
 CXX := g++
