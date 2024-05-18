@@ -7,32 +7,24 @@
 
 class Signal {
     private:
-    std::vector<double> freqs;
-    std::vector<double> amps;
-    std::vector<double>x;
-    Typedefs::vcpx signal;
+    Typedefs::vec freqs;
+    Typedefs::vec amps;
+    Typedefs::vec x;
+    Typedefs::vec signal;
     auto generate_signal(size_t n_samples) -> void;
-    Typedefs::vcpx transformed_signal;
-    std::vector<double> fft_freqs;
-    std::shared_ptr<FourierTransform> fft;
-    auto compute_freqs() -> void;
+    std::shared_ptr<Transform> fft;
+    std::unique_ptr<Transform::InputSpace> input_space;
+    std::unique_ptr<Transform::OutputSpace> output_space;
+
     auto transform_signal() -> void;
-    auto inverse_transform_signal() -> void;
 
     public:
-    Signal(std::vector<double> freqs, std::vector<double> amps, size_t N, std::shared_ptr<FourierTransform>& fft, bool padding = true);
-    Signal(const Signal& other) = default;
-    Signal(Signal&& other) = default;
-    auto operator=(const Signal& other) -> Signal& = default;
-    auto operator=(Signal&& other) -> Signal& = default;
-    ~Signal() = default;
+    Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::shared_ptr<Transform>& fft, bool padding = true);
 
-    auto filter_freqs(const size_t flat_freq) -> void;
-    auto get_signal() const -> const Typedefs::vcpx&;
-    auto get_real_signal() const -> std::vector<double>;
-    auto get_x() const -> const std::vector<double> &;
-    auto get_transformed_signal() const -> const Typedefs::vcpx&;
-    auto get_fft_freqs() const -> const std::vector<double>&;
+    auto denoise(const double flat_freq) -> void;
+    auto get_signal() const -> const Typedefs::vec&;
+    auto get_x()      const -> const Typedefs::vec&;
+    auto get_fft_freqs() const -> const Typedefs::vec;
 };
 
 #endif

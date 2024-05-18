@@ -22,8 +22,8 @@ auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool t
     const int height = 700;
 
     auto x = s.get_x();
-    auto y = s.get_real_signal();
-    auto y2 = s_filtered.get_real_signal();
+    auto y = s.get_signal();
+    auto y2 = s_filtered.get_signal();
     
     // truncate to N
     if (truncate) {
@@ -61,14 +61,14 @@ auto main() -> int
     vector<double> freqs = {1, 100};
     vector<double> amps = {1, 0.1};
 
-    shared_ptr<FourierTransform>fft = make_shared<IterativeFastFourierTransform>();
+    shared_ptr<Transform>fft = make_shared<IterativeFastFourierTransform>();
 
     Signal s(freqs, amps, N, fft);
 
-    Signal s_filtered = s;
+    Signal s_filtered(freqs, amps, N, fft);
 
-    const int freq_flat = 50;
-    s_filtered.filter_freqs(freq_flat);
+    const double freq_flat = 50.0;
+    s_filtered.denoise(freq_flat);
 
     plot_stuff(s, s_filtered, N);
 
