@@ -183,19 +183,19 @@ auto FourierTransform2D<FT>::compute2DFFT(Mat &image, Typedefs::vcpx3D& fft_coef
 }
 
 template <class FT>
-auto FourierTransform2D<FT>::get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform<cv::Mat>::InputSpace> {
-    std::unique_ptr<Transform<cv::Mat>::InputSpace> in = std::make_unique<FourierTransform2D::InputSpace>(og_image);
+auto FourierTransform2D<FT>::get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> {
+    std::unique_ptr<Transform::InputSpace> in = std::make_unique<FourierTransform2D::InputSpace>(og_image);
     return in;
 }
 
 template <class FT>
-auto FourierTransform2D<FT>::get_output_space() const -> std::unique_ptr<Transform<cv::Mat>::OutputSpace> {
-    std::unique_ptr<Transform<cv::Mat>::OutputSpace> out = std::make_unique<FourierTransform2D::OutputSpace>();
+auto FourierTransform2D<FT>::get_output_space() const -> std::unique_ptr<Transform::OutputSpace> {
+    std::unique_ptr<Transform::OutputSpace> out = std::make_unique<FourierTransform2D::OutputSpace>();
     return out;
 }
 
 template <class FT>
-auto FourierTransform2D<FT>::operator()(Transform<cv::Mat>::InputSpace& in, Transform<cv::Mat>::OutputSpace& out, bool inverse) const -> void {
+auto FourierTransform2D<FT>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
     auto& in_data = dynamic_cast<FourierTransform2D::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<FourierTransform2D::OutputSpace&>(out).data;
     this->compute2DFFT(in_data, out_data, inverse);
