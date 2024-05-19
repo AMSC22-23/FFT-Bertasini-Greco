@@ -4,7 +4,7 @@
 using namespace std;
 using namespace Typedefs;
 
-Signal::Signal(vec _freqs, vec _amps, size_t n_samples, shared_ptr<Transform>& fft, bool padding) : fft(fft)
+Signal::Signal(vec _freqs, vec _amps, size_t n_samples, shared_ptr<Transform<vec>>& fft, bool padding) : fft(fft)
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));

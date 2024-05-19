@@ -61,7 +61,7 @@ auto main() -> int
     vector<double> freqs = {1, 100};
     vector<double> amps = {1, 0.1};
 
-    shared_ptr<Transform>fft = make_shared<IterativeFastFourierTransform>();
+    shared_ptr<Transform<vec>>fft = make_shared<IterativeFastFourierTransform>();
 
     Signal s(freqs, amps, N, fft);
 

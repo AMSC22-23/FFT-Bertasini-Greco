@@ -14,6 +14,11 @@ CXX := g++
 
 O_LEVEL = 3
 
+CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion
+
+CV_FLAGS = `pkg-config --cflags opencv4` $(CVWARNINGS_SUPPRESS)
+CV_LIBS = `pkg-config --libs opencv4`
+
 # IPYTHON := /opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10
 # LPYTHON := /opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/lib
 # INUMPY := /opt/homebrew/lib/python3.10/site-packages/numpy/core/include
@@ -39,8 +44,8 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
-CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS)
-LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS)
+CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS)
+LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) $(CV_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 

@@ -2,7 +2,7 @@
 
 using namespace Typedefs;
 
-FourierTransform::InputSpace::InputSpace(vec& _signal) : data(_signal.size()) { 
+FourierTransform::InputSpace::InputSpace(const vec& _signal) : data(_signal.size()) { 
     for (size_t i = 0; i < _signal.size(); i++) data[i] = cpx(_signal[i], 0); 
 };
 
@@ -53,7 +53,7 @@ auto FourierTransform::OutputSpace::denoise(double freq_cutoff) -> void {
         if (i > freq_cutoff) data[i] = 0;
 }
 
-auto FourierTransform::get_input_space(vec & v) const -> std::unique_ptr<Transform::InputSpace> {
+auto FourierTransform::get_input_space(const vec & v) const -> std::unique_ptr<Transform::InputSpace> {
     std::unique_ptr<Transform::InputSpace> in = std::make_unique<FourierTransform::InputSpace>(v);
     return in;
 }

@@ -12,14 +12,14 @@ class Signal {
     Typedefs::vec x;
     Typedefs::vec signal;
     auto generate_signal(size_t n_samples) -> void;
-    std::shared_ptr<Transform> fft;
-    std::unique_ptr<Transform::InputSpace> input_space;
-    std::unique_ptr<Transform::OutputSpace> output_space;
+    std::shared_ptr<Transform<Typedefs::vec>> fft;
+    std::unique_ptr<Transform<Typedefs::vec>::InputSpace> input_space;
+    std::unique_ptr<Transform<Typedefs::vec>::OutputSpace> output_space;
 
     auto transform_signal() -> void;
 
     public:
-    Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::shared_ptr<Transform>& fft, bool padding = true);
+    Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::shared_ptr<Transform<Typedefs::vec>>& fft, bool padding = true);
 
     auto denoise(const double flat_freq) -> void;
     auto get_signal() const -> const Typedefs::vec&;
