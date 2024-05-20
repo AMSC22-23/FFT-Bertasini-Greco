@@ -22,19 +22,26 @@ int main () {
 
     Image img(og_image, fft_obj);
 
+    Mat fft_unfiltered, fft_filtered, output_image;
+    
     img.transform_signal();
+    fft_unfiltered = img.get_fft_freqs();
     img.filter_magnitude(0.95);
+    fft_filtered = img.get_fft_freqs();
 
-    Mat output_image = img.get_image();
-    Mat fft_image = img.get_fft_freqs();
+    output_image = img.get_image();
 
     namedWindow("Original Image", WINDOW_NORMAL);
     imshow("Original Image", og_image);
 
     namedWindow("FFT Image", WINDOW_NORMAL);
-    imshow("FFT Image", fft_image);
+    imshow("FFT Image", fft_unfiltered);
+
+    namedWindow("FFT Image filtered", WINDOW_NORMAL);
+    imshow("FFT Image filtered", fft_filtered);
 
     namedWindow("Inverse FFT Image", WINDOW_NORMAL);
     imshow("Inverse FFT Image", output_image);
+
     waitKey(0);
 }

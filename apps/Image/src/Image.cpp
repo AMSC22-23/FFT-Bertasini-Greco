@@ -11,11 +11,13 @@ Image::Image(const cv::Mat& img, std::shared_ptr<Transform<cv::Mat>>& fft) : img
 
 auto Image::filter_magnitude(const double percentile) -> void {
     output_space->compress("filter_magnitude", percentile);
+    fft->operator()(*input_space, *output_space, true);
     img = input_space->get_data();
 }
 
 auto Image::filter_freqs(const double percentile) -> void {
     output_space->compress("filter_freqs", percentile);
+    fft->operator()(*input_space, *output_space, true);
     img = input_space->get_data();
 }
 

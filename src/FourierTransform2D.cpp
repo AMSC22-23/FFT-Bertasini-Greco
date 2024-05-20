@@ -2,16 +2,34 @@
 
 using namespace std;
 using namespace cv;
+using namespace Typedefs;
 
 template <class FT>
 FourierTransform2D<FT>::InputSpace::InputSpace(const cv::Mat& og_image) {
-    og_image.convertTo(data, CV_64FC3);
+    cv::Mat image;
+    og_image.convertTo(image, CV_64FC3);
+    int channels = image.channels();
+    int rows = image.rows;
+    int cols = image.cols;
+    printf("Channels: %d, Rows: %d, Cols: %d\n", channels, rows, cols);
+    data = Typedefs::vcpx3D(channels, Typedefs::vcpx2D(rows, Typedefs::vcpx(cols)));
+    for (int c = 0; c < channels; ++c)
+        for (int i = 0; i < rows; ++i)
+            for (int j = 0; j < cols; ++j)
+                data[c][i][j] = Typedefs::cpx(image.at<Vec3d>(i, j)[c], 0.0);
 }
 
 template <class FT>
 auto FourierTransform2D<FT>::InputSpace::get_data() const -> cv::Mat {
-    cv::Mat img_char;
-    data.convertTo(img_char, CV_8UC3);
+    int channels = data.size();
+    int rows = data[0].size();
+    int cols = data[0][0].size();
+    cv::Mat img_char(rows, cols, CV_64FC3);
+    for (int c = 0; c < channels; ++c)
+        for (int i = 0; i < rows; ++i)
+            for (int j = 0; j < cols; ++j)
+                img_char.at<Vec3d>(i, j)[c] = data[c][i][j].real() / (rows * cols);
+    img_char.convertTo(img_char, CV_8UC3);
     return img_char;
 }
 
@@ -133,28 +151,10 @@ void FourierTransform2D<FT>::OutputSpace::magnitude_filter(double cutoff_percent
 }
 
 template <class FT>
-auto FourierTransform2D<FT>::compute2DFFT(Mat &image, Typedefs::vcpx3D& fft_coeff, bool is_inverse) const -> void {
-    int rows = 0;
-    int cols = 0;
-    int channels = 0;
-
-    // Allocate memory for the FFT image
-    if (is_inverse){
-        channels = fft_coeff.size();
-        rows = fft_coeff[0].size();
-        cols = fft_coeff[0][0].size();
-        image.create(rows, cols, CV_MAKE_TYPE(CV_64F, channels));   
-    }
-    else{
-        channels = image.channels();
-        rows = image.rows;
-        cols = image.cols;
-        fft_coeff = Typedefs::vcpx3D(channels, Typedefs::vcpx2D(rows, Typedefs::vcpx(cols)));
-        for (int c = 0; c < channels; ++c)
-            for (int i = 0; i < rows; ++i)
-                for (int j = 0; j < cols; ++j)
-                    fft_coeff[c][i][j] = Typedefs::cpx(image.at<Vec3d>(i, j)[c], 0.0);
-    }
+auto FourierTransform2D<FT>::compute2DFFT(Typedefs::vcpx3D& fft_coeff, bool is_inverse) const -> void {
+    int channels = fft_coeff.size();
+    int rows = fft_coeff[0].size();
+    int cols = fft_coeff[0][0].size();
 
     for (int c = 0; c < channels; ++c){
         
@@ -172,12 +172,6 @@ auto FourierTransform2D<FT>::compute2DFFT(Mat &image, Typedefs::vcpx3D& fft_coef
             for (int i = 0; i < rows; ++i) col[i] = fft_coeff[c][i][j];
             ft(col, is_inverse); // Compute the FFT
             for (int i = 0; i < rows; ++i) fft_coeff[c][i][j] = col[i];
-        }
-
-        if (is_inverse){
-            for (int i = 0; i < rows; ++i)
-                for (int j = 0; j < cols; ++j)
-                    image.at<Vec3d>(i, j)[c] = fft_coeff[c][i][j].real() / (rows * cols);
         }
     }
 }
@@ -198,7 +192,13 @@ template <class FT>
 auto FourierTransform2D<FT>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
     auto& in_data = dynamic_cast<FourierTransform2D::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<FourierTransform2D::OutputSpace&>(out).data;
-    this->compute2DFFT(in_data, out_data, inverse);
+    if (!inverse) {
+        out_data = in_data;
+        compute2DFFT(out_data, inverse);
+    } else {
+        in_data = out_data;
+        compute2DFFT(in_data, inverse);
+    }
 }
 
 // Explicit instantiation of the template classes

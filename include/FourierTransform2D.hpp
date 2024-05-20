@@ -14,7 +14,7 @@ class FourierTransform2D : public Transform<cv::Mat> {
     public:
     class InputSpace : public Transform::InputSpace {
         public:
-        cv::Mat data;
+        Typedefs::vcpx3D data;
         InputSpace(const cv::Mat& og_image);
         auto get_data() const -> cv::Mat override;
     };
@@ -28,7 +28,7 @@ class FourierTransform2D : public Transform<cv::Mat> {
         void magnitude_filter(double cutoff_percentage);
     };
     
-    auto compute2DFFT(cv::Mat &image, Typedefs::vcpx3D& fft_coeff, bool is_inverse) const -> void;
+    auto compute2DFFT(Typedefs::vcpx3D& fft_coeff, bool is_inverse) const -> void;
     auto get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> override;
     auto get_output_space() const -> std::unique_ptr<Transform::OutputSpace> override ;
     auto operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void override;
