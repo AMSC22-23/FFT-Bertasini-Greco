@@ -11,7 +11,8 @@ using namespace cv;
 using namespace Typedefs;
 
 int main () {
-    Mat og_image = imread("input/lena.png");
+    // Mat og_image = imread("input/lena.png");
+    Mat og_image = imread("input/milano.jpg");
     if (og_image.empty())
     {
         cout << "Failed to load the image" << endl;
