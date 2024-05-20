@@ -2,6 +2,7 @@
 #define TRANSFORM_HPP
 
 #include <typedefs.hpp>
+#include <memory>
 
 template <typename T>
 class Transform{

@@ -1,4 +1,5 @@
 #include <FourierTransform.hpp>
+#include <algorithm>
 
 using namespace Typedefs;
 

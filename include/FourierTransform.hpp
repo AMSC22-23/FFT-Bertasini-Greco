@@ -3,7 +3,6 @@
 
 #include <typedefs.hpp>
 #include <Transform.hpp>
-
 class FourierTransform : public Transform<Typedefs::vec>{
     protected:
     class InputSpace : public Transform::InputSpace
