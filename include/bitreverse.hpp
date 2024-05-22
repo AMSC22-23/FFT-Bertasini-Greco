@@ -3,7 +3,7 @@
 
 #include <typedefs.hpp>
 
-auto bit_reverse_copy(Typedefs::vcpx& v) -> void;
+template <typename T> auto bit_reverse_copy(T& v) -> void;
 auto next_power_of_2(size_t n) -> size_t;
 
 #endif

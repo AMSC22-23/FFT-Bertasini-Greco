@@ -12,6 +12,7 @@
 #include <DiscreteFourierTransform.hpp>
 #include <RecursiveFastFourierTransform.hpp>
 #include <IterativeFastFourierTransform.hpp>
+#include <DiscreteWaveletTransform.hpp>
 
 namespace plt = matplotlibcpp;
 using namespace std;
@@ -57,17 +58,19 @@ auto main() -> int
     srand(time(nullptr));
 
     // generate signal
-    const int N = 10000;
-    vector<double> freqs = {1, 100};
+    const int N = 8192;
+    
+    vector<double> freqs = {1, 500};
     vector<double> amps = {1, 0.1};
 
-    shared_ptr<Transform<vec>>fft = make_shared<IterativeFastFourierTransform>();
+    shared_ptr<Transform<vec>>fft = make_shared<DiscreteWaveletTransform<4>>(TRANSFORM_MATRICES::HAAR, 4);
 
     Signal s(freqs, amps, N, fft);
 
     Signal s_filtered(freqs, amps, N, fft);
 
-    const double freq_flat = 50.0;
+    // const double freq_flat = 50.0;
+    const double freq_flat = 0.0625;
     s_filtered.denoise(freq_flat);
 
     plot_stuff(s, s_filtered, N);
