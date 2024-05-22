@@ -19,10 +19,11 @@ auto bit_reverse(size_t i, size_t N) -> size_t
     return reversed_b.to_ullong();
 }
 
-auto bit_reverse_copy(vcpx& v) -> void
+template <typename T>
+auto bit_reverse_copy(T& v) -> void
 {
     size_t N = v.size();
-    vcpx v_copy = v;
+    T v_copy = v;
     #pragma omp parallel for
     for (size_t i = 0; i < N; i++){
         v[i] = v_copy[bit_reverse(i, N)];
@@ -41,3 +42,6 @@ auto next_power_of_2(size_t n) -> size_t
     n++;
     return n;
 }
+
+template void bit_reverse_copy<vec>(vec& v);
+template void bit_reverse_copy<vcpx>(vcpx& v);
