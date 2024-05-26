@@ -12,16 +12,16 @@ using namespace cv;
 using namespace Typedefs;
 
 int main () {
-    Mat og_image = imread("input/lena.png");
-    // Mat og_image = imread("input/milano.jpg");
+    // Mat og_image = imread("input/lena.png");
+    Mat og_image = imread("input/milano.jpg");
     if (og_image.empty())
     {
         cout << "Failed to load the image" << endl;
         return -1;
     }
     
-    // shared_ptr<Transform<Mat>> tr_obj = make_shared<FourierTransform2D<IterativeFastFourierTransform>>();
-    shared_ptr<Transform<Mat>> tr_obj = make_shared<DiscreteWaveletTransform2D<4>>(TRANSFORM_MATRICES::HAAR, 2);
+    shared_ptr<Transform<Mat>> tr_obj = make_shared<FourierTransform2D<IterativeFastFourierTransform>>();
+    // shared_ptr<Transform<Mat>> tr_obj = make_shared<DiscreteWaveletTransform2D<4>>(TRANSFORM_MATRICES::HAAR, 2);
 
     Image img(og_image, tr_obj);
 
@@ -29,7 +29,7 @@ int main () {
     
     img.transform();
     tr_unfiltered = img.get_tr_coeff();
-    img.compress(0.95,"levels_cutoff");
+    img.compress(0.95,"filter_magnitude");
     tr_filtered = img.get_tr_coeff();
 
     output_image = img.get_image();

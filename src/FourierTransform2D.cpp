@@ -1,4 +1,5 @@
 #include "FourierTransform2D.hpp"
+#include "bitreverse.hpp"
 
 using namespace std;
 using namespace cv;
@@ -178,7 +179,18 @@ auto FourierTransform2D<FT>::compute2DFFT(Typedefs::vcpx3D& fft_coeff, bool is_i
 
 template <class FT>
 auto FourierTransform2D<FT>::get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> {
-    std::unique_ptr<Transform::InputSpace> in = std::make_unique<FourierTransform2D::InputSpace>(og_image);
+    Mat image;
+
+    auto is_padding_needed_row = og_image.rows & (og_image.rows - 1);
+    auto is_padding_needed_col = og_image.cols & (og_image.cols - 1);
+
+    auto correct_padding_row = (is_padding_needed_row) ? next_power_of_2(og_image.rows) : og_image.rows;
+    auto correct_padding_col = (is_padding_needed_col) ? next_power_of_2(og_image.cols) : og_image.cols;
+
+    cv::copyMakeBorder(og_image, image, 0, correct_padding_row - og_image.rows, 0, correct_padding_col - og_image.cols, cv::BORDER_CONSTANT, cv::Scalar(0));
+
+    std::unique_ptr<Transform::InputSpace> in = std::make_unique<FourierTransform2D::InputSpace>(image);
+
     return in;
 }
 
