@@ -12,7 +12,6 @@ FourierTransform2D<FT>::InputSpace::InputSpace(const cv::Mat& og_image) {
     int channels = image.channels();
     int rows = image.rows;
     int cols = image.cols;
-    printf("Channels: %d, Rows: %d, Cols: %d\n", channels, rows, cols);
     data = Typedefs::vcpx3D(channels, Typedefs::vcpx2D(rows, Typedefs::vcpx(cols)));
     for (int c = 0; c < channels; ++c)
         for (int i = 0; i < rows; ++i)
