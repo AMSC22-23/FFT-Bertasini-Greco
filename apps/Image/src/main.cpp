@@ -5,44 +5,46 @@
 #include "Image.hpp"
 #include "FourierTransform2D.hpp"
 #include "typedefs.hpp"
+#include "DiscreteWaveletTransform2D.hpp"
 
 using namespace std;
 using namespace cv;
 using namespace Typedefs;
 
 int main () {
-    // Mat og_image = imread("input/lena.png");
-    Mat og_image = imread("input/milano.jpg");
+    Mat og_image = imread("input/lena.png");
+    // Mat og_image = imread("input/milano.jpg");
     if (og_image.empty())
     {
         cout << "Failed to load the image" << endl;
         return -1;
     }
     
-    shared_ptr<Transform<Mat>> fft_obj = make_shared<FourierTransform2D<IterativeFastFourierTransform>>();
+    // shared_ptr<Transform<Mat>> tr_obj = make_shared<FourierTransform2D<IterativeFastFourierTransform>>();
+    shared_ptr<Transform<Mat>> tr_obj = make_shared<DiscreteWaveletTransform2D<4>>(TRANSFORM_MATRICES::HAAR, 2);
 
-    Image img(og_image, fft_obj);
+    Image img(og_image, tr_obj);
 
-    Mat fft_unfiltered, fft_filtered, output_image;
+    Mat tr_unfiltered, tr_filtered, output_image;
     
-    img.transform_signal();
-    fft_unfiltered = img.get_fft_freqs();
-    img.filter_magnitude(0.95);
-    fft_filtered = img.get_fft_freqs();
+    img.transform();
+    tr_unfiltered = img.get_tr_coeff();
+    img.compress(0.95,"levels_cutoff");
+    tr_filtered = img.get_tr_coeff();
 
     output_image = img.get_image();
 
     namedWindow("Original Image", WINDOW_NORMAL);
     imshow("Original Image", og_image);
 
-    namedWindow("FFT Image", WINDOW_NORMAL);
-    imshow("FFT Image", fft_unfiltered);
+    namedWindow("TR Image", WINDOW_NORMAL);
+    imshow("TR Image",tr_unfiltered);
 
-    namedWindow("FFT Image filtered", WINDOW_NORMAL);
-    imshow("FFT Image filtered", fft_filtered);
+    namedWindow("TR Image filtered", WINDOW_NORMAL);
+    imshow("TR Image filtered", tr_filtered);
 
-    namedWindow("Inverse FFT Image", WINDOW_NORMAL);
-    imshow("Inverse FFT Image", output_image);
+    namedWindow("Inverse TR Image", WINDOW_NORMAL);
+    imshow("Inverse TR Image", output_image);
 
     waitKey(0);
 }
