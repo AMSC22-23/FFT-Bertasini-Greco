@@ -8,6 +8,8 @@
 namespace Typedefs {
     using DType  = double;
     using vec    = std::vector<DType>;
+    using vec2D  = std::vector<std::vector<DType>>;
+    using vec3D  = std::vector<std::vector<std::vector<DType>>>;
     using cpx    = std::complex<DType>;
     using vcpx   = std::vector<cpx>;
     using vcpx2D = std::vector<std::vector<cpx>>;

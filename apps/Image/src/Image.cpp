@@ -6,7 +6,7 @@ using namespace std;
 using namespace cv;
 using namespace Typedefs;
 
-Image::Image(const cv::Mat& _img, std::shared_ptr<Transform<cv::Mat>>& _fft) : img(_img), og_size(img.size()), fft(_fft) {
+Image::Image(const cv::Mat& _img, std::shared_ptr<Transform<cv::Mat>>& _tr) : img(_img), og_size(img.size()), tr(_tr) {
     // auto is_padding_needed = n_samples & (n_samples - 1);
     // auto correct_padding = (is_padding_needed && padding) ? next_power_of_2(n_samples) : n_samples;
     
@@ -18,12 +18,12 @@ Image::Image(const cv::Mat& _img, std::shared_ptr<Transform<cv::Mat>>& _fft) : i
 
     cv::copyMakeBorder(img, img, 0, correct_padding_row - img.rows, 0, correct_padding_col - img.cols, cv::BORDER_CONSTANT, cv::Scalar(0));
 
-    input_space = fft->get_input_space(img);
-    output_space = fft->get_output_space();
+    input_space = tr->get_input_space(img);
+    output_space = tr->get_output_space();
 }
 
-auto Image::inverse_transform_signal() -> void {
-    fft->operator()(*input_space, *output_space, true);
+auto Image::inverse_transform() -> void {
+    tr->operator()(*input_space, *output_space, true);
     img = input_space->get_data();
 }
 
@@ -34,28 +34,21 @@ auto Image::preprocess_filter (const double percentile) -> double {
     return normalized_percentile;
 }
 
-auto Image::filter_magnitude(const double percentile) -> void {
+auto Image::compress(const double percentile, const string method) -> void {
     auto normalized_percentile = preprocess_filter(percentile);
-    output_space->compress("filter_magnitude", normalized_percentile);
-    inverse_transform_signal();
+    output_space->compress(method, normalized_percentile);
+    inverse_transform();
 }
 
-auto Image::filter_freqs(const double percentile) -> void {
-
-    auto normalized_percentile = preprocess_filter(percentile);
-    output_space->compress("filter_freqs", normalized_percentile);
-    inverse_transform_signal();
-}
-
-auto Image::transform_signal() -> void {
-    fft->operator()(*input_space, *output_space, false);
+auto Image::transform() -> void {
+    tr->operator()(*input_space, *output_space, false);
 }
 
 auto Image::get_image() const -> const cv::Mat {
     return img.rowRange(0, og_size.height).colRange(0, og_size.width);
 }
 
-auto Image::get_fft_freqs() const -> const cv::Mat {
-    return output_space->get_plottable_representation().rowRange(0, og_size.height).colRange(0, og_size.width);
+auto Image::get_tr_coeff() const -> const cv::Mat {
+    return output_space->get_plottable_representation()/*.rowRange(0, og_size.height).colRange(0, og_size.width)*/;
 }
 
