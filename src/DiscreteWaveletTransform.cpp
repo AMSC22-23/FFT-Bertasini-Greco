@@ -53,15 +53,19 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &sign
         int sub_step = pow(2, i);
         int sub_size = signal.size()/sub_step;
 
-        for (int j = 0; j < sub_size; j++){
-            temp.push_back(signal[j*sub_step]);
-        }
+        for (int j = 0; j < sub_size; j++) temp.push_back(signal[j*sub_step]);
+    
+        if (!is_inverse) for (unsigned long j = 0; j < matrix_size/2-2; j++) temp.push_back(temp[j]);
+        else             for (unsigned long j = 0; j < matrix_size/2-2; j++) temp.insert(temp.begin(), *(temp.end()-1-j));
 
         #pragma omp parallel for
         for(int j = 0; j < sub_size; j+=2){
+            int index_signal = j*sub_step;
+            signal[index_signal] = 0;
+            signal[index_signal+sub_step] = 0;
             for (unsigned long m=0; m < matrix_size/2; m+=1){
-                signal[(j+m)*sub_step] = temp[j]*transform_matrix[m*2] + temp[j+1]*transform_matrix[2*m+1];
-                
+                signal[index_signal]              += temp[j+m]*transform_matrix[m];
+                signal[index_signal+sub_step]     += temp[j+m]*transform_matrix[m+ matrix_size/2];
             }
         }
     }
