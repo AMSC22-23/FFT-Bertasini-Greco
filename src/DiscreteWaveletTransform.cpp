@@ -93,3 +93,4 @@ template class DiscreteWaveletTransform<8>;
 template class DiscreteWaveletTransform<10>;
 template class DiscreteWaveletTransform<16>;
 template class DiscreteWaveletTransform<20>;
+template class DiscreteWaveletTransform<30>;

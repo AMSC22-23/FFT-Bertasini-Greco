@@ -41,7 +41,7 @@ int main () {
         int levels;
         cout << "Insert the number of levels for the DWT: ";
         cin >> levels;
-        tr_obj = make_shared<DiscreteWaveletTransform2D<2>>(TRANSFORM_MATRICES::HAAR, levels);
+        tr_obj = make_shared<DiscreteWaveletTransform2D<30>>(TRANSFORM_MATRICES::COIFFLET_30, levels);
         break;
     case 2: 
         tr_obj = make_shared<FourierTransform2D<DiscreteFourierTransform>>();

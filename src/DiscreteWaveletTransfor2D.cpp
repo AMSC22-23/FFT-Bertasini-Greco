@@ -238,3 +238,4 @@ template class DiscreteWaveletTransform2D<8>;
 template class DiscreteWaveletTransform2D<10>;
 template class DiscreteWaveletTransform2D<16>;
 template class DiscreteWaveletTransform2D<20>;
+template class DiscreteWaveletTransform2D<30>;
