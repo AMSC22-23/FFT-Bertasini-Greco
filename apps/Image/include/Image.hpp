@@ -1,5 +1,5 @@
-#ifndef SIGNAL_HPP
-#define SIGNAL_HPP
+#ifndef IMAGE_HPP
+#define IMAGE_HPP
 
 #include <typedefs.hpp>
 #include <FourierTransform.hpp>

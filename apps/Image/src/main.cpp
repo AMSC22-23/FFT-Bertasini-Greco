@@ -6,6 +6,7 @@
 #include "FourierTransform2D.hpp"
 #include "typedefs.hpp"
 #include "DiscreteWaveletTransform2D.hpp"
+#include "TransformMatrices.hpp"
 
 using namespace std;
 using namespace cv;
@@ -40,7 +41,7 @@ int main () {
         int levels;
         cout << "Insert the number of levels for the DWT: ";
         cin >> levels;
-        tr_obj = make_shared<DiscreteWaveletTransform2D<4>>(TRANSFORM_MATRICES::HAAR, levels);
+        tr_obj = make_shared<DiscreteWaveletTransform2D<2>>(TRANSFORM_MATRICES::HAAR, levels);
         break;
     case 2: 
         tr_obj = make_shared<FourierTransform2D<DiscreteFourierTransform>>();

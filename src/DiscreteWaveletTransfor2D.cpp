@@ -32,6 +32,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::InputSpace::get_data() const -> cv
     img_char.convertTo(img_char, CV_8UC3);
     return img_char;
 }
+
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::bit_reverse_image(Typedefs::vec3D& image) const -> void {
     int channels = image.size();
@@ -53,7 +54,6 @@ auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::bit_reverse_image(Typ
         cols /= 2;
     }
 }
-
 
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::get_plottable_representation() const -> cv::Mat
@@ -231,4 +231,10 @@ auto DiscreteWaveletTransform2D<matrix_size>::operator()(Transform::InputSpace& 
     }
 }
 
+template class DiscreteWaveletTransform2D<2>;
 template class DiscreteWaveletTransform2D<4>;
+template class DiscreteWaveletTransform2D<6>;
+template class DiscreteWaveletTransform2D<8>;
+template class DiscreteWaveletTransform2D<10>;
+template class DiscreteWaveletTransform2D<16>;
+template class DiscreteWaveletTransform2D<20>;

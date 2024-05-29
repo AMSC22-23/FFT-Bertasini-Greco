@@ -3,11 +3,14 @@
 
 #include <typedefs.hpp>
 #include <Transform.hpp>
+#include <TransformMatrices.hpp>
 
 template <unsigned long matrix_size>
 class DiscreteWaveletTransform : public Transform<Typedefs::vec>{
 private:
-    std::array <double, matrix_size> transform_matrix;
+    std::array <double, matrix_size> scaling_matrix;
+    std::array <double, matrix_size*2> transform_matrix;
+    std::array <double, matrix_size*2> inverse_matrix;
     uint8_t user_levels = 0;
     int n_cores;
 protected:
@@ -26,7 +29,10 @@ protected:
         auto compress (const std::string& method, const double removed) -> void override;
     };
 public:
-    DiscreteWaveletTransform(const std::array <double, matrix_size> &transform_matrix, uint8_t user_levels = 0, int n_cores=-1) : transform_matrix(transform_matrix), user_levels(user_levels), n_cores(n_cores) {}
+    DiscreteWaveletTransform(const std::array <double, matrix_size> &scaling_matrix, uint8_t user_levels = 0, int n_cores=-1) : scaling_matrix(scaling_matrix), user_levels(user_levels), n_cores(n_cores) {
+        transform_matrix = TRANSFORM_MATRICES::TRANSFORM::generate_forward(scaling_matrix);
+        inverse_matrix = TRANSFORM_MATRICES::TRANSFORM::generate_inverse(transform_matrix);
+    }
     
     auto get_input_space(const Typedefs::vec & v) const -> std::unique_ptr<Transform::InputSpace> override;
     auto get_output_space() const -> std::unique_ptr<Transform::OutputSpace> override;
@@ -37,8 +43,4 @@ public:
     auto operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void override;
 
 };
-namespace TRANSFORM_MATRICES{
-    //haar matrix
-    constexpr std::array <double, 4> HAAR = {M_SQRT1_2,M_SQRT1_2, M_SQRT1_2, -M_SQRT1_2};
-}
 #endif

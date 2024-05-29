@@ -42,6 +42,8 @@ template <unsigned long matrix_size>
 auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
     if (n_cores != -1) omp_set_num_threads(n_cores);
 
+    auto& t_mat = is_inverse ? inverse_matrix : transform_matrix;
+
     std::vector<double> temp;
     int levels = user_levels == 0 ? log2(signal.size()) : user_levels;
     int start = is_inverse ? levels-1 : 0; 
@@ -55,17 +57,17 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &sign
 
         for (int j = 0; j < sub_size; j++) temp.push_back(signal[j*sub_step]);
     
-        if (!is_inverse) for (unsigned long j = 0; j < matrix_size/2-2; j++) temp.push_back(temp[j]);
-        else             for (unsigned long j = 0; j < matrix_size/2-2; j++) temp.insert(temp.begin(), *(temp.end()-1-j));
+        if (!is_inverse) for (unsigned long j = 0; j < matrix_size-2; j++) temp.push_back(temp[j]);
+        else             for (unsigned long j = 0; j < matrix_size-2; j++) temp.insert(temp.begin(), *(temp.end()-1-j));
 
         #pragma omp parallel for
         for(int j = 0; j < sub_size; j+=2){
             int index_signal = j*sub_step;
             signal[index_signal] = 0;
             signal[index_signal+sub_step] = 0;
-            for (unsigned long m=0; m < matrix_size/2; m+=1){
-                signal[index_signal]              += temp[j+m]*transform_matrix[m];
-                signal[index_signal+sub_step]     += temp[j+m]*transform_matrix[m+ matrix_size/2];
+            for (unsigned long m=0; m < matrix_size; m+=1){
+                signal[index_signal]              += temp[j+m]*t_mat[m];
+                signal[index_signal+sub_step]     += temp[j+m]*t_mat[m+ matrix_size];
             }
         }
     }
@@ -84,4 +86,10 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(Transform::InputSpace& in
     }
 }
 
+template class DiscreteWaveletTransform<2>;
 template class DiscreteWaveletTransform<4>;
+template class DiscreteWaveletTransform<6>;
+template class DiscreteWaveletTransform<8>;
+template class DiscreteWaveletTransform<10>;
+template class DiscreteWaveletTransform<16>;
+template class DiscreteWaveletTransform<20>;
