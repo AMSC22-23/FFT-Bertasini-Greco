@@ -130,7 +130,8 @@ auto main(int argc, char ** argv) -> int
         amps.push_back((arc4random() % 100) / 1000.0);
     }
 
-    FourierTransform& fft = *make_shared<IterativeFastFourierTransform>();
+    // FourierTransform fft = *make_shared<IterativeFastFourierTransform>();
+    IterativeFastFourierTransform fft;
 
     auto x = vector<double>();
     auto signal = vcpx();
