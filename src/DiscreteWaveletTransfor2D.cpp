@@ -1,5 +1,6 @@
 #include "DiscreteWaveletTransform2D.hpp"
 #include "bitreverse.hpp"
+#include "utils.hpp"
 
 using namespace std;
 using namespace cv;
@@ -34,32 +35,10 @@ auto DiscreteWaveletTransform2D<matrix_size>::InputSpace::get_data() const -> cv
 }
 
 template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::bit_reverse_image(Typedefs::vec3D& image) const -> void {
-    int channels = image.size();
-    int rows = image[0].size();
-    int cols = image[0][0].size();
-
-    for (uint8_t l = 0; l < user_levels; l++){
-        for (int c = 0; c < channels; ++c)
-        {
-            for (int i = 0; i < rows; ++i) partial_bit_reverse(image[c][i], cols, 1);
-            for (int j=0; j<cols; j++){
-                std::vector<double> temp;
-                for (int i = 0; i < rows; ++i) temp.push_back(image[c][i][j]);
-                partial_bit_reverse(temp, rows, 1);
-                for (int i = 0; i < rows; ++i) image[c][i][j]=temp[i];
-            }
-        }
-        rows /= 2;
-        cols /= 2;
-    }
-}
-
-template <unsigned long matrix_size>
 auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::get_plottable_representation() const -> cv::Mat
 {
     auto tmp = data;
-    bit_reverse_image(tmp);
+    bit_reverse_image(tmp, user_levels);
     normalize_coefficients(tmp);
     cv::Mat dwt_image_colored;
     dwt_image_colored.create(tmp[0].size(), tmp[0][0].size(), CV_64FC3);
@@ -70,28 +49,6 @@ auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::get_plottable_represe
     dwt_image_colored.convertTo(dwt_image_colored, CV_8UC3);
     return dwt_image_colored;
 }
-
-template <unsigned long matrix_size>
-int DiscreteWaveletTransform2D<matrix_size>::OutputSpace::countSubdivisions(int i, int j, int size, int subdivisions) const {
-    int currentSize = size;
-
-    for (int level = 0; level < subdivisions; ++level) {
-        int halfSize = currentSize / 2;
-
-        if (i < halfSize && j < halfSize) {
-            // Point is in the top-left submatrix
-            currentSize = halfSize;
-        } else {
-            // Adjust i and j for the next level of subdivision
-            if (i >= halfSize) i -= halfSize;
-            if (j >= halfSize) j -= halfSize;
-            return subdivisions - level - 1; // Subtract 1 to make the count 0-based
-        }
-    }
-
-    // If the point is not in the top-left submatrix after all subdivisions
-    return 0;
-} 
 
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::normalize_coefficients(Typedefs::vec3D& image) const -> void {
@@ -220,7 +177,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::get_output_space() const -> std::u
 
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform2D<matrix_size>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
-    auto& in_data = dynamic_cast<DiscreteWaveletTransform2D::InputSpace&>(in).data;
+    auto& in_data  = dynamic_cast<DiscreteWaveletTransform2D::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<DiscreteWaveletTransform2D::OutputSpace&>(out).data;
     if (!inverse) {
         out_data = in_data;

@@ -1,4 +1,5 @@
 #include "Image.hpp"
+#include "utils.hpp"
 #include <bitreverse.hpp>
 #include <iostream>
 

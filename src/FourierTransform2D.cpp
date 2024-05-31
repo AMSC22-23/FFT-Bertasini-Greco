@@ -1,5 +1,6 @@
 #include "FourierTransform2D.hpp"
 #include "bitreverse.hpp"
+#include "utils.hpp"
 
 using namespace std;
 using namespace cv;
