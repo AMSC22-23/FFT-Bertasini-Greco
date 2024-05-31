@@ -52,14 +52,13 @@ public:
     return code_table;
   }
 
-  auto get_reversed_table() -> unordered_map<vector<bool>, T> {
-    return revs_table;
-  }
+  // auto get_reversed_table() -> unordered_map<vector<bool>, T> {
+  //   return revs_table;
+  // }
 
 private:
   shared_ptr<Node> root;
   unordered_map<T, vector<bool>> code_table;
-  unordered_map<vector<bool>, T> revs_table;
 
   auto create_code_table(shared_ptr<Node> node, vector<bool> code) -> void {
     if (node->value != std::numeric_limits<T>::max()) {
@@ -68,12 +67,12 @@ private:
         cout << "Error: Duplicate code found for value " << node->value << endl;
         return;
       }
-      if (revs_table.find(code) != revs_table.end()) {
-        cout << "Error: Duplicate code found for value " << node->value << endl;
-        return;
-      }
+      // if (revs_table.find(code) != revs_table.end()) {
+      //   cout << "Error: Duplicate code found for value " << node->value << endl;
+      //   return;
+      // }
       code_table[node->value] = code;
-      revs_table[code] = node->value;
+      // revs_table[code] = node->value;
       return;
     }
 
@@ -97,13 +96,12 @@ class Compressor {
     Typedefs::vec3D coeff;
     const int levels;
     Compressor(const cv::Mat& img, const int levels = 3) : img(img), levels(levels) {}
-    auto chroma_subsampling() -> void;
     auto apply_dwt() -> void;
     auto apply_idwt() -> void;
     auto quantize () -> void;
     auto dequantize () -> void;
-    auto HuffmanEncoding() -> shared_ptr<HuffmanTree<int>>;
-    auto HuffmanDecoding(shared_ptr<HuffmanTree<int>>& huffman_tree) -> void;
+    auto HuffmanEncoding() -> void;
+    auto HuffmanDecoding() -> void;
 };
 
 #endif

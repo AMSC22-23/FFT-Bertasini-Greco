@@ -24,7 +24,7 @@ auto plot_image (vec3D &coeff, string title) -> void {
 
 int main()
 {
-  string img_path = "input/lena_chonky.png";
+  string img_path = "input/lena.png";
   Mat og_image = imread(img_path);
   // Mat og_image = imread("input/milano.jpg");
   if (og_image.empty())
@@ -38,8 +38,8 @@ int main()
   plot_image(compressor.coeff, "DWT Image");
   compressor.quantize();
   plot_image(compressor.coeff, "Quantized Image");
-  auto tree = compressor.HuffmanEncoding();
-  compressor.HuffmanDecoding(tree);
+  compressor.HuffmanEncoding();
+  compressor.HuffmanDecoding();
   plot_image(compressor.coeff, "Decoded Image");
   auto coeff_post = compressor.coeff;
   compressor.dequantize();

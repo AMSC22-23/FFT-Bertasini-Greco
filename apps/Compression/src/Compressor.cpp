@@ -30,7 +30,7 @@ auto Compressor::apply_dwt() -> void {
 const double compression_coeff = 1; // the higher the more compression
 const double R = 8.;
 const double c = 8.5; // exponent
-const double f = 8;  // mantissa
+const double f = 8;   // mantissa
 
 auto Compressor::quantize () -> void {
   const double tau = pow(2, R - c + (double)levels) * (1. + f / pow(2, 11));
@@ -75,7 +75,7 @@ auto write_bits(ofstream& file, vector<bool>& bits) -> void {
   }
 }
 
-auto Compressor::HuffmanEncoding() -> shared_ptr<HuffmanTree<int>> {
+auto Compressor::HuffmanEncoding() -> void {
   // 1. Flatten the 3D matrix into a 1D vector
   vector<int> flat_coeff;
   for (size_t c = 0; c < coeff.size(); ++c)
@@ -98,33 +98,36 @@ auto Compressor::HuffmanEncoding() -> shared_ptr<HuffmanTree<int>> {
   vector<bool> encoded_data;
   for (auto& val : flat_coeff) {
     auto code = huffman_code_table[val];
-    // (huffman_tree->tmp).insert((huffman_tree->tmp).end(), code.begin(), code.end());
     encoded_data.insert(encoded_data.end(), code.begin(), code.end());
   }
-  cout << "Size of orginal code: " << flat_coeff.size() << endl;
 
   // 6. Save the encoded data
   ofstream encoded_file("encoded_data.txt", ios::binary);
   if (!encoded_file.is_open()) {
     cout << "Could not open file encoded_data.txt" << '\n';
-    return nullptr;
+    return;
   }
 
   // 7. Write the Huffman map to the file
-  // size_t size = huffman_code_table.size();
-  // encoded_file.write((char*)&size, sizeof(size));
-  // for (auto& [key, value] : huffman_code_table) {
-  //   encoded_file << key << " ";
-  //   for (auto bit : value) {
-  //     encoded_file << bit;
-  //   }
-  //   encoded_file << '\n';
-  // }
+  size_t size = huffman_code_table.size();
+  encoded_file.write((char*)&size, sizeof(size));
+  vector<int> keys;
+  vector<bool> values;
+  vector<char> code_sizes;
+  for (auto& [key, value] : huffman_code_table) {
+    keys.push_back(key);
+    values.insert(values.end(), value.begin(), value.end());
+    code_sizes.push_back(value.size());
+  }
 
+  encoded_file.write((char*)keys.data(), keys.size() * sizeof(int));
+  encoded_file.write((char*)code_sizes.data(), code_sizes.size() * sizeof(char));
+  write_bits(encoded_file, values);
+
+
+  // 8. Write the encoded data to the file
   write_bits(encoded_file, encoded_data);
   encoded_file.close();
-
-  return huffman_tree;
 }
 
 auto read_bits(ifstream& file) -> vector<bool> {
@@ -138,7 +141,7 @@ auto read_bits(ifstream& file) -> vector<bool> {
     return bits;
 }
 
-auto Compressor::HuffmanDecoding(shared_ptr<HuffmanTree<int>>& huffman_tree) -> void {
+auto Compressor::HuffmanDecoding() -> void {
     // 1. Read the encoded data
     ifstream encoded_file("encoded_data.txt", ios::binary);
     if (!encoded_file.is_open()) {
@@ -146,12 +149,41 @@ auto Compressor::HuffmanDecoding(shared_ptr<HuffmanTree<int>>& huffman_tree) -> 
         return;
     }
 
+    // 2. Reconstruct the Huffman tree
+    size_t size;
+    encoded_file.read((char*)&size, sizeof(size));
+
+    vector<int> keys(size);
+    vector<char> code_sizes(size);
+    vector<vector<bool>> values;
+
+    encoded_file.read((char*)keys.data(), keys.size() * sizeof(int));
+    encoded_file.read((char*)code_sizes.data(), code_sizes.size() * sizeof(char));
+
+    vector<char> tmp;
+    auto total_code_size = 0;
+    for (auto& code_size : code_sizes) total_code_size += code_size;
+
+    tmp.resize(total_code_size / 8 + 1);
+    encoded_file.read((char*)tmp.data(), total_code_size / 8 + 1);
+
+    int cnt = 0;
+    for (size_t i = 0; i < size; ++i) {
+      vector<bool> code;
+      for (int j = 0; j < code_sizes[i]; ++j) {
+        code.push_back((tmp[cnt >> 3] >> (7 - (cnt & 7))) & 1);
+        cnt++;
+      }
+      values.push_back(code);
+    }
+
+    unordered_map<vector<bool>, int> reverse_huffman_code_table;
+    for (size_t i = 0; i < size; ++i) {
+      reverse_huffman_code_table[values[i]] = keys[i];
+    }
+
     vector<bool> encoded_data = read_bits(encoded_file);
     encoded_file.close();
-
-    // 2. Reconstruct the Huffman tree
-    // Note: In practice, you would store and read the frequency table or the code table from the file.
-    auto reverse_huffman_code_table = huffman_tree->get_reversed_table();
 
     // 3. Decode the data
     vector<double> decoded_coefficients;
@@ -175,26 +207,7 @@ auto Compressor::HuffmanDecoding(shared_ptr<HuffmanTree<int>>& huffman_tree) -> 
     }
 }
 
-auto plot_imeage (vec3D &coeff, string title) -> void {
-  cv::Mat dwt_image_colored;
-  auto tmp = coeff;
-  dwt_image_colored.create(tmp[0].size(), tmp[0][0].size(), CV_64FC3);
-  for (size_t c = 0; c < tmp.size(); ++c)
-      for (size_t i = 0; i < tmp[0].size(); ++i)
-          for (size_t j = 0; j < tmp[0][0].size(); ++j)
-              dwt_image_colored.at<cv::Vec3d>(i, j)[c] = tmp[c][i][j];
-
-  dwt_image_colored.convertTo(dwt_image_colored, CV_8UC3);
-  imshow(title, dwt_image_colored);
-}
-
 auto Compressor::apply_idwt() -> void {
-    // for (int i = 0; i < levels * levels; i++) {
-    //   string title = "IDWT Image " + to_string(i);
-    //   bit_reverse_image(coeff, levels-1);
-    //   plot_imeage(coeff, title);
-    //   waitKey(0);
-    //   }
     reverse_bit_reverse_image(coeff, levels);
     DiscreteWaveletTransform2D dwt(TRANSFORM_MATRICES::DAUBECHIES_D20, levels);
     dwt.computeDWT2D(coeff, true);
