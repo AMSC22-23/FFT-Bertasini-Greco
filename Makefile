@@ -8,6 +8,8 @@ ODIR = obj
 OUTDIR = output
 LIBDIR = lib
 
+FFTLIB = fft
+
 SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test $(LIBDIR)
 
 CXX := g++
@@ -44,8 +46,8 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
-CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS)
-LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) $(CV_LIBS)
+CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS)
+LDFLAGS = $(LOMPFLAGS) $(CV_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
@@ -83,8 +85,8 @@ $(OBJ) : | subdirs
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
 
-$(TEST_TARGET): $(TEST_OBJ) $(filter-out $(ODIR)/main.o, $(OBJ))
-	$(CXX) -o $@ $^ $(LDFLAGS)	
+$(TEST_TARGET): $(TEST_OBJ) | $(LIBRARY_TARGET)
+	$(CXX) -o $@ $^ $(LDFLAGS) -L$(LIBDIR) -l$(FFTLIB)
 
 $(ODIR)/test/%.o: $(TDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
