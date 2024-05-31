@@ -99,5 +99,45 @@ auto bit_reverse_image(Typedefs::vec3D &image, uint8_t user_levels) -> void
   }
 }
 
+auto reverse_bit_reverse_image(vec3D &bit_reversed_image, uint8_t levels) -> void
+{
+  int channels = bit_reversed_image.size();
+
+  int og_rows = bit_reversed_image[0].size();
+  int og_cols = bit_reversed_image[0][0].size();
+
+  int rows = og_rows / pow(2, levels - 1);
+  int cols = og_cols / pow(2, levels - 1);
+
+  // auto tmp_mat = bit_reversed_image;
+  auto original_image_inverse_rows = bit_reversed_image;
+  auto original_image_inverse_cols = bit_reversed_image;
+
+  for (uint8_t l = 0; l < levels; ++l)
+  {
+    for (int c = 0; c < channels; ++c)
+    {
+      for (int i = 0; i < rows / 2; ++i){
+        for (int j = 0; j < cols; j++){
+          original_image_inverse_rows[c][i+i][j] = bit_reversed_image[c][i][j];
+          original_image_inverse_rows[c][rows - i - i - 1][j] = bit_reversed_image[c][rows-i-1][j];
+        }
+      }
+      for (int j = 0; j < cols / 2; ++j)
+      {
+        for (int i = 0; i < rows; ++i)
+        {
+          original_image_inverse_cols[c][i][j+j] = original_image_inverse_rows[c][i][j];
+          original_image_inverse_cols[c][i][cols - j - j - 1] = original_image_inverse_rows[c][i][cols - j - 1];
+        }
+      }
+    }
+    bit_reversed_image = original_image_inverse_cols;
+    rows *= 2;
+    cols *= 2;
+  }
+  // return tmp_mat;
+}
+
 template void bit_reverse_copy<vec>(vec &v);
 template void bit_reverse_copy<vcpx>(vcpx &v);
