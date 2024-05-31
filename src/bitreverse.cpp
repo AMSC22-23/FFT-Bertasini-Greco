@@ -65,19 +65,6 @@ auto bit_reverse_copy(T& v) -> void
     }
 }
 
-auto next_power_of_2(size_t n) -> size_t
-{
-    n--;
-    n |= n >> 1;   
-    n |= n >> 2;   
-    n |= n >> 4;
-    n |= n >> 8;
-    n |= n >> 16;
-    n |= n >> 32;  
-    n++;
-    return n;
-}
-
 auto next_multiple_of_levels(size_t n, size_t m) -> size_t
 {
     size_t mask = (1 << m) - 1;
@@ -85,5 +72,32 @@ auto next_multiple_of_levels(size_t n, size_t m) -> size_t
     return lowerMultiple + (1 << m);   
 }
 
-template void bit_reverse_copy<vec>(vec& v);
-template void bit_reverse_copy<vcpx>(vcpx& v);
+auto bit_reverse_image(Typedefs::vec3D &image, uint8_t user_levels) -> void
+{
+  int channels = image.size();
+  int rows = image[0].size();
+  int cols = image[0][0].size();
+
+  for (uint8_t l = 0; l < user_levels; l++)
+  {
+    for (int c = 0; c < channels; ++c)
+    {
+      for (int i = 0; i < rows; ++i)
+        partial_bit_reverse(image[c][i], cols, 1);
+      for (int j = 0; j < cols; j++)
+      {
+        vec temp;
+        for (int i = 0; i < rows; ++i)
+          temp.push_back(image[c][i][j]);
+        partial_bit_reverse(temp, rows, 1);
+        for (int i = 0; i < rows; ++i)
+          image[c][i][j] = temp[i];
+      }
+    }
+    rows /= 2;
+    cols /= 2;
+  }
+}
+
+template void bit_reverse_copy<vec>(vec &v);
+template void bit_reverse_copy<vcpx>(vcpx &v);

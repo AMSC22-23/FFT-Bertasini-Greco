@@ -8,6 +8,7 @@
 #include <IterativeFastFourierTransform.hpp>
 
 #include <bitreverse.hpp>
+#include <utils.hpp>
 
 #include <time_evaluator.hpp>
 

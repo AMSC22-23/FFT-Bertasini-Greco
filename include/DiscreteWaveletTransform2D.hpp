@@ -22,9 +22,7 @@ class DiscreteWaveletTransform2D : public Transform<cv::Mat> {
         Typedefs::vec3D data;
         uint8_t user_levels;
         OutputSpace(uint8_t user_levels) : user_levels(user_levels) {}
-        auto countSubdivisions(int i, int j, int size, int subdivisions) const -> int;
         auto normalize_coefficients(Typedefs::vec3D& image) const -> void;
-        auto bit_reverse_image(Typedefs::vec3D& image) const -> void;
         auto get_plottable_representation() const -> cv::Mat override;
         auto compress(const std::string& method, const double kept) -> void override;
     };
