@@ -71,14 +71,20 @@ CUFILES = $(notdir $(_CUFILES))
 _CXXFILES = $(wildcard $(SDIR)/*.cpp)
 CXXFILES = $(notdir $(_CXXFILES))
 
-# check if nvcc is installed
+# if the user specified to not use cuda blank out the nvcc variable
+ifeq ($(USE_CUDA), 0)
+	NVCC :=
+endif
+
+# if nvcc is not installed
 ifeq ($(NVCC),)
 	_OBJ = $(_CXXFILES:.cpp=.o)
-	USE_CUDA = -DUSE_CUDA=0
+	USE_CUDA = 0
 else
 	_OBJ = $(_CXXFILES:.cpp=.o) $(_CUFILES:.cu=.o)
-	USE_CUDA = -DUSE_CUDA=1
+	USE_CUDA = 1
 endif
+
 OBJ = $(patsubst $(SDIR)/%,$(ODIR)/%,$(_OBJ))
 
 _TESTCXXFILES = $(wildcard $(TDIR)/*.cpp)
@@ -107,7 +113,7 @@ test: build_test $(TEST_TARGET)
 $(OBJ) : | subdirs
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
-	$(CXX) -c -o $@ $< $(CXXFLAGS) $(USE_CUDA)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) -DUSE_CUDA=$(USE_CUDA)
 
 $(TEST_TARGET): $(TEST_OBJ) | $(LIBRARY_TARGET)
 	$(CXX) -o $@ $^ $(LDFLAGS) -L$(LIBDIR) -l$(FFTLIB)
