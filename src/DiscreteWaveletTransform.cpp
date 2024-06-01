@@ -3,7 +3,7 @@
 #include <omp.h>
 
 #if USE_CUDA==1
-#include "DiscreteWaveletTransform.cuh"
+#include "DiscreteWaveletTransformCUDA.cuh"
 #endif
 
 using namespace Typedefs;
@@ -81,7 +81,7 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &sign
 #else 
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
-    dwtCU(signal, is_inverse, transform_matrix, inverse_matrix user_levels);
+    dwtCU<matrix_size>(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
 }
 #endif
   
