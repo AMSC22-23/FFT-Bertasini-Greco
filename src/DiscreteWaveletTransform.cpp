@@ -2,6 +2,10 @@
 #include "bitreverse.hpp"
 #include <omp.h>
 
+#if USE_CUDA==1
+#include "DiscreteWaveletTransform.cuh"
+#endif
+
 using namespace Typedefs;
 
 template <unsigned long matrix_size>
@@ -38,6 +42,8 @@ auto DiscreteWaveletTransform<matrix_size>::get_output_space() const -> std::uni
     std::unique_ptr<Transform::OutputSpace> out = std::make_unique<DiscreteWaveletTransform::OutputSpace>();
     return out;
 }
+
+#if USE_CUDA==0
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
     if (n_cores != -1) omp_set_num_threads(n_cores);
@@ -72,6 +78,12 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &sign
         }
     }
 } 
+#else 
+template <unsigned long matrix_size>
+auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
+    dwtCU(signal, is_inverse, transform_matrix, inverse_matrix user_levels);
+}
+#endif
   
 template <unsigned long matrix_size>
 auto DiscreteWaveletTransform<matrix_size>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
