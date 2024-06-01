@@ -16,9 +16,18 @@ CXX := g++
 
 O_LEVEL = 3
 
-# IPYTHON := /opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/include/python3.10
-# LPYTHON := /opt/homebrew/opt/python@3.10/Frameworks/Python.framework/Versions/3.10/lib
-# INUMPY := /opt/homebrew/lib/python3.10/site-packages/numpy/core/include
+# check if nvcc is installed
+NVCC := $(shell command -v nvcc 2> /dev/null)
+
+# if nvcc is installed, use it
+ifneq ($(NVCC),)
+	CUDA_ROOT_DIR = /opt/cuda
+	CUDA_LIB_DIR= -L$(CUDA_ROOT_DIR)/lib64
+	# CUDA include directory:
+	CUDA_INC_DIR= -I$(CUDA_ROOT_DIR)/include
+	# CUDA linking libraries:
+	CUDA_LINK_LIBS= -lcudart
+endif
 
 # find the python include and lib directories
 IPYTHON := $(shell python3 -c "import sysconfig; print(sysconfig.get_path('include'))")
@@ -41,8 +50,8 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
-CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) -I$(FFTIDIR)
-LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) -L$(FFTLIBPATH) -l$(FFTLIB)
+CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) -I$(FFTIDIR) -Wno-deprecated-declarations
+LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) -L$(FFTLIBPATH) -l$(FFTLIB) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 

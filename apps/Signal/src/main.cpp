@@ -63,7 +63,8 @@ auto main() -> int
     vector<double> freqs = {1, 500};
     vector<double> amps = {1, 0.1};
 
-    shared_ptr<Transform<vec>>fft = make_shared<DiscreteWaveletTransform<4>>(TRANSFORM_MATRICES::HAAR, 4);
+    // shared_ptr<Transform<vec>>fft = make_shared<DiscreteWaveletTransform<2>>(TRANSFORM_MATRICES::HAAR, 4);
+    shared_ptr<Transform<vec>>fft = make_shared<IterativeFastFourierTransform>();
 
     Signal s(freqs, amps, N, fft);
 

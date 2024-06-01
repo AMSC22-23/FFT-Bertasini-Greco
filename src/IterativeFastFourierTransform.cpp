@@ -1,6 +1,7 @@
 #include <IterativeFastFourierTransform.hpp>
 #include <omp.h>
 #include <bitreverse.hpp>
+#include "prova.cuh"
 
 using namespace std;
 using namespace Typedefs;
@@ -28,6 +29,7 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -
             }
         }
     }
+    prova();
 }
 
 auto IterativeFastFourierTransform::operator()(vcpx& x, const bool is_inverse) const -> void
