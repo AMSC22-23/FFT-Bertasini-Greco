@@ -16,7 +16,7 @@ CXX := g++
 
 O_LEVEL = 3
 
-CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion
+CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion -Wno-deprecated-enum-enum-conversion
 
 CV_FLAGS = `pkg-config --cflags opencv4` $(CVWARNINGS_SUPPRESS)
 CV_LIBS = `pkg-config --libs opencv4`
@@ -46,15 +46,29 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
+NVCC := $(shell command -v nvcc 2> /dev/null)
+NVCC_FLAGS :=  -I$(IDIR) -std=c++20 -arch=sm_80 -O$(O_LEVEL) -Xcompiler -Wall,-Wextra
+NVCC_LIBS := -lcuda
+
 CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS)
 LDFLAGS = $(LOMPFLAGS) $(CV_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
+_CUFILES = $(wildcard $(SDIR)/*.cu)
+CUFILES = $(notdir $(_CUFILES))
+
 _CXXFILES = $(wildcard $(SDIR)/*.cpp)
 CXXFILES = $(notdir $(_CXXFILES))
 
-_OBJ = $(_CXXFILES:.cpp=.o)
+# check if nvcc is installed
+ifeq ($(NVCC),)
+	_OBJ = $(_CXXFILES:.cpp=.o)
+	USE_CUDA = -DUSE_CUDA=0
+else
+	_OBJ = $(_CXXFILES:.cpp=.o) $(_CUFILES:.cu=.o)
+	USE_CUDA = -DUSE_CUDA=1
+endif
 OBJ = $(patsubst $(SDIR)/%,$(ODIR)/%,$(_OBJ))
 
 _TESTCXXFILES = $(wildcard $(TDIR)/*.cpp)
@@ -83,13 +97,16 @@ test: build_test $(TEST_TARGET)
 $(OBJ) : | subdirs
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
-	$(CXX) -c -o $@ $< $(CXXFLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(USE_CUDA)
 
 $(TEST_TARGET): $(TEST_OBJ) | $(LIBRARY_TARGET)
 	$(CXX) -o $@ $^ $(LDFLAGS) -L$(LIBDIR) -l$(FFTLIB)
 
 $(ODIR)/test/%.o: $(TDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)
+
+$(ODIR)/%.o : $(SDIR)/%.cu $(IDIR)/%.cuh
+	$(NVCC) $(NVCC_FLAGS) -c $< -o $@ $(NVCC_LIBS)
 
 clean:
 	rm -f $(ODIR)/*.o $(TARGET) $(TEST_TARGET) $(LIBRARY_TARGET) $(ODIR)/test/*.o 

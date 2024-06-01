@@ -1,9 +1,11 @@
 #include <bitreverse.hpp>
 #include <typedefs.hpp>
 #include <omp.h>
+#include <algorithm>
 
 #include <bitset>
 #include <cmath>
+#include <cstdint>
 
 using namespace Typedefs;
 

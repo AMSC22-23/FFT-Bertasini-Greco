@@ -1,6 +1,7 @@
 #include <Signal.hpp>
 #include <bitreverse.hpp>
 #include <utils.hpp>
+#include <algorithm>
 
 using namespace std;
 using namespace Typedefs;

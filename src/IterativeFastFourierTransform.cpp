@@ -1,6 +1,9 @@
 #include <IterativeFastFourierTransform.hpp>
 #include <omp.h>
 #include <bitreverse.hpp>
+#if USE_CUDA == 1
+#include "prova.cuh"
+#endif
 
 using namespace std;
 using namespace Typedefs;
@@ -28,6 +31,9 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -
             }
         }
     }
+    #if USE_CUDA == 1
+    prova();
+    #endif
 }
 
 auto IterativeFastFourierTransform::operator()(vcpx& x, const bool is_inverse) const -> void
