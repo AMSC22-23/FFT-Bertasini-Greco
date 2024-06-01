@@ -1,4 +1,10 @@
 #include "utils.hpp"
+#include <fstream>
+#include <iostream>
+
+using namespace std;
+using namespace Typedefs;
+
 
 auto next_power_of_2(size_t n) -> size_t
 {
@@ -33,3 +39,31 @@ auto countSubdivisions(int i, int j, int size, int subdivisions) -> int {
     // If the point is not in the top-left submatrix after all subdivisions
     return 0;
 } 
+
+auto read_signal(const std::string& signal_file, vec& real_signal) -> void {
+  // read signal from file
+    ifstream input_file_signal(signal_file);
+    if (!input_file_signal.is_open()) {
+        cout << "Could not open file " << signal_file << '\n';
+        return;
+    }
+
+    string line;
+
+    if (getline(input_file_signal, line)) {
+        std::stringstream ss(line);
+        std::string value;
+
+        while (std::getline(ss, value, ',')) {
+            if (!value.empty()) { 
+                try {
+                    real_signal.push_back(std::stod(value));
+                } catch (const std::invalid_argument& e) {
+                    std::cerr << "Invalid value found: " << value << std::endl;
+                    return;
+                }
+            }
+        }
+    }
+    input_file_signal.close();
+}

@@ -77,26 +77,15 @@ void scaling_evaluation (ofstream& output_file)
     }
 }
 
-auto main(int argc, char ** argv) -> int
+auto fft_tests(const string& output_folder) -> int
 {
-    srand(time(nullptr));
-
-    if (argc != 2) {
-        cout << "Usage: " << argv[0] << " output_folder\n";
-        return 1;
-    }
-
     // output folder / name
-    const string signal_file = argv[1] + string("/signal.txt");
-    const string transformed_file = argv[1] + string("/transformed.txt");
-    const string scalability_time = argv[1] + string("/scalability_time.txt");
-    const string scalability_speedup = argv[1] + string("/scalability_speedup.txt");
+    const string signal_file = output_folder + string("/signal.txt");
 
-    ofstream output_file_signal(signal_file);
-    if (!output_file_signal.is_open()) {
-        cout << "Could not open file " << signal_file << '\n';
-        return 1;
-    }
+    const string transformed_file = output_folder + string("/transformed.txt");
+    const string scalability_time = output_folder + string("/scalability_time.txt");
+    const string scalability_speedup = output_folder + string("/scalability_speedup.txt");
+
 
     ofstream output_file_transformed(transformed_file);
     if (!output_file_transformed.is_open()) {
@@ -116,42 +105,28 @@ auto main(int argc, char ** argv) -> int
         return 1;
     }
 
-    // generate signal
-    // create N = 2^23
-    const int N = 8388608;
-    vector<double> freqs = {1};
-    vector<double> amps = {1};
-    bool padding = true;
+    vec real_signal;
+    read_signal(signal_file, real_signal);
 
-    const int number_of_noises = 100;
-    // create noised with random freqs (high) and amps (low)
-    for (int i = 0; i < number_of_noises; i++) {
-        freqs.push_back(arc4random() % 1000 + 200);
-        amps.push_back((arc4random() % 100) / 1000.0);
-    }
+    cerr << "Signal read\n";
 
-    // FourierTransform fft = *make_shared<IterativeFastFourierTransform>();
+    // FourierTransform& fft = *make_shared<IterativeFastFourierTransform>();
     IterativeFastFourierTransform fft;
 
-    auto x = vector<double>();
-    auto signal = vcpx();
 
-    auto is_padding_needed = N & (N - 1);
-    auto correct_padding = (is_padding_needed && padding) ? next_power_of_2(N) : N;
+    vcpx signal;
 
-    x.resize(N * 2, 0);
-    signal.resize(correct_padding, 0);
-    
-    generate(x.begin(), x.end(), [i = 0, x]() mutable {return i++ * M_PI * 4 / (double)x.size();});
-    for (size_t i = 0; i < freqs.size(); i++)
-        for (size_t n = 0; n < N; n++)
-            signal[n] += amps[i] * sin(freqs[i] * x[n]);
+    // fill complex signal
+    signal.resize(real_signal.size(), 0);
+    transform(real_signal.begin(), real_signal.end(), signal.begin(), [](double d){return cpx(d, 0);});
 
-    x.resize(correct_padding);
+    cerr << "Complessato\n";
 
     vcpx transformed_signal = signal;
     
     fft(transformed_signal, false);
+
+    cerr << "Transformed\n";
 
     auto fft_freqs = vector<double>();
 
@@ -165,19 +140,19 @@ auto main(int argc, char ** argv) -> int
     fft_freqs.resize(fft_freqs.size() / 2);
 
     // write signal to file
-    vector<double> real_signal(signal.size(), 0);
-    transform(signal.begin(), signal.end(), real_signal.begin(), [](cpx c){return c.real();});
+    // vector<double> real_signal(signal.size(), 0);
+    // transform(signal.begin(), signal.end(), real_signal.begin(), [](cpx c){return c.real();});
 
-    output_file_signal.precision(numeric_limits<double>::max_digits10);
-    for (auto i : real_signal) output_file_signal << i << ",";
-    output_file_signal.seekp(-1, ios_base::end);    
-    output_file_signal << "\n";
+    // output_file_signal.precision(numeric_limits<double>::max_digits10);
+    // for (auto i : real_signal) output_file_signal << i << ",";
+    // output_file_signal.seekp(-1, ios_base::end);    
+    // output_file_signal << "\n";
 
     // output should be with full precision
     output_file_transformed.precision(numeric_limits<double>::max_digits10);
     for (auto i : transformed_signal) output_file_transformed << "(" << i.real() << "+" << i.imag() << "j)\n";
 
-    output_file_signal.close();
+    // output_file_signal.close();
     output_file_transformed.close();
 
     scaling_evaluation(output_file_scalability_time);
