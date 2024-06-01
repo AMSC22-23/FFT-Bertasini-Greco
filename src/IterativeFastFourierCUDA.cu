@@ -27,10 +27,25 @@ __global__ void fft_kernel(cpx *x, int N, int m, int is_inverse) {
     }
 }
 
+void fft_cpu_kernel(Typedefs::cpx *x, int N, int m, int is_inverse) {
+    for (int k = 0; k < N / m; k++) {
+        int k_m = k * m;
+        Typedefs::cpx Wm = std::polar(1.0, (1-2*is_inverse)*-2*M_PI/m);
+        Typedefs::cpx W = 1;
+        for (int j = 0; j < m/2; j++) {
+            Typedefs::cpx t = W * x[k_m + j + m/2];
+            Typedefs::cpx u = x[k_m + j];
+            x[k_m + j] = u + t;
+            x[k_m + j + m/2] = u - t;
+            W *= Wm;
+        }
+    }
+}
+
 auto fftCU (Typedefs::vcpx& x, const bool is_inverse) -> void{
     size_t N = x.size();
     if (N == 1) return;
-    
+
     // Bit reverse copy
     bit_reverse_copy(x);
 
@@ -39,13 +54,18 @@ auto fftCU (Typedefs::vcpx& x, const bool is_inverse) -> void{
     cudaMemcpy(d_x, x.data(), N * sizeof(cpx), cudaMemcpyHostToDevice);
 
     int blockSize = 256;
-    for (size_t s = 1; s <= log2(N); s++) {
-        size_t m = 1 << s;
+    size_t s, m;
+    for (s = 1; s <= log2(N); s++) {
+        m = 1 << s;
         int gridSize = (N / m + blockSize - 1) / blockSize;
+        if (gridSize < 20) break;
         fft_kernel<<<gridSize, blockSize>>>(d_x, N, m, is_inverse);
-        cudaDeviceSynchronize();
     }
-
+    cudaDeviceSynchronize();
     cudaMemcpy(x.data(), d_x, N * sizeof(cpx), cudaMemcpyDeviceToHost);
     cudaFree(d_x);
+    for (; s <= log2(N); s++) {
+        m = 1 << s;
+        fft_cpu_kernel(x.data(), N, m, is_inverse);
+    }
 }
