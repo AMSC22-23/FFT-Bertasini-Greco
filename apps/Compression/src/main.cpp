@@ -4,6 +4,7 @@
 
 #include "typedefs.hpp"
 #include "Compressor.hpp"
+#include "Decompressor.hpp"
 
 using namespace std;
 using namespace cv;
@@ -25,27 +26,23 @@ auto plot_image (vec3D &coeff, string title) -> void {
 int main()
 {
   string img_path = "input/lena.png";
-  Mat og_image = imread(img_path);
+  Mat og_image = imread(img_path), decompressed_image;
   // Mat og_image = imread("input/milano.jpg");
   if (og_image.empty())
   {
     cout << "Failed to load the image" << endl;
     return -1;
   }
-  Compressor compressor(og_image, 5);
 
-  compressor.apply_dwt();
-  plot_image(compressor.coeff, "DWT Image");
-  compressor.quantize();
-  plot_image(compressor.coeff, "Quantized Image");
-  compressor.HuffmanEncoding();
-  compressor.HuffmanDecoding();
-  plot_image(compressor.coeff, "Decoded Image");
-  auto coeff_post = compressor.coeff;
-  compressor.dequantize();
-  plot_image(compressor.coeff, "Dequantized Image");
-  compressor.apply_idwt();
+  Compressor compressor; Decompressor decompressor;
+
+  string compressed_file = "output/compressed_lena.gb";
+
+  compressor.compress(compressed_file, og_image, 3);
+  decompressor.decompress(compressed_file, decompressed_image);
+
   imshow("Original Image", og_image);
-  plot_image(compressor.coeff, "IDWT Image");
+  imshow("Decompressed Image", decompressed_image);
+
   waitKey(0);
 }
