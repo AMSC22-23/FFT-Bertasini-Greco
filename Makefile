@@ -64,8 +64,10 @@ CXXFILES = $(notdir $(_CXXFILES))
 # check if nvcc is installed
 ifeq ($(NVCC),)
 	_OBJ = $(_CXXFILES:.cpp=.o)
+	USE_CUDA = -DUSE_CUDA=0
 else
 	_OBJ = $(_CXXFILES:.cpp=.o) $(_CUFILES:.cu=.o)
+	USE_CUDA = -DUSE_CUDA=1
 endif
 OBJ = $(patsubst $(SDIR)/%,$(ODIR)/%,$(_OBJ))
 
@@ -95,7 +97,7 @@ test: build_test $(TEST_TARGET)
 $(OBJ) : | subdirs
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
-	$(CXX) -c -o $@ $< $(CXXFLAGS)
+	$(CXX) -c -o $@ $< $(CXXFLAGS) $(USE_CUDA)
 
 $(TEST_TARGET): $(TEST_OBJ) | $(LIBRARY_TARGET)
 	$(CXX) -o $@ $^ $(LDFLAGS) -L$(LIBDIR) -l$(FFTLIB)
