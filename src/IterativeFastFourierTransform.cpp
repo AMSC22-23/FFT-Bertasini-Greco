@@ -1,13 +1,15 @@
 #include <IterativeFastFourierTransform.hpp>
 #include <omp.h>
 #include <bitreverse.hpp>
+
 #if USE_CUDA == 1
-#include "prova.cuh"
+#include "IterativeFastFourierCUDA.cuh"
 #endif
 
 using namespace std;
 using namespace Typedefs;
 
+#if USE_CUDA == 0
 auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -> void 
 {
     if (n_cores != -1) omp_set_num_threads(n_cores);
@@ -31,10 +33,13 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -
             }
         }
     }
-    #if USE_CUDA == 1
-    prova();
-    #endif
 }
+
+#else
+auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -> void {
+  fftCU(x, is_inverse);
+}
+#endif
 
 auto IterativeFastFourierTransform::operator()(vcpx& x, const bool is_inverse) const -> void
 {

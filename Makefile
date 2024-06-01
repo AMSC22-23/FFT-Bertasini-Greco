@@ -50,8 +50,18 @@ NVCC := $(shell command -v nvcc 2> /dev/null)
 NVCC_FLAGS :=  -I$(IDIR) -std=c++20 -arch=sm_80 -O$(O_LEVEL) -Xcompiler -Wall,-Wextra
 NVCC_LIBS := -lcuda
 
+# if nvcc is installed, use it
+ifneq ($(NVCC),)
+	CUDA_ROOT_DIR = /opt/cuda
+	CUDA_LIB_DIR= -L$(CUDA_ROOT_DIR)/lib64
+	# CUDA include directory:
+	CUDA_INC_DIR= -I$(CUDA_ROOT_DIR)/include
+	# CUDA linking libraries:
+	CUDA_LINK_LIBS= -lcudart
+endif
+
 CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS)
-LDFLAGS = $(LOMPFLAGS) $(CV_LIBS)
+LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 
