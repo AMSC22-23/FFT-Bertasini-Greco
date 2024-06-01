@@ -13,11 +13,29 @@ int main ( int argc, char* argv[] )
         return 1;
     }
     string output_folder = argv[1];
-    cerr << "Output folder: " << output_folder << "\n";
+
+    cout << endl;
+    cout <<"-----------------------------------------\n";
+    cout << "TRANSFORMS TESTS START" << endl;
+    cout <<"-----------------------------------------\n";
+
+
+    //generate signal up to 2^24
     generate_signal_to_file(output_folder);
-    // cerr << "Signal generated\n";
-    // fft_tests(output_folder);
-    // cerr << "Dwt test starts\n";
+    cerr << "\nSignal generated.\n";
+
+    // FFT tests
+    cout << endl;
+    cout <<"-----------------------------------------\n";
+    cerr << "FFT test starts\n";
+    cout <<"-----------------------------------------\n";
+    fft_tests(output_folder);
+
+    // DWT tests
+    cout << endl;
+    cout <<"-----------------------------------------\n";
+    cerr << "DWT test starts\n";
+    cout <<"-----------------------------------------\n";
     dwt_tests(output_folder);
 
     return 0;

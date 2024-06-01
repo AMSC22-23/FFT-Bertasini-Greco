@@ -40,21 +40,32 @@ auto dwt_tests(const string& output_folder) -> int
 
 
     //test1: strong scalability
+    cout << endl;
+    cout << "1. STRONG SCALABILITY TEST:\n";
     DiscreteWaveletTransform dwt(TRANSFORM_MATRICES::DAUBECHIES_D40, 10);
-    for (int i=1; i<20; ++i){
-        dwt.set_n_cores(i);
-        auto elapsed = time_ev_dwt(real_signal, dwt);
-        output_file_strong << i << "," << elapsed << "\n";
-        cout << "Time elapsed for DWT with matrix size " << i << ": " << elapsed << " microseconds\n";
+    dwt.set_n_cores(1);
+    auto time_0 = time_ev_dwt(real_signal, dwt);
+    cout << "Time for   1 processor: " << time_0 << " µs\n";
+    output_file_strong << 1 << "," << (double)time_0 << "\n";
+    for (int i = 2; i < 20; i++) {
+       dwt.set_n_cores(i);
+        auto time = time_ev_dwt(real_signal, dwt);
+        cout << "Time with " << (i < 10 ? " " : "") << i << " processors: " << time << " µs | ";
+        cout << "Speedup: " << (double)time_0 / time << "\n";
+        output_file_strong << i << "," << time << "\n";
     }
 
+
     //test2: weak scalability
+    cout << endl;
+    cout << "2. WEAK SCALABILITY TEST:\n";
     int n=pow(2, 18);
     for (int i=1; i<9; i*=2){
         dwt.set_n_cores(i);
         vec signal = vec(real_signal.begin(), real_signal.begin() + n);
         auto elapsed = time_ev_dwt(signal, dwt);
-        cout << "Time elapsed for DWT with " << i << " cores: " << elapsed << " microseconds\n"<< "on a signal of size " << signal.size() << "\n";
+        if (i==1) cout << "Time with " << i << " core: " << elapsed << "  µs "<< "for a signal of size " << signal.size() << "\n";
+        else cout << "Time with " << i << " cores: " << elapsed << " µs "<< "for a signal of size " << signal.size() << "\n";
         output_file_weak << i << "," <<signal.size() << "," << elapsed << "\n";
         n*=2;
     }
