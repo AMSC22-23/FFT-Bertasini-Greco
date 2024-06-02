@@ -40,9 +40,7 @@ int main () {
     cout << "4. Fast Iterative Fourier Transform" << endl;
 
     cin >> transform_choice;
-
-    shared_ptr<Transform<Mat>> tr_obj;
-
+    
     switch (transform_choice)
     {
     case 1:
