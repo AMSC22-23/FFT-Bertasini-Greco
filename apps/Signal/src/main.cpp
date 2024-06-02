@@ -49,8 +49,8 @@ auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool t
     plt::subplot(rows, cols, 4);
     plt::title("filtered FFT");
     plt::plot(s_filtered.get_fft_freqs(), color); // Set plot color to brown
-    plt::show();
     plt::save("output/fft.png");
+    plt::show();
 }
 
 auto main() -> int
@@ -63,8 +63,8 @@ auto main() -> int
     vector<double> freqs = {1, 500};
     vector<double> amps = {1, 0.1};
 
-    // shared_ptr<Transform<vec>>fft = make_shared<DiscreteWaveletTransform<2>>(TRANSFORM_MATRICES::HAAR, 4);
-    shared_ptr<Transform<vec>>fft = make_shared<IterativeFastFourierTransform>();
+    shared_ptr<Transform<vec>>fft = make_shared<DiscreteWaveletTransform>(TRANSFORM_MATRICES::HAAR, 4);
+    // shared_ptr<Transform<vec>>fft = make_shared<IterativeFastFourierTransform>();
 
     Signal s(freqs, amps, N, fft);
 

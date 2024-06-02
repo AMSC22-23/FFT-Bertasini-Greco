@@ -16,7 +16,7 @@ CXX := g++
 
 O_LEVEL = 3
 
-CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion
+CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion -Wno-deprecated-enum-enum-conversion
 
 CV_FLAGS = `pkg-config --cflags opencv4` $(CVWARNINGS_SUPPRESS)
 CV_LIBS = `pkg-config --libs opencv4`
@@ -30,8 +30,22 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
+NVCC := $(shell command -v nvcc 2> /dev/null)
+NVCC_FLAGS :=  -I$(IDIR) -std=c++20 -arch=sm_80 -O$(O_LEVEL) -Xcompiler -Wall,-Wextra
+NVCC_LIBS := -lcuda -lcudart
+
+# if nvcc is installed, use it
+ifneq ($(NVCC),)
+	CUDA_ROOT_DIR = /opt/cuda
+	CUDA_LIB_DIR= -L$(CUDA_ROOT_DIR)/lib64
+	# CUDA include directory:
+	CUDA_INC_DIR= -I$(CUDA_ROOT_DIR)/include
+	# CUDA linking libraries:
+	CUDA_LINK_LIBS= -lcudart
+endif
+
 CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS) -I$(FFTIDIR) 
-LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) -L$(FFTLIBPATH) -l$(FFTLIB)
+LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) -L$(FFTLIBPATH) -l$(FFTLIB) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 

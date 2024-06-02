@@ -2,10 +2,8 @@
 #define DWT_CUH
 
 #include "typedefs.hpp"
-#include <array>
+#include <span>
 
-
-template <unsigned long matrix_size>
-auto dwtCU(Typedefs::vec &signal, bool is_inverse, const std::array<double, matrix_size*2> &transform_matrix, const std::array<double, matrix_size*2> &inverse_matrix, const int user_levels) -> void;
+auto dwtCU(Typedefs::vec &signal, bool is_inverse, const std::span<const double> &transform_matrix, const std::span<const double> &inverse_matrix, const int user_levels) -> void;
 
 #endif
