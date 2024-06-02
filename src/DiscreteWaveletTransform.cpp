@@ -8,21 +8,17 @@
 
 using namespace Typedefs;
 
-template <unsigned long matrix_size>
-DiscreteWaveletTransform<matrix_size>::InputSpace::InputSpace(const vec& _signal) : data(_signal) {}
+DiscreteWaveletTransform::InputSpace::InputSpace(const vec& _signal) : data(_signal) {}
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::InputSpace::get_data() const -> vec { return data; }
+auto DiscreteWaveletTransform::InputSpace::get_data() const -> vec { return data; }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::OutputSpace::get_plottable_representation () const -> vec  {
+auto DiscreteWaveletTransform::OutputSpace::get_plottable_representation () const -> vec  {
     vec plottable(data);
     bit_reverse_copy(plottable);
     return plottable;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::OutputSpace::compress (const std::string& /*method*/, const double kept) -> void {
+auto DiscreteWaveletTransform::OutputSpace::compress (const std::string& /*method*/, const double kept) -> void {
     size_t cutoff_freq = (size_t)(kept*(double)data.size());
     bit_reverse_copy(data);
     for (size_t i=cutoff_freq; i<data.size(); i++){
@@ -31,24 +27,22 @@ auto DiscreteWaveletTransform<matrix_size>::OutputSpace::compress (const std::st
     bit_reverse_copy(data); 
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::get_input_space(const vec & v) const -> std::unique_ptr<Transform::InputSpace> {
+auto DiscreteWaveletTransform::get_input_space(const vec & v) const -> std::unique_ptr<Transform::InputSpace> {
     std::unique_ptr<Transform::InputSpace> in = std::make_unique<DiscreteWaveletTransform::InputSpace>(v);
     return in;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::get_output_space() const -> std::unique_ptr<Transform::OutputSpace> {
+auto DiscreteWaveletTransform::get_output_space() const -> std::unique_ptr<Transform::OutputSpace> {
     std::unique_ptr<Transform::OutputSpace> out = std::make_unique<DiscreteWaveletTransform::OutputSpace>();
     return out;
 }
 
 #if USE_CUDA==0
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
+auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
     if (n_cores != -1) omp_set_num_threads(n_cores);
 
     auto& t_mat = is_inverse ? inverse_matrix : transform_matrix;
+    const unsigned long matrix_size = t_mat.size() / 2;
 
     std::vector<double> temp;
     int levels = user_levels == 0 ? log2(signal.size()) : user_levels;
@@ -79,14 +73,12 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &sign
     }
 } 
 #else 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
-    dwtCU<matrix_size>(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
+auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
+    dwtCU(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
 }
 #endif
   
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform<matrix_size>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
+auto DiscreteWaveletTransform::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
     auto& in_data = dynamic_cast<DiscreteWaveletTransform::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<DiscreteWaveletTransform::OutputSpace&>(out).data;
     if (!inverse) {
@@ -97,13 +89,3 @@ auto DiscreteWaveletTransform<matrix_size>::operator()(Transform::InputSpace& in
         operator()(in_data, inverse);
     }
 }
-
-template class DiscreteWaveletTransform<2>;
-template class DiscreteWaveletTransform<4>;
-template class DiscreteWaveletTransform<6>;
-template class DiscreteWaveletTransform<8>;
-template class DiscreteWaveletTransform<10>;
-template class DiscreteWaveletTransform<16>;
-template class DiscreteWaveletTransform<20>;
-template class DiscreteWaveletTransform<30>;
-template class DiscreteWaveletTransform<40>;

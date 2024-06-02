@@ -5,11 +5,10 @@
 
 #include <DiscreteWaveletTransform.hpp>
 
-template <unsigned long matrix_size>
 class DiscreteWaveletTransform2D : public Transform<cv::Mat> {
     private:
     uint8_t user_levels = 0;
-    DiscreteWaveletTransform<matrix_size> dwt;
+    DiscreteWaveletTransform dwt;
     public:
     class InputSpace : public Transform::InputSpace {
         public:
@@ -27,7 +26,7 @@ class DiscreteWaveletTransform2D : public Transform<cv::Mat> {
         auto compress(const std::string& method, const double kept) -> void override;
     };
     
-    DiscreteWaveletTransform2D(const std::array <double, matrix_size> &transform_matrix, uint8_t user_levels = 0, int n_cores=-1) : user_levels(user_levels), dwt(transform_matrix, 1, n_cores) {}
+    template<typename T> DiscreteWaveletTransform2D(const T& transform_matrix, uint8_t user_levels = 0, int n_cores=-1) : user_levels(user_levels), dwt(transform_matrix, 1, n_cores) {}
     auto computeDWT2D(Typedefs::vec3D& dwt_coeff, bool is_inverse) const -> void;
     auto get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> override;
     auto get_output_space() const -> std::unique_ptr<Transform::OutputSpace> override ;

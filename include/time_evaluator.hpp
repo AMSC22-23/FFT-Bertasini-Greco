@@ -8,8 +8,7 @@
 
 auto time_ev ( const Typedefs::vcpx&, const std::unique_ptr<FourierTransform>&) -> long unsigned int;
 
-template <unsigned long matrix_size>
-auto time_ev_dwt (const  Typedefs::vec& x, const DiscreteWaveletTransform<matrix_size> dwt) -> long unsigned int
+auto time_ev_dwt (const  Typedefs::vec& x, const DiscreteWaveletTransform dwt) -> long unsigned int
 {  
     Typedefs::vec real_signal = x;
     auto start = std::chrono::high_resolution_clock::now();

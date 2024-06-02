@@ -6,8 +6,7 @@ using namespace std;
 using namespace cv;
 using namespace Typedefs;
 
-template <unsigned long matrix_size>
-DiscreteWaveletTransform2D<matrix_size>::InputSpace::InputSpace(const cv::Mat& og_image) {
+DiscreteWaveletTransform2D::InputSpace::InputSpace(const cv::Mat& og_image) {
     cv::Mat image;
     og_image.convertTo(image, CV_64FC3);
     int channels = image.channels();
@@ -20,8 +19,7 @@ DiscreteWaveletTransform2D<matrix_size>::InputSpace::InputSpace(const cv::Mat& o
                 data[c][i][j] = image.at<Vec3d>(i, j)[c];
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::InputSpace::get_data() const -> cv::Mat {
+auto DiscreteWaveletTransform2D::InputSpace::get_data() const -> cv::Mat {
     int channels = data.size();
     int rows = data[0].size();
     int cols = data[0][0].size();
@@ -34,8 +32,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::InputSpace::get_data() const -> cv
     return img_char;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::get_plottable_representation() const -> cv::Mat
+auto DiscreteWaveletTransform2D::OutputSpace::get_plottable_representation() const -> cv::Mat
 {
     auto tmp = data;
     bit_reverse_image(tmp, user_levels);
@@ -50,8 +47,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::get_plottable_represe
     return dwt_image_colored;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::normalize_coefficients(Typedefs::vec3D& image) const -> void {
+auto DiscreteWaveletTransform2D::OutputSpace::normalize_coefficients(Typedefs::vec3D& image) const -> void {
     int channels = image.size();
     int rows = image[0].size();
     int cols = image[0][0].size();
@@ -87,8 +83,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::normalize_coefficient
 
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::compress(const std::string& /*method*/, const double percentile) -> void {
+auto DiscreteWaveletTransform2D::OutputSpace::compress(const std::string& /*method*/, const double percentile) -> void {
     
     uint8_t levels_to_keep = user_levels - floor(-(log(1-percentile))/(log(4)));
     int channels = data.size();
@@ -101,8 +96,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::OutputSpace::compress(const std::s
                         data[c][i][j] = 0;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::computeDWT2D(Typedefs::vec3D& image, bool is_inverse) const -> void {
+auto DiscreteWaveletTransform2D::computeDWT2D(Typedefs::vec3D& image, bool is_inverse) const -> void {
     int channels = image.size();
     int rows = image[0].size();
     int cols = image[0][0].size();
@@ -153,8 +147,7 @@ auto DiscreteWaveletTransform2D<matrix_size>::computeDWT2D(Typedefs::vec3D& imag
 }
 
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> {
+auto DiscreteWaveletTransform2D::get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> {
     cv::Mat image;
 
     auto is_padding_needed_row = og_image.rows & ((1 << user_levels) - 1);
@@ -169,14 +162,12 @@ auto DiscreteWaveletTransform2D<matrix_size>::get_input_space(const cv::Mat& og_
     return in;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::get_output_space() const -> std::unique_ptr<Transform::OutputSpace> {
+auto DiscreteWaveletTransform2D::get_output_space() const -> std::unique_ptr<Transform::OutputSpace> {
     std::unique_ptr<Transform::OutputSpace> out = std::make_unique<DiscreteWaveletTransform2D::OutputSpace>(user_levels);
     return out;
 }
 
-template <unsigned long matrix_size>
-auto DiscreteWaveletTransform2D<matrix_size>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
+auto DiscreteWaveletTransform2D::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
     auto& in_data  = dynamic_cast<DiscreteWaveletTransform2D::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<DiscreteWaveletTransform2D::OutputSpace&>(out).data;
     if (!inverse) {
@@ -187,13 +178,3 @@ auto DiscreteWaveletTransform2D<matrix_size>::operator()(Transform::InputSpace& 
         computeDWT2D(in_data, inverse);
     }
 }
-
-template class DiscreteWaveletTransform2D<2>;
-template class DiscreteWaveletTransform2D<4>;
-template class DiscreteWaveletTransform2D<6>;
-template class DiscreteWaveletTransform2D<8>;
-template class DiscreteWaveletTransform2D<10>;
-template class DiscreteWaveletTransform2D<16>;
-template class DiscreteWaveletTransform2D<20>;
-template class DiscreteWaveletTransform2D<30>;
-template class DiscreteWaveletTransform2D<40>;

@@ -13,9 +13,17 @@ using namespace cv;
 using namespace Typedefs;
 
 int main () {
+    shared_ptr<Transform<Mat>> tr_obj = make_shared<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::DAUBECHIES_D40, 3);
+    double percentile_cutoff = 0.0;
+    string compression_method = "levels_cutoff";
+    string path = "input/lena.png";
+    string tmp;
+
     cout << "Insert the path to the image: ";
-    string path;
-    cin >> path;
+    getline(cin, tmp);
+    cin.clear();
+    if (!tmp.empty())
+        path = tmp;
     Mat og_image = imread(path);
     // Mat og_image = imread("input/milano.jpg");
     if (og_image.empty())
@@ -23,7 +31,7 @@ int main () {
         cout << "Failed to load the image" << endl;
         return -1;
     }
-
+    if (!tmp.empty()){
     int transform_choice;
     cout << "Choose the transform to apply:" << endl;
     cout << "1. Discrete Wavelet Transform" << endl;
@@ -41,7 +49,7 @@ int main () {
         int levels;
         cout << "Insert the number of levels for the DWT: ";
         cin >> levels;
-        tr_obj = make_shared<DiscreteWaveletTransform2D<40>>(TRANSFORM_MATRICES::DAUBECHIES_D40, levels);
+        tr_obj = make_shared<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::DAUBECHIES_D40, levels);
         break;
     case 2: 
         tr_obj = make_shared<FourierTransform2D<DiscreteFourierTransform>>();
@@ -57,11 +65,9 @@ int main () {
         return -1;
     }
     
-    double percentile_cutoff;
     cout << "Insert the percentile cutoff for the compression: ";
     cin >> percentile_cutoff;
 
-    string compression_method;
     if (transform_choice == 1)
         compression_method = "levels_cutoff";
     
@@ -85,8 +91,7 @@ int main () {
                 return -1;
         }
     }
-
-
+    }
     Image img(og_image, tr_obj);
 
     Mat tr_unfiltered, tr_filtered, output_image;
