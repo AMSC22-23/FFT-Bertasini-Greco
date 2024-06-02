@@ -1,13 +1,14 @@
+#include <iostream>
+
 #include "Image.hpp"
 #include "utils.hpp"
-#include <bitreverse.hpp>
-#include <iostream>
+#include "bitreverse.hpp"
 
 using namespace std;
 using namespace cv;
 using namespace Typedefs;
 
-Image::Image(const cv::Mat& _img, std::shared_ptr<Transform<cv::Mat>>& _tr) : img(_img), og_size(img.size()), tr(_tr) {
+Image::Image(const Mat& _img, unique_ptr<Transform<Mat>> _tr) : img(_img), og_size(img.size()), tr(std::move(_tr)) {
     // auto is_padding_needed = n_samples & (n_samples - 1);
     // auto correct_padding = (is_padding_needed && padding) ? next_power_of_2(n_samples) : n_samples;
     
@@ -27,7 +28,7 @@ auto Image::preprocess_filter (const double percentile) -> double {
     return normalized_percentile;
 }
 
-auto Image::compress(const double percentile, const string method) -> void {
+auto Image::compress(const double percentile, const string& method) -> void {
     auto normalized_percentile = preprocess_filter(percentile);
     output_space->compress(method, normalized_percentile);
     inverse_transform();
@@ -37,11 +38,11 @@ auto Image::transform() -> void {
     tr->operator()(*input_space, *output_space, false);
 }
 
-auto Image::get_image() const -> const cv::Mat {
+auto Image::get_image() const -> const Mat {
     return img.rowRange(0, og_size.height).colRange(0, og_size.width);
 }
 
-auto Image::get_tr_coeff() const -> const cv::Mat {
-    return output_space->get_plottable_representation()/*.rowRange(0, og_size.height).colRange(0, og_size.width)*/;
+auto Image::get_tr_coeff() const -> const Mat {
+    return output_space->get_plottable_representation();
 }
 

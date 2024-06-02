@@ -1,9 +1,11 @@
 #ifndef DWT_CUH
 #define DWT_CUH
 
-#include "typedefs.hpp"
+#include <cstdint>
 #include <span>
 
-auto dwtCU(Typedefs::vec &signal, bool is_inverse, const std::span<const double> &transform_matrix, const std::span<const double> &inverse_matrix, const int user_levels) -> void;
+#include "typedefs.hpp"
+
+auto dwtCU(Typedefs::vec &signal, const bool is_inverse, const std::span<const Typedefs::DType> &transform_matrix, const std::span<const Typedefs::DType> &inverse_matrix, const uint8_t user_levels) -> void;
 
 #endif

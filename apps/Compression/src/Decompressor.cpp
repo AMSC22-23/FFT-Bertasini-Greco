@@ -46,6 +46,7 @@ auto Decompressor::HuffmanDecoding(const std::string& filename) -> void {
     int rows, cols;
 
     // 2. Reconstruct the Huffman tree
+    encoded_file.read((char*)&img_size, sizeof(img_size));
     encoded_file.read((char*)&rows, sizeof(rows));
     encoded_file.read((char*)&cols, sizeof(cols));
     encoded_file.read((char*)&levels, sizeof(levels));
@@ -110,7 +111,7 @@ auto Decompressor::HuffmanDecoding(const std::string& filename) -> void {
 auto Decompressor::apply_idwt() -> void {
     reverse_bit_reverse_image(coeff, levels);
     DiscreteWaveletTransform2D dwt(tr, levels);
-    dwt.computeDWT2D(coeff, true);
+    dwt(coeff, true);
 }
 
 auto Decompressor::decompress(const std::string& filename, cv::Mat& img) -> void {
@@ -118,10 +119,10 @@ auto Decompressor::decompress(const std::string& filename, cv::Mat& img) -> void
     dequantize();
     apply_idwt();
     
-    img.create(coeff[0].size(), coeff[0][0].size(), CV_64FC3);
+    img.create(img_size, CV_64FC3);
     for (size_t c = 0; c < coeff.size(); ++c)
-        for (size_t i = 0; i < coeff[0].size(); ++i)
-            for (size_t j = 0; j < coeff[0][0].size(); ++j)
+        for (size_t i = 0; i < img_size.height; ++i)
+            for (size_t j = 0; j < img_size.width; ++j)
                 img.at<cv::Vec3d>(i, j)[c] = coeff[c][i][j];
     img.convertTo(img, CV_8UC3);
 

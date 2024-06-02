@@ -13,17 +13,20 @@ using namespace cv;
 using namespace Typedefs;
 
 int main () {
-    shared_ptr<Transform<Mat>> tr_obj = make_shared<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::DAUBECHIES_D40, 3);
-    double percentile_cutoff = 0.0;
+    unique_ptr<Transform<Mat>> tr_obj = make_unique<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::HAAR, 3);
+    double percentile_cutoff = 0.75;
     string compression_method = "levels_cutoff";
     string path = "input/lena.png";
     string tmp;
 
-    cout << "Insert the path to the image: ";
+    cout << "Insert the path to the image:[newline for default] ";
     getline(cin, tmp);
-    cin.clear();
-    if (!tmp.empty())
-        path = tmp;
+    if (tmp.empty()){
+        cout << "Using default image: " << path << endl;
+        cout << "Using default transform: Discrete Wavelet Transform HAAR with 3 levels" << endl;
+        cout << "Compressing removing " << (int)(percentile_cutoff*100) << "%" << endl;
+    }
+    else path = tmp;
     Mat og_image = imread(path);
     // Mat og_image = imread("input/milano.jpg");
     if (og_image.empty())
@@ -47,16 +50,16 @@ int main () {
         int levels;
         cout << "Insert the number of levels for the DWT: ";
         cin >> levels;
-        tr_obj = make_shared<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::DAUBECHIES_D40, levels);
+        tr_obj = make_unique<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::HAAR, levels);
         break;
     case 2: 
-        tr_obj = make_shared<FourierTransform2D<DiscreteFourierTransform>>();
+        tr_obj = make_unique<FourierTransform2D<DiscreteFourierTransform>>();
         break;
     case 3:
-        tr_obj = make_shared<FourierTransform2D<RecursiveFastFourierTransform>>();
+        tr_obj = make_unique<FourierTransform2D<RecursiveFastFourierTransform>>();
         break;
     case 4:
-        tr_obj = make_shared<FourierTransform2D<IterativeFastFourierTransform>>();
+        tr_obj = make_unique<FourierTransform2D<IterativeFastFourierTransform>>();
         break;
     default:
         cerr << "Invalid choice" << endl;
@@ -90,7 +93,7 @@ int main () {
         }
     }
     }
-    Image img(og_image, tr_obj);
+    Image img(og_image, std::move(tr_obj));
 
     Mat tr_unfiltered, tr_filtered, output_image;
     

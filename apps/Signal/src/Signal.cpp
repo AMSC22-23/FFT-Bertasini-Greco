@@ -1,12 +1,13 @@
-#include <Signal.hpp>
-#include <bitreverse.hpp>
-#include <utils.hpp>
 #include <algorithm>
+
+#include "Signal.hpp"
+#include "bitreverse.hpp"
+#include "utils.hpp"
 
 using namespace std;
 using namespace Typedefs;
 
-Signal::Signal(vec _freqs, vec _amps, size_t n_samples, shared_ptr<Transform<vec>>& fft, bool padding) : fft(fft)
+Signal::Signal(vec _freqs, vec _amps, size_t n_samples, unique_ptr<Transform<vec>> _tr, bool padding) : tr(std::move(_tr))
 {
     move(_freqs.begin(), _freqs.end(), back_inserter(this->freqs));
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
@@ -19,8 +20,8 @@ Signal::Signal(vec _freqs, vec _amps, size_t n_samples, shared_ptr<Transform<vec
     this->generate_signal(n_samples);
     this->x.resize(correct_padding);
 
-    this->input_space  = this->fft->get_input_space(this->signal);
-    this->output_space = this->fft->get_output_space();
+    this->input_space  = this->tr->get_input_space(this->signal);
+    this->output_space = this->tr->get_output_space();
 
     this->transform_signal();
 }
@@ -35,12 +36,12 @@ auto Signal::generate_signal(size_t n_samples) -> void
 
 auto Signal::transform_signal() -> void
 {
-    this->fft->operator()(*this->input_space, *this->output_space, false);
+    this->tr->operator()(*this->input_space, *this->output_space, false);
 }
 
 auto Signal::denoise(const double percentile) -> void {
     this->output_space->compress("denoise", percentile);
-    this->fft->operator()(*this->input_space, *this->output_space, true);
+    this->tr->operator()(*this->input_space, *this->output_space, true);
     this->signal = this->input_space->get_data();
 }
 
@@ -54,7 +55,7 @@ auto Signal::get_x() const -> const vec&
     return this->x;
 }
 
-auto Signal::get_fft_freqs() const -> const Typedefs::vec
+auto Signal::get_freqs() const -> const Typedefs::vec
 {
     return this->output_space->get_plottable_representation();
 }

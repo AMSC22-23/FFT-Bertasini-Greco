@@ -7,6 +7,7 @@
 class Decompressor {
 private:
     cv::Mat img;
+    cv::Size img_size;
     Typedefs::vec3D coeff;
     int levels;
     auto apply_idwt() -> void;

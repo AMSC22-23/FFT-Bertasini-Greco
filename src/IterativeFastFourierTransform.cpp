@@ -1,6 +1,7 @@
-#include <IterativeFastFourierTransform.hpp>
 #include <omp.h>
-#include <bitreverse.hpp>
+
+#include "bitreverse.hpp"
+#include "IterativeFastFourierTransform.hpp"
 
 #if USE_CUDA == 1
 #include "IterativeFastFourierCUDA.cuh"

@@ -2,8 +2,9 @@
 #define BITREVERSE_HPP
 
 #include <cstddef>
-#include <typedefs.hpp>
 #include <cstdint>
+
+#include "typedefs.hpp"
 
 auto partial_bit_reverse(Typedefs::vec& signal, size_t n, uint8_t levels) -> void;
 template <typename T> auto bit_reverse_copy(T& v) -> void;

@@ -1,5 +1,6 @@
-#include <DiscreteFourierTransform.hpp>
 #include <cmath>
+
+#include "DiscreteFourierTransform.hpp"
 
 using namespace std;
 using namespace Typedefs;

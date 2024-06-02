@@ -1,7 +1,7 @@
 #ifndef DISCRETE_FOURIER_TRANSFORM_HPP
 #define DISCRETE_FOURIER_TRANSFORM_HPP
 
-#include <FourierTransform.hpp>
+#include "FourierTransform.hpp"
 
 class DiscreteFourierTransform : public FourierTransform {
     private:

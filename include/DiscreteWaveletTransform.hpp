@@ -1,15 +1,15 @@
 #ifndef DISCRETE_WAVELET_TRANSFORM_HPP
 #define DISCRETE_WAVELET_TRANSFORM_HPP
 
-#include <typedefs.hpp>
-#include <Transform.hpp>
-#include <TransformMatrices.hpp>
 #include <span>
+
+#include "Transform.hpp"
+#include "TransformMatrices.hpp"
 
 class DiscreteWaveletTransform : public Transform<Typedefs::vec>{
 private:
-    std::span <const double> transform_matrix;
-    std::span <const double> inverse_matrix;
+    std::span <const Typedefs::DType> transform_matrix;
+    std::span <const Typedefs::DType> inverse_matrix;
     uint8_t user_levels = 0;
     int n_cores;
 protected:
@@ -29,7 +29,7 @@ protected:
     };
 public:
 
-    template<std::size_t N> DiscreteWaveletTransform(const TRANSFORM_MATRICES::TransformMatrix<double, N> & scaling_matrix, uint8_t user_levels = 0, int n_cores=-1) : 
+    template<std::size_t N> DiscreteWaveletTransform(const TRANSFORM_MATRICES::TransformMatrix<Typedefs::DType, N> & scaling_matrix, uint8_t user_levels = 0, int n_cores=-1) : 
     transform_matrix(scaling_matrix.forward),
     inverse_matrix(scaling_matrix.inverse),
     user_levels(user_levels), 
@@ -41,8 +41,8 @@ public:
     
     auto set_n_cores(const int n_cores) -> void { this->n_cores = n_cores; };
     
-    auto operator()(std::vector<double> &signal, bool is_inverse) const -> void;
-    auto operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void override;
+    auto operator()(Typedefs::vec &signal, const bool is_inverse) const -> void;
+    auto operator()(Transform::InputSpace& in, Transform::OutputSpace& out, const bool inverse) const -> void override;
 
 };
 #endif

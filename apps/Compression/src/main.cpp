@@ -26,6 +26,12 @@ auto plot_image (vec3D &coeff, string title) -> void {
 int main()
 {
   string img_path = "input/lena.png";
+  string tmp;
+  cout << "Insert the path to the image:[newline for default] ";
+  getline(cin, tmp);
+  if (tmp.empty()) cout << "Using default image: " << img_path << endl;
+  else img_path = tmp;
+
   Mat og_image = imread(img_path), decompressed_image;
   // Mat og_image = imread("input/milano.jpg");
   if (og_image.empty())

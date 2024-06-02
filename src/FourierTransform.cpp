@@ -1,5 +1,6 @@
-#include <FourierTransform.hpp>
 #include <algorithm>
+
+#include "FourierTransform.hpp"
 
 using namespace Typedefs;
 
@@ -33,14 +34,14 @@ auto FourierTransform::OutputSpace::compress (const std::string& method, const d
     }
 }
 
-auto FourierTransform::OutputSpace::filter_freqs(double percentile_cutoff) -> void {
+auto FourierTransform::OutputSpace::filter_freqs(const double percentile_cutoff) -> void {
     auto& data = this->data;
     size_t cutoff = percentile_cutoff * data.size();
     for (size_t i = cutoff; i < data.size(); i++) 
         data[i] = 0;            
 }
 
-auto FourierTransform::OutputSpace::filter_magnitude(double percentile_cutoff) -> void {
+auto FourierTransform::OutputSpace::filter_magnitude(const double percentile_cutoff) -> void {
     auto& data = this->data;
     std::sort(data.begin(), data.end(), [](cpx a, cpx b){return abs(a) > abs(b);});
     size_t cutoff = percentile_cutoff * data.size();
@@ -48,7 +49,7 @@ auto FourierTransform::OutputSpace::filter_magnitude(double percentile_cutoff) -
         data[i] = 0;
 }
 
-auto FourierTransform::OutputSpace::denoise(double freq_cutoff) -> void {
+auto FourierTransform::OutputSpace::denoise(const double freq_cutoff) -> void {
     auto& data = this->data;
     for (size_t i = 0; i < data.size(); i++) 
         if (i > freq_cutoff) data[i] = 0;
@@ -63,7 +64,7 @@ auto FourierTransform::get_output_space() const -> std::unique_ptr<Transform::Ou
     return out;
 }
 
-auto FourierTransform::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
+auto FourierTransform::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, const bool inverse) const -> void {
     auto& in_data = dynamic_cast<FourierTransform::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<FourierTransform::OutputSpace&>(out).data;
     if (!inverse) {

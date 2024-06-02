@@ -1,6 +1,7 @@
+#include <omp.h>
+
 #include "DiscreteWaveletTransform.hpp"
 #include "bitreverse.hpp"
-#include <omp.h>
 
 #if USE_CUDA==1
 #include "DiscreteWaveletTransformCUDA.cuh"
@@ -19,7 +20,7 @@ auto DiscreteWaveletTransform::OutputSpace::get_plottable_representation () cons
 }
 
 auto DiscreteWaveletTransform::OutputSpace::compress (const std::string& /*method*/, const double kept) -> void {
-    size_t cutoff_freq = (size_t)(kept*(double)data.size());
+    auto cutoff_freq = (size_t)(kept*(double)data.size());
     bit_reverse_copy(data);
     for (size_t i=cutoff_freq; i<data.size(); i++){
         data[i] = 0;
@@ -38,34 +39,34 @@ auto DiscreteWaveletTransform::get_output_space() const -> std::unique_ptr<Trans
 }
 
 #if USE_CUDA==0
-auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
+auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const bool is_inverse) const -> void{
     if (n_cores != -1) omp_set_num_threads(n_cores);
 
     auto& t_mat = is_inverse ? inverse_matrix : transform_matrix;
-    const unsigned long matrix_size = t_mat.size() / 2;
+    const auto matrix_size = t_mat.size() / 2;
 
     std::vector<double> temp;
-    int levels = user_levels == 0 ? log2(signal.size()) : user_levels;
-    int start = is_inverse ? levels-1 : 0; 
-    int end = is_inverse ? -1 : levels;
-    int step = is_inverse ? -1 : 1;
+    auto levels = user_levels == 0 ? static_cast<int>(log2(signal.size())) : user_levels;
+    auto start = is_inverse ? levels-1 : 0; 
+    auto end = is_inverse ? -1 : levels;
+    auto step = is_inverse ? -1 : 1;
 
-    for (int i = start; i!=end ; i+=step){
+    for (int i = start; i != end ; i += step){
         temp.clear();
-        int sub_step = pow(2, i);
-        int sub_size = signal.size()/sub_step;
+        size_t sub_step = 1 << i; //pow(2, i);
+        size_t sub_size = signal.size() / sub_step;
 
-        for (int j = 0; j < sub_size; j++) temp.push_back(signal[j*sub_step]);
+        for (size_t j = 0; j < sub_size; j++) temp.push_back(signal[j*sub_step]);
     
-        if (!is_inverse) for (unsigned long j = 0; j < matrix_size-2; j++) temp.push_back(temp[j]);
-        else             for (unsigned long j = 0; j < matrix_size-2; j++) temp.insert(temp.begin(), *(temp.end()-1-j));
+        if (!is_inverse) for (size_t j = 0; j < matrix_size-2; j++) temp.push_back(temp[j]);
+        else             for (size_t j = 0; j < matrix_size-2; j++) temp.insert(temp.begin(), *(temp.end()-1-j));
 
         #pragma omp parallel for
-        for(int j = 0; j < sub_size; j+=2){
-            int index_signal = j*sub_step;
+        for(size_t j = 0; j < sub_size; j+=2){
+            size_t index_signal = j*sub_step;
             signal[index_signal] = 0;
             signal[index_signal+sub_step] = 0;
-            for (unsigned long m=0; m < matrix_size; m+=1){
+            for (size_t m=0; m < matrix_size; m+=1){
                 signal[index_signal]              += temp[j+m]*t_mat[m];
                 signal[index_signal+sub_step]     += temp[j+m]*t_mat[m+ matrix_size];
             }
@@ -73,12 +74,12 @@ auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, bool is_i
     }
 } 
 #else 
-auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, bool is_inverse) const -> void{
+auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const bool is_inverse) const -> void{
     dwtCU(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
 }
 #endif
   
-auto DiscreteWaveletTransform::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
+auto DiscreteWaveletTransform::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, const bool inverse) const -> void {
     auto& in_data = dynamic_cast<DiscreteWaveletTransform::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<DiscreteWaveletTransform::OutputSpace&>(out).data;
     if (!inverse) {

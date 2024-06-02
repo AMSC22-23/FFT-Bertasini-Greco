@@ -15,10 +15,12 @@ using namespace compression;
 
 auto Compressor::apply_dwt() -> void {
   DiscreteWaveletTransform2D dwt(tr, levels);
-  auto in_space = DiscreteWaveletTransform2D<tr.size()>::InputSpace(img);
-  auto &in_data = in_space.data;
+  auto in_space = dwt.get_input_space(img);
+  auto &in_data = dynamic_cast<DiscreteWaveletTransform2D::InputSpace&>(*in_space).data;
 
-  dwt.computeDWT2D(in_data, false);
+  img_size = img.size();
+
+  dwt(in_data, false);
   bit_reverse_image(in_data, levels);
 
   coeff = in_data;
@@ -96,6 +98,7 @@ auto Compressor::HuffmanEncoding(const string& filename) -> void {
   // 7. Write the Huffman map to the file
   int rows = coeff[0].size();
   int cols = coeff[0][0].size();
+  encoded_file.write((char*)&img_size, sizeof(img_size));
   encoded_file.write((char*)&rows, sizeof(int));
   encoded_file.write((char*)&cols, sizeof(int));
   encoded_file.write((char*)&levels, sizeof(levels));

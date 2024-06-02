@@ -18,14 +18,11 @@ namespace plt = matplotlibcpp;
 using namespace std;
 using namespace Typedefs;
 
-auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool truncate = true) {
+auto plot_stuff (vec& x, vec& y, vec& y2, vec& freq, vec& freq_filtered, const int N, const bool truncate = false) -> void
+{
     const int width = 1400;
     const int height = 700;
 
-    auto x = s.get_x();
-    auto y = s.get_signal();
-    auto y2 = s_filtered.get_signal();
-    
     // truncate to N
     if (truncate) {
         x.resize(N);
@@ -45,10 +42,10 @@ auto plot_stuff (const Signal& s, const Signal& s_filtered, const int& N, bool t
     plt::plot(x, y2, color); // Set plot color to brown
     plt::subplot(rows, cols, 3);
     plt::title("FFT");
-    plt::plot(s.get_fft_freqs(), color); // Set plot color to brown
+    plt::plot(freq, color); // Set plot color to brown
     plt::subplot(rows, cols, 4);
     plt::title("filtered FFT");
-    plt::plot(s_filtered.get_fft_freqs(), color); // Set plot color to brown
+    plt::plot(freq_filtered, color); // Set plot color to brown
     plt::save("output/fft.png");
     plt::show();
 }
@@ -60,21 +57,46 @@ auto main() -> int
     // generate signal
     const int N = 8192;
     
-    vector<double> freqs = {1, 500};
+    vector<double> freqs = {1, 100};
     vector<double> amps = {1, 0.1};
 
-    shared_ptr<Transform<vec>>fft = make_shared<DiscreteWaveletTransform>(TRANSFORM_MATRICES::HAAR, 4);
-    // shared_ptr<Transform<vec>>fft = make_shared<IterativeFastFourierTransform>();
+    cout << "Choose a transform: \n";
+    cout << "1. Discrete Wavelet Transform\n";
+    cout << "2. Discrete Fourier Transform\n";
+    cout << "3. Recursive Fast Fourier Transform\n";
+    cout << "4. Iterative Fast Fourier Transform\n";
+    int choice = 0;
+    cin >> choice;
 
-    Signal s(freqs, amps, N, fft);
+    unique_ptr<Transform<vec>>tr;
+    double freq_flat = 50.0;
 
-    Signal s_filtered(freqs, amps, N, fft);
+    if (choice == 1) {
+        freq_flat = 0.00625;
+        tr = make_unique<DiscreteWaveletTransform>(TRANSFORM_MATRICES::DAUBECHIES_D40, 10);
+    } else if (choice == 2) {
+        tr = make_unique<DiscreteFourierTransform>();
+    } else if (choice == 3) {
+        tr = make_unique<RecursiveFastFourierTransform>();
+    } else if (choice == 4) {
+        tr = make_unique<IterativeFastFourierTransform>();
+    } else {
+        cerr << "Invalid choice\n";
+        return -1;
+    }
 
-    // const double freq_flat = 50.0;
-    const double freq_flat = 0.0625;
-    s_filtered.denoise(freq_flat);
+    Signal s(freqs, amps, N, std::move(tr));
 
-    plot_stuff(s, s_filtered, N);
+    vec x = s.get_x();
+    vec y = s.get_signal();
+    vec freq = s.get_freqs();
+  
+    s.denoise(freq_flat);
+
+    vec y2 = s.get_signal();
+    vec freq_filtered = s.get_freqs();
+
+    plot_stuff(x, y, y2, freq, freq_filtered, N, true);
 
     return 0;
 }

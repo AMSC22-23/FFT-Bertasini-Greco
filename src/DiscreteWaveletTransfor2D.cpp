@@ -97,7 +97,7 @@ auto DiscreteWaveletTransform2D::OutputSpace::compress(const std::string& /*meth
                         data[c][i][j] = 0;
 }
 
-auto DiscreteWaveletTransform2D::computeDWT2D(Typedefs::vec3D& image, bool is_inverse) const -> void {
+auto DiscreteWaveletTransform2D::operator()(Typedefs::vec3D& image, bool is_inverse) const -> void {
     int channels = image.size();
     int rows = image[0].size();
     int cols = image[0][0].size();
@@ -168,14 +168,14 @@ auto DiscreteWaveletTransform2D::get_output_space() const -> std::unique_ptr<Tra
     return out;
 }
 
-auto DiscreteWaveletTransform2D::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, bool inverse) const -> void {
+auto DiscreteWaveletTransform2D::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, const bool inverse) const -> void {
     auto& in_data  = dynamic_cast<DiscreteWaveletTransform2D::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<DiscreteWaveletTransform2D::OutputSpace&>(out).data;
     if (!inverse) {
         out_data = in_data;
-        computeDWT2D(out_data, inverse);
+        operator()(out_data, inverse);
     } else {
         in_data = out_data;
-        computeDWT2D(in_data, inverse);
+        operator()(in_data, inverse);
     }
 }

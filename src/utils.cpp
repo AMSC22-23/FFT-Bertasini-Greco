@@ -1,10 +1,10 @@
-#include "utils.hpp"
 #include <fstream>
 #include <iostream>
 
+#include "utils.hpp"
+
 using namespace std;
 using namespace Typedefs;
-
 
 auto next_power_of_2(size_t n) -> size_t
 {
@@ -19,11 +19,11 @@ auto next_power_of_2(size_t n) -> size_t
     return n;
 }
 
-auto countSubdivisions(int i, int j, int size, int subdivisions) -> int {
-    int currentSize = size;
+auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int size, const unsigned int subdivisions) -> int {
+    auto currentSize = size;
 
-    for (int level = 0; level < subdivisions; ++level) {
-        int halfSize = currentSize / 2;
+    for (unsigned int level = 0; level < subdivisions; ++level) {
+        auto halfSize = currentSize / 2;
 
         if (i < halfSize && j < halfSize) {
             // Point is in the top-left submatrix
@@ -40,7 +40,7 @@ auto countSubdivisions(int i, int j, int size, int subdivisions) -> int {
     return 0;
 } 
 
-auto read_signal(const std::string& signal_file, vec& real_signal) -> void {
+auto read_signal(const string& signal_file, vec& real_signal) -> void {
   // read signal from file
     ifstream input_file_signal(signal_file);
     if (!input_file_signal.is_open()) {
@@ -51,15 +51,15 @@ auto read_signal(const std::string& signal_file, vec& real_signal) -> void {
     string line;
 
     if (getline(input_file_signal, line)) {
-        std::stringstream ss(line);
-        std::string value;
+        stringstream ss(line);
+        string value;
 
-        while (std::getline(ss, value, ',')) {
+        while (getline(ss, value, ',')) {
             if (!value.empty()) { 
                 try {
-                    real_signal.push_back(std::stod(value));
-                } catch (const std::invalid_argument& e) {
-                    std::cerr << "Invalid value found: " << value << std::endl;
+                    real_signal.push_back(stod(value));
+                } catch (const invalid_argument& e) {
+                    cerr << "Invalid value found: " << value << endl;
                     return;
                 }
             }

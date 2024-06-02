@@ -1,7 +1,7 @@
 #ifndef RECURSIVE_FAST_FOURIER_TRANSFORM_HPP
 #define RECURSIVE_FAST_FOURIER_TRANSFORM_HPP
 
-#include <FourierTransform.hpp>
+#include "FourierTransform.hpp"
 
 class RecursiveFastFourierTransform : public FourierTransform {
     private:

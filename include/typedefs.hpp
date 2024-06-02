@@ -14,7 +14,6 @@ namespace Typedefs {
     using vcpx   = std::vector<cpx>;
     using vcpx2D = std::vector<std::vector<cpx>>;
     using vcpx3D = std::vector<std::vector<std::vector<cpx>>>;
-    using ft     = std::function<auto (vcpx&, const bool, const int) -> void>;
 }
 
 #endif

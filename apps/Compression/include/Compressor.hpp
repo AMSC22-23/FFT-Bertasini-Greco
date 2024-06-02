@@ -10,6 +10,7 @@ class Compressor {
 private:
     cv::Mat img;
     Typedefs::vec3D coeff;
+    cv::Size img_size;
     int levels;
     auto apply_dwt() -> void;
     auto quantize_value(double& value, const double& step) -> void;
