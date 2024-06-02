@@ -12,9 +12,9 @@ namespace TRANSFORM_MATRICES
     {
       std::array<T, N * 2> forward;
       for (std::size_t i = 0; i < N; ++i)
-        forward[i] = arr[i] * M_SQRT1_2;
+        forward[i] = arr[i] / 2;
       for (std::size_t i = 0; i < N; ++i)
-        forward[N + i] = (i % 2 == 1 ? -1 : 1) * arr[N - i - 1] * M_SQRT1_2;
+        forward[N + i] = (i % 2 == 1 ? -1 : 1) * arr[N - i - 1] / 2;
       return forward;
     }
 
@@ -24,13 +24,13 @@ namespace TRANSFORM_MATRICES
       std::array<T, N> inverse;
       for (std::size_t i = N / 2 - 2; (int)i >= 0; i -= 2)
       {
-        inverse[N / 2 - i - 2] = arr[i];
-        inverse[N / 2 - i - 1] = arr[i + N / 2];
+        inverse[N / 2 - i - 2] = arr[i] * 2;
+        inverse[N / 2 - i - 1] = arr[i + N / 2]  * 2;
       }
       for (std::size_t i = N / 2 - 1; (int)i >= 1; i -= 2)
       {
-        inverse[N - i - 1] = arr[i];
-        inverse[N - i] = arr[i + N / 2];
+        inverse[N - i - 1] = arr[i] * 2;
+        inverse[N - i] = arr[i + N / 2] * 2;
       }
       return inverse;
     }

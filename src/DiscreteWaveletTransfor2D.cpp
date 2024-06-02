@@ -55,12 +55,12 @@ auto DiscreteWaveletTransform2D::OutputSpace::normalize_coefficients(Typedefs::v
     std::vector<std::vector<double>>  max_abs_val_details(channels, std::vector<double>(user_levels+1, 0));
     std::vector<std::vector<double>>  min_abs_val_details(channels, std::vector<double>(user_levels+1, 0));
 
-    
     for (int c = 0; c < channels; ++c) {
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
             
                 uint8_t point_level = countSubdivisions(i, j, rows, user_levels+1);
+                if (point_level == 0) continue;
                 if (max_abs_val_details[c][point_level]<std::abs(image[c][i][j])){
                     max_abs_val_details[c][point_level] = std::abs(image[c][i][j]);
 
@@ -76,6 +76,7 @@ auto DiscreteWaveletTransform2D::OutputSpace::normalize_coefficients(Typedefs::v
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 uint8_t point_level = countSubdivisions(i, j, rows, user_levels+1);
+                if (point_level == 0) continue;
                 image[c][i][j] = (image[c][i][j] - min_abs_val_details[c][point_level]) / (max_abs_val_details[c][point_level] - min_abs_val_details[c][point_level]) * 255;
             }
         }
