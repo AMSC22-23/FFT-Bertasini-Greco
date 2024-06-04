@@ -34,10 +34,11 @@ auto Compressor::quantize_value(double& value, const double& step) -> void {
 auto Compressor::quantize () -> void {
   const double tau = pow(2, R - c + (double)levels) * (1. + f / pow(2, 11));
   const int rows = coeff[0].size();
+  const int cols = coeff[0][0].size();
   for (size_t c = 0; c < coeff.size(); ++c)
     for (size_t i = 0; i < coeff[0].size(); ++i)
       for (size_t j = 0; j < coeff[0][0].size(); ++j){
-        int k = levels - countSubdivisions(i, j, rows, levels+1);
+        int k = levels - countSubdivisions(i, j, rows, cols, levels+1);
         if (k == levels) quantize_value(coeff[c][i][j], tau / pow(2, k));
         else quantize_value(coeff[c][i][j], tau / pow(2, k-compression_coeff));
       }

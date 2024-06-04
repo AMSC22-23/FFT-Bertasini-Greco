@@ -19,26 +19,29 @@ auto next_power_of_2(size_t n) -> size_t
     return n;
 }
 
-auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int size, const unsigned int subdivisions) -> int {
-    auto currentSize = size;
+auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -> int {
+    auto currentRows = rows;
+    auto currentCols = cols;
 
     for (unsigned int level = 0; level < subdivisions; ++level) {
-        auto halfSize = currentSize / 2;
+        auto halfRows = currentRows / 2;
+        auto halfCols = currentCols / 2;
 
-        if (i < halfSize && j < halfSize) {
+        if (i < halfRows && j < halfCols) {
             // Point is in the top-left submatrix
-            currentSize = halfSize;
+            currentRows = halfRows;
+            currentCols = halfCols;
         } else {
             // Adjust i and j for the next level of subdivision
-            if (i >= halfSize) i -= halfSize;
-            if (j >= halfSize) j -= halfSize;
+            if (i >= halfRows) i -= halfRows;
+            if (j >= halfCols) j -= halfCols;
             return subdivisions - level - 1; // Subtract 1 to make the count 0-based
         }
     }
 
     // If the point is not in the top-left submatrix after all subdivisions
     return 0;
-} 
+}
 
 auto read_signal(const string& signal_file, vec& real_signal) -> void {
   // read signal from file

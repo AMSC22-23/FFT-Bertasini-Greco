@@ -44,7 +44,7 @@ int main()
 
   string compressed_file = "output/compressed_lena.gb";
 
-  compressor.compress(compressed_file, og_image, 3);
+  compressor.compress(compressed_file, og_image, 2);
   decompressor.decompress(compressed_file, decompressed_image);
 
   imshow("Original Image", og_image);
