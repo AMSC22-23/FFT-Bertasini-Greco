@@ -109,12 +109,14 @@ int main () {
 
     namedWindow("TR Image", WINDOW_NORMAL);
     imshow("TR Image",tr_unfiltered);
+    imwrite("output/tr_unfiltered.png", tr_unfiltered);
 
     namedWindow("TR Image filtered", WINDOW_NORMAL);
     imshow("TR Image filtered", tr_filtered);
 
     namedWindow("Inverse TR Image", WINDOW_NORMAL);
     imshow("Inverse TR Image", output_image);
+    imwrite("output/output_image.png", output_image);
 
     waitKey(0);
 }

@@ -33,7 +33,8 @@ __global__ void transformKernel(double* signal, const double* t_mat, const doubl
     }
 }
 
-auto dwtCU(Typedefs::vec &signal, bool is_inverse, const std::span<const double> &transform_matrix, const std::span<const double>& inverse_matrix, const int user_levels) -> void {
+auto dwtCU(Typedefs::vec &signal, const bool is_inverse, const std::span<const Typedefs::DType> &transform_matrix, const std::span<const Typedefs::DType> &inverse_matrix, const uint8_t user_levels) -> void
+{
     auto& t_mat = is_inverse ? inverse_matrix : transform_matrix;
     const unsigned long matrix_size = t_mat.size() / 2;
 
