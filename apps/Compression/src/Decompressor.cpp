@@ -121,9 +121,9 @@ auto Decompressor::decompress(const std::string& filename, cv::Mat& img) -> void
     apply_idwt();
     
     img.create(img_size, CV_64FC3);
-    for (size_t c = 0; c < coeff.size(); ++c)
-        for (size_t i = 0; i < img_size.height; ++i)
-            for (size_t j = 0; j < img_size.width; ++j)
+    for (auto c = 0ull; c < coeff.size(); ++c)
+        for (auto i = 0; i < img_size.height; ++i)
+            for (auto j = 0; j < img_size.width; ++j)
                 img.at<cv::Vec3d>(i, j)[c] = coeff[c][i][j];
     img.convertTo(img, CV_8UC3);
 
