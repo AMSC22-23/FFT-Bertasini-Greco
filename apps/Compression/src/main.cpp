@@ -49,6 +49,8 @@ int main()
 
   imshow("Original Image", og_image);
   imshow("Decompressed Image", decompressed_image);
+  imwrite("output/original_lena.jpg", og_image);
+  imwrite("output/compressed_lena.jpg", decompressed_image);
 
   waitKey(0);
 }
