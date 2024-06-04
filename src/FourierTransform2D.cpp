@@ -6,7 +6,7 @@ using namespace std;
 using namespace cv;
 using namespace Typedefs;
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 FourierTransform2D<FT>::InputSpace::InputSpace(const cv::Mat& og_image) {
     cv::Mat image;
     og_image.convertTo(image, CV_64FC3);
@@ -20,7 +20,7 @@ FourierTransform2D<FT>::InputSpace::InputSpace(const cv::Mat& og_image) {
                 data[c][i][j] = Typedefs::cpx(image.at<Vec3d>(i, j)[c], 0.0);
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::InputSpace::get_data() const -> cv::Mat {
     auto channels = data.size();
     auto rows = data[0].size();
@@ -34,7 +34,7 @@ auto FourierTransform2D<FT>::InputSpace::get_data() const -> cv::Mat {
     return img_char;
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 void FourierTransform2D<FT>::OutputSpace::rearrenge_quadrants_to_center(Typedefs::vcpx3D& data_to_arrange) const {
 {
     auto channels = data_to_arrange.size();
@@ -73,7 +73,7 @@ void FourierTransform2D<FT>::OutputSpace::rearrenge_quadrants_to_center(Typedefs
     }
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::OutputSpace::get_plottable_representation() const -> cv::Mat
 {
     auto tmp = data;
@@ -88,7 +88,7 @@ auto FourierTransform2D<FT>::OutputSpace::get_plottable_representation() const -
     return fft_image_colored;
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::OutputSpace::compress(const std::string& method, const double kept) -> void {
     rearrenge_quadrants_to_center(data);
     if (method == "filter_freqs") {
@@ -101,7 +101,7 @@ auto FourierTransform2D<FT>::OutputSpace::compress(const std::string& method, co
     rearrenge_quadrants_to_center(data);
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 void FourierTransform2D<FT>::OutputSpace::pass_filter(const double cutoff_perc, const bool is_high_pass) 
 {
     auto  channels = data.size();
@@ -124,7 +124,7 @@ void FourierTransform2D<FT>::OutputSpace::pass_filter(const double cutoff_perc, 
                     data[c][i][j] = 0.0;
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 void FourierTransform2D<FT>::OutputSpace::magnitude_filter(double cutoff_percentage) {
     auto channels = data.size();
     auto rows = data[0].size();
@@ -151,7 +151,7 @@ void FourierTransform2D<FT>::OutputSpace::magnitude_filter(double cutoff_percent
                     data[c][i][j] = 0.0;
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::compute2DFFT(Typedefs::vcpx3D& fft_coeff, const bool is_inverse) const -> void {
     auto channels = fft_coeff.size();
     auto rows = fft_coeff[0].size();
@@ -177,7 +177,7 @@ auto FourierTransform2D<FT>::compute2DFFT(Typedefs::vcpx3D& fft_coeff, const boo
     }
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::get_input_space(const cv::Mat& og_image) const -> std::unique_ptr<Transform::InputSpace> {
     Mat image;
 
@@ -194,13 +194,13 @@ auto FourierTransform2D<FT>::get_input_space(const cv::Mat& og_image) const -> s
     return in;
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::get_output_space() const -> std::unique_ptr<Transform::OutputSpace> {
     std::unique_ptr<Transform::OutputSpace> out = std::make_unique<FourierTransform2D::OutputSpace>();
     return out;
 }
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 auto FourierTransform2D<FT>::operator()(Transform::InputSpace& in, Transform::OutputSpace& out, const bool inverse) const -> void {
     auto& in_data = dynamic_cast<FourierTransform2D::InputSpace&>(in).data;
     auto& out_data = dynamic_cast<FourierTransform2D::OutputSpace&>(out).data;

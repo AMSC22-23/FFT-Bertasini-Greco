@@ -7,7 +7,7 @@
 #include "RecursiveFastFourierTransform.hpp"
 #include "DiscreteFourierTransform.hpp"
 
-template <class FT>
+template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 class FourierTransform2D : public Transform<cv::Mat> {
     private:
     FT ft;
