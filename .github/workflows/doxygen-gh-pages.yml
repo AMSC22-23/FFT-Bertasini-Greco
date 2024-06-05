@@ -13,3 +13,4 @@ jobs:
         with:
           github_token: ${{ secrets.DOX_TOKEN }}
           config_file: docs/Doxyfile
+          folder: html
