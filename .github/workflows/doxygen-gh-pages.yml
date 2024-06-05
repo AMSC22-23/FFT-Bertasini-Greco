@@ -9,7 +9,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
+      - name: Clone awesome doxygen repository # https://github.com/jothepro/doxygen-awesome-css.git
+        uses: actions/checkout@v4
+        with:
+          repository: jothepro/doxygen-awesome-css
+          ref: main
+      - name: Generate Doxygen documentation
+        uses: DenverCoder1/doxygen-github-pages-action@v1.3.0
         with:
           github_token: ${{ secrets.DOX_TOKEN }}
           config_file: docs/Doxyfile
