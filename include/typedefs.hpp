@@ -1,3 +1,8 @@
+/**
+* @file typedefs.hpp
+* @brief Defines type aliases for commonly used data types.
+*/
+
 #ifndef TYPEDEFS_HPP
 #define TYPEDEFS_HPP
 

@@ -8,7 +8,7 @@ ODIR = obj
 OUTDIR = output
 LIBDIR = lib
 
-FFTLIB = fft
+TRLIB = tr
 
 SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test $(LIBDIR)
 
@@ -94,7 +94,7 @@ _TESTOBJ = $(_TESTCXXFILES:.cpp=.o)
 TEST_OBJ = $(patsubst $(TDIR)/%,$(ODIR)/test/%,$(_TESTOBJ))
 
 TEST_TARGET := $(BINDIR)/test
-LIBRARY_TARGET := $(LIBDIR)/libfft.a
+LIBRARY_TARGET := $(LIBDIR)/libtr.a
 
 $(LIBRARY_TARGET): $(OBJ) | subdirs
 	@echo "Building library"
@@ -115,7 +115,7 @@ $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS) -DUSE_CUDA=$(USE_CUDA)
 
 $(TEST_TARGET): $(TEST_OBJ) | $(LIBRARY_TARGET)
-	$(CXX) -o $@ $^ $(LDFLAGS) -L$(LIBDIR) -l$(FFTLIB)
+	$(CXX) -o $@ $^ $(LDFLAGS) -L$(LIBDIR) -l$(TRLIB)
 
 $(ODIR)/test/%.o: $(TDIR)/%.cpp $(DEPS)
 	$(CXX) -c -o $@ $< $(CXXFLAGS)

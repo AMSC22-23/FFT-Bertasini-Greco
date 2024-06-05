@@ -1,9 +1,5 @@
 # FFT-B(ernoulli)G(auss)
 
-## Introduction
-
-This is a simple implementation of the Fast Fourier Transform (FFT) algorithm in c++ for the course of Advanced Programming for Scientific Computing at Politecnico di Milano.
-
 ## Prerequisites
 
 In order to compile and run this program, you need the following:
@@ -13,22 +9,57 @@ In order to compile and run this program, you need the following:
 - python3
 - matplotlib
 - numpy
+- opencv (c++)
+
+Install the required packages:
+
+```
+sudo apt-get install g++
+sudo apt-get install make
+sudo apt-get install python3
+sudo apt-get install python3-matplotlib
+sudo apt-get install python3-numpy
+sudo apt-get install libopencv-dev
+```
 
 ## Usage
 
-There are two ways to use this program: 
-
-1. Using the built-in demo program:
+Clone the repository:
 
 ```
-make run 
+git clone https://github.com/AMSC22-23/FFT-Bertasini-Greco.git
 ```
 
-2. Running the accuracy and speed tests:bbbbbb
+Compile the library:
 
 ```
-make test
+cd FFT-Bertasini-Greco
+make
 ```
+
+The library will be compiled in the `lib` folder.
+
+## Applications
+
+Three applications are provided in the `app` folder:
+
+1. `app/Signal`: computes a transformation of a regular with noise and denoises it, plots the result.
+2. `app/Image`: computes a ètransformation of a given image and plots the result.
+3. `app/Compression`: compresses an image using the DWT and generates a compressed file.
+
+Each Application can be compiled using the following command:
+
+```
+make
+```
+
+Once compiled the application can be run using the following command:
+
+```
+make run
+```
+
+For all of them an interactive session will start asking the user with some kind of parameters, for a faster demo run is also possible to just press enter to use the default parameters.
 
 
 ## Authors

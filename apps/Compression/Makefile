@@ -6,9 +6,9 @@ BINDIR = bin
 ODIR = obj
 OUTDIR = output
 
-FFTIDIR = ../../include
-FFTLIBPATH  = ../../lib
-FFTLIB = fft
+TRIDIR = ../../include
+TRLIBPATH  = ../../lib
+TRLIB = tr
 
 SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR)
 
@@ -30,8 +30,8 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
-CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS) -I$(FFTIDIR) 
-LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) -L$(FFTLIBPATH) -l$(FFTLIB)
+CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS) -I$(TRIDIR) 
+LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) -L$(TRLIBPATH) -l$(TRLIB)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 

@@ -32,6 +32,12 @@ int main()
   if (tmp.empty()) cout << "Using default image: " << img_path << endl;
   else img_path = tmp;
 
+  int n_levels = 2;
+  cout << "Insert the number of levels for the transform:[newline for default] ";
+  getline(cin, tmp);
+  if (tmp.empty()) cout << "Using default levels: " << n_levels << endl;
+  else n_levels = stoi(tmp);
+
   Mat og_image = imread(img_path), decompressed_image;
   // Mat og_image = imread("input/milano.jpg");
   if (og_image.empty())
@@ -44,7 +50,7 @@ int main()
 
   string compressed_file = "output/compressed_lena.gb";
 
-  compressor.compress(compressed_file, og_image, 2);
+  compressor.compress(compressed_file, og_image, n_levels);
   decompressor.decompress(compressed_file, decompressed_image);
 
   imshow("Original Image", og_image);

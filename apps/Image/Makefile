@@ -6,9 +6,9 @@ BINDIR = bin
 ODIR = obj
 OUTDIR = output
 
-FFTIDIR = ../../include
-FFTLIBPATH  = ../../lib
-FFTLIB = fft
+TRIDIR = ../../include
+TRLIBPATH  = ../../lib
+TRLIB = tr
 
 SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR)
 
@@ -44,8 +44,8 @@ ifneq ($(NVCC),)
 	CUDA_LINK_LIBS= -lcudart
 endif
 
-CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS) -I$(FFTIDIR) 
-LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) -L$(FFTLIBPATH) -l$(FFTLIB) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
+CXXFLAGS= -I$(IDIR) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) $(CV_FLAGS) -I$(TRIDIR) 
+LDFLAGS = $(LOMPFLAGS) $(CV_LIBS) -L$(TRLIBPATH) -l$(TRLIB) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 

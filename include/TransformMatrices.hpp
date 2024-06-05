@@ -1,3 +1,8 @@
+/**
+* @file TransformMatrices.hpp
+* @brief Defines transform matrices for various wavelet families.
+*/
+
 #ifndef TRANSFORM_MAT
 #define TRANSFORM_MAT
 
@@ -5,46 +10,66 @@
 
 #include "typedefs.hpp"
 
-namespace TRANSFORM_MATRICES
-{   
-  namespace TRANSFORM
-  {
-    template <typename T, std::size_t N>
-    constexpr auto generate_forward(const std::array<T, N> &arr)
-    {
-      std::array<T, N * 2> forward;
-      for (std::size_t i = 0; i < N; ++i)
-        forward[i] = arr[i] / 2;
-      for (std::size_t i = 0; i < N; ++i)
-        forward[N + i] = (i % 2 == 1 ? -1 : 1) * arr[N - i - 1] / 2;
-      return forward;
-    }
+namespace TRANSFORM_MATRICES {
+   namespace TRANSFORM {
+       /**
+        * @brief Generate the forward transform matrix from a scaling matrix.
+        * @tparam T The data type of the matrix elements.
+        * @tparam N The size of the scaling matrix.
+        * @param arr The scaling matrix.
+        * @return The forward transform matrix.
+        */
+       template <typename T, std::size_t N>
+       constexpr auto generate_forward(const std::array<T, N>& arr) {
+           std::array<T, N * 2> forward;
+           for (std::size_t i = 0; i < N; ++i)
+               forward[i] = arr[i] / 2;
+           for (std::size_t i = 0; i < N; ++i)
+               forward[N + i] = (i % 2 == 1 ? -1 : 1) * arr[N - i - 1] / 2;
+           return forward;
+       }
 
-    template <typename T, std::size_t N>
-    constexpr auto generate_inverse(const std::array<T, N> &arr)
-    {
-      std::array<T, N> inverse;
-      for (std::size_t i = N / 2 - 2; (int)i >= 0; i -= 2)
-      {
-        inverse[N / 2 - i - 2] = arr[i] * 2;
-        inverse[N / 2 - i - 1] = arr[i + N / 2]  * 2;
-      }
-      for (std::size_t i = N / 2 - 1; (int)i >= 1; i -= 2)
-      {
-        inverse[N - i - 1] = arr[i] * 2;
-        inverse[N - i] = arr[i + N / 2] * 2;
-      }
-      return inverse;
-    }
-  };
-    template <typename T, std::size_t N>
-    struct TransformMatrix
-    {
-      public:
-      std::array<T, N*2> forward;
-      std::array<T, N*2> inverse;
-      constexpr TransformMatrix(const std::array<T, N>& scaling_matrix) : forward(TRANSFORM::generate_forward(scaling_matrix)), inverse(TRANSFORM::generate_inverse(forward)) {}
-    };
+       /**
+        * @brief Generate the inverse transform matrix from a scaling matrix.
+        * @tparam T The data type of the matrix elements.
+        * @tparam N The size of the scaling matrix.
+        * @param arr The scaling matrix.
+        * @return The inverse transform matrix.
+        */
+       template <typename T, std::size_t N>
+       constexpr auto generate_inverse(const std::array<T, N>& arr) {
+           std::array<T, N> inverse;
+           for (std::size_t i = N / 2 - 2; (int)i >= 0; i -= 2) {
+               inverse[N / 2 - i - 2] = arr[i] * 2;
+               inverse[N / 2 - i - 1] = arr[i + N / 2] * 2;
+           }
+           for (std::size_t i = N / 2 - 1; (int)i >= 1; i -= 2) {
+               inverse[N - i - 1] = arr[i] * 2;
+               inverse[N - i] = arr[i + N / 2] * 2;
+           }
+           return inverse;
+       }
+   }
+
+   /**
+    * @brief Struct representing a transform matrix with forward and inverse matrices.
+    * @tparam T The data type of the matrix elements.
+    * @tparam N The size of the scaling matrix.
+    */
+   template <typename T, std::size_t N>
+   struct TransformMatrix {
+   public:
+       std::array<T, N * 2> forward; /**< The forward transform matrix. */
+       std::array<T, N * 2> inverse; /**< The inverse transform matrix. */
+
+       /**
+        * @brief Constructor for the TransformMatrix struct.
+        * @param scaling_matrix The scaling matrix.
+        */
+       constexpr TransformMatrix(const std::array<T, N>& scaling_matrix)
+           : forward(TRANSFORM::generate_forward(scaling_matrix)),
+             inverse(TRANSFORM::generate_inverse(forward)) {}
+   };
 
     constexpr TransformMatrix <Typedefs::DType, 2>  HAAR            = {{1, 1}};
     constexpr TransformMatrix <Typedefs::DType, 4>  DAUBECHIES_D4   = {{0.6830127, 1.1830127, 0.3169873, -0.1830127}};

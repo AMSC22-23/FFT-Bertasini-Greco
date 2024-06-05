@@ -6,9 +6,9 @@ BINDIR = bin
 ODIR = obj
 OUTDIR = output
 
-FFTIDIR = ../../include
-FFTLIBPATH  = ../../lib
-FFTLIB = fft
+TRIDIR = ../../include
+TRLIBPATH  = ../../lib
+TRLIB = tr
 
 SUBDIRS = $(IDIR) $(SDIR) $(TDIR) $(BINDIR) $(OUTDIR) $(ODIR) $(ODIR)/test
 
@@ -50,8 +50,8 @@ else
 	LOMPFLAGS := -fopenmp
 endif
 
-CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) -I$(FFTIDIR) -Wno-deprecated-declarations
-LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) -L$(FFTLIBPATH) -l$(FFTLIB) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
+CXXFLAGS= -I$(IDIR) -I$(IPYTHON) -I$(INUMPY) -std=c++20 -g -O$(O_LEVEL) -Wall -Wextra $(CXXOMPFLAGS) -I$(TRIDIR) -Wno-deprecated-declarations
+LDFLAGS = -L$(LPYTHON) -l$(LIBPYTHON) $(LOMPFLAGS) -L$(TRLIBPATH) -l$(TRLIB) $(CUDA_LIB_DIR) $(CUDA_LINK_LIBS)
 
 DEPS = $(IDIR)/$(wildcard *.hpp *.cuh)
 

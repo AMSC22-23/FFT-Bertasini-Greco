@@ -38,15 +38,15 @@ auto plot_stuff (vec& x, vec& y, vec& y2, vec& freq, vec& freq_filtered, const i
     plt::title("Original signal");
     plt::plot(x, y, color); // Set plot color to brown
     plt::subplot(rows, cols, 2);
-    plt::title("Inverse FFT");
+    plt::title("Inverse");
     plt::plot(x, y2, color); // Set plot color to brown
     plt::subplot(rows, cols, 3);
-    plt::title("FFT");
+    plt::title("Transformed");
     plt::plot(freq, color); // Set plot color to brown
     plt::subplot(rows, cols, 4);
-    plt::title("filtered FFT");
+    plt::title("Filtered");
     plt::plot(freq_filtered, color); // Set plot color to brown
-    plt::save("output/fft.png");
+    plt::save("output/tr.png");
     plt::show();
 }
 
@@ -60,13 +60,17 @@ auto main() -> int
     vector<double> freqs = {1, 100};
     vector<double> amps = {1, 0.1};
 
-    cout << "Choose a transform: \n";
+    cout << "Choose a transform:[newline for default]\n";
     cout << "1. Discrete Wavelet Transform\n";
     cout << "2. Discrete Fourier Transform\n";
     cout << "3. Recursive Fast Fourier Transform\n";
-    cout << "4. Iterative Fast Fourier Transform\n";
-    int choice = 0;
-    cin >> choice;
+    cout << "4. Iterative Fast Fourier Transform [DEFAULT]\n";
+    int choice = 4;
+
+    string tmp;
+    getline(cin, tmp);
+    if (tmp.empty()) cout << "Using default FFT\n";
+    else choice = stoi(tmp);
 
     unique_ptr<Transform<vec>>tr;
     double freq_flat = 50.0;
