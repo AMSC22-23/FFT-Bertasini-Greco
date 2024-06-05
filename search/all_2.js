@@ -12,7 +12,5 @@ var searchData=
   ['bit_5freversed_5findex_16',['bit_reversed_index',['../bitreverse_8cpp.html#a2b64bcd8077ed2a528d4f1a218ace414',1,'bitreverse.cpp']]],
   ['bitreverse_2ecpp_17',['bitreverse.cpp',['../bitreverse_8cpp.html',1,'']]],
   ['bitreverse_2ehpp_18',['bitreverse.hpp',['../bitreverse_8hpp.html',1,'']]],
-  ['blue_19',['blue',['../namespaceMyLibrary.html#a79a9f4bbb675f6c082b09249c5a95ceda3d4a113e58853e5d81725d92fbfceb4d',1,'MyLibrary']]],
-  ['boxplot_20',['boxplot',['../namespacematplotlibcpp.html#a22ede3febeee832b620c90a8c2e55854',1,'matplotlibcpp::boxplot(const std::vector&lt; std::vector&lt; Numeric &gt;&gt; &amp;data, const std::vector&lt; std::string &gt; &amp;labels={}, const std::map&lt; std::string, std::string &gt; &amp;keywords={})'],['../namespacematplotlibcpp.html#a97d82f6044902f9120a16f55bfcbf7a0',1,'matplotlibcpp::boxplot(const std::vector&lt; Numeric &gt; &amp;data, const std::map&lt; std::string, std::string &gt; &amp;keywords={})']]],
-  ['bug_20list_21',['Bug List',['../bug.html',1,'']]]
+  ['boxplot_19',['boxplot',['../namespacematplotlibcpp.html#a22ede3febeee832b620c90a8c2e55854',1,'matplotlibcpp::boxplot(const std::vector&lt; std::vector&lt; Numeric &gt;&gt; &amp;data, const std::vector&lt; std::string &gt; &amp;labels={}, const std::map&lt; std::string, std::string &gt; &amp;keywords={})'],['../namespacematplotlibcpp.html#a97d82f6044902f9120a16f55bfcbf7a0',1,'matplotlibcpp::boxplot(const std::vector&lt; Numeric &gt; &amp;data, const std::map&lt; std::string, std::string &gt; &amp;keywords={})']]]
 ];

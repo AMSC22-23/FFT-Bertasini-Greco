@@ -25,11 +25,6 @@ var annotated_dup =
       ] ],
       [ "Plot", "classmatplotlibcpp_1_1Plot.html", "classmatplotlibcpp_1_1Plot" ]
     ] ],
-    [ "MyLibrary", "namespaceMyLibrary.html", [
-      [ "Example", "classMyLibrary_1_1Example.html", "classMyLibrary_1_1Example" ],
-      [ "SecondExample", "classMyLibrary_1_1SecondExample.html", null ],
-      [ "SubclassExample", "classMyLibrary_1_1SubclassExample.html", "classMyLibrary_1_1SubclassExample" ]
-    ] ],
     [ "TRANSFORM_MATRICES", "namespaceTRANSFORM__MATRICES.html", [
       [ "TransformMatrix", "structTRANSFORM__MATRICES_1_1TransformMatrix.html", "structTRANSFORM__MATRICES_1_1TransformMatrix" ]
     ] ],

@@ -15,7 +15,6 @@ var namespaces_dup =
       [ "generate_fft", "namespacegenerate__fft.html#afa2a202bd7d4bcf138fefcfb18e1fe85", null ]
     ] ],
     [ "matplotlibcpp", "namespacematplotlibcpp.html", "namespacematplotlibcpp" ],
-    [ "MyLibrary", "namespaceMyLibrary.html", "namespaceMyLibrary" ],
     [ "plot_scaling_tests_results", "namespaceplot__scaling__tests__results.html", [
       [ "b", "namespaceplot__scaling__tests__results.html#a3f76583abf0bb4315240e7d2105ed619", null ],
       [ "color", "namespaceplot__scaling__tests__results.html#a14caabc66fd8c0a7464c05b92b7ec534", null ],
