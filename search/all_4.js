@@ -15,17 +15,18 @@ var searchData=
   ['decompressor_2ehpp_55',['Decompressor.hpp',['../Decompressor_8hpp.html',1,'']]],
   ['denoise_56',['denoise',['../classSignal.html#a67c9278fe4019182616a8814ecba9cfa',1,'Signal::denoise()'],['../classFourierTransform_1_1OutputSpace.html#a1f504e0b4257cc0d701dfd70b16a6b0f',1,'FourierTransform::OutputSpace::denoise()']]],
   ['derived_57',['Derived',['../structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Derived.html',1,'matplotlibcpp::detail::is_callable_impl&lt; true, T &gt;']]],
-  ['discretefouriertransform_58',['DiscreteFourierTransform',['../classDiscreteFourierTransform.html#a865ae12b58972c4584b4f81a00be2982',1,'DiscreteFourierTransform::DiscreteFourierTransform()'],['../classDiscreteFourierTransform.html',1,'DiscreteFourierTransform']]],
+  ['discretefouriertransform_58',['DiscreteFourierTransform',['../classDiscreteFourierTransform.html',1,'DiscreteFourierTransform'],['../classDiscreteFourierTransform.html#a865ae12b58972c4584b4f81a00be2982',1,'DiscreteFourierTransform::DiscreteFourierTransform()']]],
   ['discretefouriertransform_2ecpp_59',['DiscreteFourierTransform.cpp',['../DiscreteFourierTransform_8cpp.html',1,'']]],
   ['discretefouriertransform_2ehpp_60',['DiscreteFourierTransform.hpp',['../DiscreteFourierTransform_8hpp.html',1,'']]],
   ['discretewavelettransfor2d_2ecpp_61',['DiscreteWaveletTransfor2D.cpp',['../DiscreteWaveletTransfor2D_8cpp.html',1,'']]],
   ['discretewavelettransform_62',['DiscreteWaveletTransform',['../classDiscreteWaveletTransform.html#abffd3ab124d2af12e89b662d9c54a659',1,'DiscreteWaveletTransform::DiscreteWaveletTransform()'],['../classDiscreteWaveletTransform.html',1,'DiscreteWaveletTransform']]],
   ['discretewavelettransform_2ecpp_63',['DiscreteWaveletTransform.cpp',['../DiscreteWaveletTransform_8cpp.html',1,'']]],
   ['discretewavelettransform_2ehpp_64',['DiscreteWaveletTransform.hpp',['../DiscreteWaveletTransform_8hpp.html',1,'']]],
-  ['discretewavelettransform2d_65',['DiscreteWaveletTransform2D',['../classDiscreteWaveletTransform2D.html#a149cde919a7e61a166728dd902cc97ff',1,'DiscreteWaveletTransform2D::DiscreteWaveletTransform2D()'],['../classDiscreteWaveletTransform2D.html',1,'DiscreteWaveletTransform2D']]],
+  ['discretewavelettransform2d_65',['DiscreteWaveletTransform2D',['../classDiscreteWaveletTransform2D.html',1,'DiscreteWaveletTransform2D'],['../classDiscreteWaveletTransform2D.html#a149cde919a7e61a166728dd902cc97ff',1,'DiscreteWaveletTransform2D::DiscreteWaveletTransform2D()']]],
   ['discretewavelettransform2d_2ehpp_66',['DiscreteWaveletTransform2D.hpp',['../DiscreteWaveletTransform2D_8hpp.html',1,'']]],
   ['draw_67',['draw',['../namespacematplotlibcpp.html#acd9fc5bb7916c735390c2056214b12be',1,'matplotlibcpp']]],
   ['dtype_68',['dtype',['../structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4.html#aedc864521ba0dc4e9e01eb1d8a32bcbc',1,'matplotlibcpp::detail::is_callable_impl&lt; true, T &gt;']]],
   ['dtype_69',['DType',['../namespaceTypedefs.html#a39fb93d67835634d22fe8e43dd3e9ad5',1,'Typedefs']]],
-  ['dwt_5ftests_70',['dwt_tests',['../test__dwt_8hpp.html#a54830af94574de63cb29d14181bf4f64',1,'test_dwt.hpp']]]
+  ['dwt_26fft_20by_20bertasini_26greco_70',['DWT&amp;FFT by Bertasini&amp;Greco',['../index.html',1,'']]],
+  ['dwt_5ftests_71',['dwt_tests',['../test__dwt_8hpp.html#a54830af94574de63cb29d14181bf4f64',1,'test_dwt.hpp']]]
 ];

@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['f_72',['f',['../namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade',1,'compression']]],
-  ['fallback_73',['Fallback',['../structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Fallback.html',1,'matplotlibcpp::detail::is_callable_impl&lt; true, T &gt;']]],
-  ['fft_2db_28ernoulli_29g_28auss_29_74',['FFT-B(ernoulli)G(auss)',['../index.html',1,'']]],
+  ['f_73',['f',['../namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade',1,'compression']]],
+  ['fallback_74',['Fallback',['../structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Fallback.html',1,'matplotlibcpp::detail::is_callable_impl&lt; true, T &gt;']]],
   ['fft_5ftests_75',['fft_tests',['../test__fft_8hpp.html#a45b22374ce84fd6e20659ddc46d08c07',1,'test_fft.hpp']]],
   ['fignum_5fexists_76',['fignum_exists',['../namespacematplotlibcpp.html#a63173b57d788807c1c6860dbc7961e40',1,'matplotlibcpp']]],
   ['figure_77',['figure',['../namespacematplotlibcpp.html#a34e6ea8c8ee6779fe909ecac2ef945c8',1,'matplotlibcpp']]],

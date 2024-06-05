@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "Transform Library", "index.html", [
-    [ "FFT-B(ernoulli)G(auss)", "index.html", [
+    [ "DWT&FFT by Bertasini&Greco", "index.html", [
       [ "Prerequisites", "index.html#autotoc_md1", null ],
       [ "Usage", "index.html#autotoc_md2", null ],
       [ "Applications", "index.html#autotoc_md3", null ],
