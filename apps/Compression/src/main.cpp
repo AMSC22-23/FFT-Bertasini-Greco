@@ -46,17 +46,20 @@ int main()
     return -1;
   }
 
+  string base_name = img_path.substr(img_path.find_last_of("/\\") + 1);
+  base_name = base_name.substr(0, base_name.find_last_of("."));
+
   Compressor compressor; Decompressor decompressor;
 
-  string compressed_file = "output/compressed_lena.gb";
+  string compressed_file = "output/" + base_name + ".gb";
 
   compressor.compress(compressed_file, og_image, n_levels);
   decompressor.decompress(compressed_file, decompressed_image);
 
   imshow("Original Image", og_image);
   imshow("Decompressed Image", decompressed_image);
-  imwrite("output/original_lena.jpg", og_image);
-  imwrite("output/compressed_lena.jpg", decompressed_image);
+  imwrite("output/" + base_name + ".jpg", og_image);
+  imwrite("output/" + base_name + "_compressed.jpg", decompressed_image);
 
   waitKey(0);
 }

@@ -16,7 +16,7 @@ CXX := g++
 
 O_LEVEL = 3
 
-CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion
+CVWARNINGS_SUPPRESS = -Wno-deprecated-anon-enum-enum-conversion -Wno-deprecated-enum-enum-conversion
 
 CV_FLAGS = `pkg-config --cflags opencv4` $(CVWARNINGS_SUPPRESS)
 CV_LIBS = `pkg-config --libs opencv4`
