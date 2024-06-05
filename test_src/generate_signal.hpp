@@ -1,36 +1,32 @@
 #include <iostream>
 #include <fstream>
 
-#include <typedefs.hpp>
+#include "typedefs.hpp"
 
-#include <DiscreteFourierTransform.hpp>
-#include <RecursiveFastFourierTransform.hpp>
-#include <IterativeFastFourierTransform.hpp>
+#include "DiscreteFourierTransform.hpp"
+#include "RecursiveFastFourierTransform.hpp"
+#include "IterativeFastFourierTransform.hpp"
 
-#include <bitreverse.hpp>
-#include <utils.hpp>
+#include "bitreverse.hpp"
+#include "utils.hpp"
 
-#include <time_evaluator.hpp>
+#include "time_evaluator.hpp"
 
-using namespace std;
-using namespace Typedefs;
-
-
-auto generate_signal_to_file(const string& output_folder) -> int
+auto generate_signal_to_file(const std::string& output_folder) -> int
 {
     srand(time(nullptr));
 
-    const string signal_file = output_folder + string("/signal.txt");
+    const std::string signal_file = output_folder + std::string("/signal.txt");
 
-    ofstream output_file_signal(signal_file);
+    std::ofstream output_file_signal(signal_file);
     if (!output_file_signal.is_open()) {
-        cout << "Could not open file " << signal_file << '\n';
+        std::cout << "Could not open file " << signal_file << '\n';
         return 1;
     }
 
     const int N = 8388608;
-    vec freqs = {1};
-    vec amps = {1};
+    Typedefs::vec freqs = {1};
+    Typedefs::vec amps = {1};
     bool padding = true;
 
     const int number_of_noises = 100;
@@ -40,11 +36,11 @@ auto generate_signal_to_file(const string& output_folder) -> int
         amps.push_back((arc4random() % 100) / 1000.0);
     }
 
-    auto x = vec();
-    auto signal = vec();
+    auto x = Typedefs::vec();
+    auto signal = Typedefs::vec();
 
     auto is_padding_needed = N & (N - 1);
-    auto correct_padding = (is_padding_needed && padding) ? next_power_of_2(N) : N;
+    auto correct_padding = (is_padding_needed && padding) ? tr::utils::next_power_of_2(N) : N;
 
     x.resize(N * 2, 0);
     signal.resize(correct_padding, 0);
@@ -58,9 +54,9 @@ auto generate_signal_to_file(const string& output_folder) -> int
 
 
     //write signal to file
-    output_file_signal.precision(numeric_limits<double>::max_digits10);
+    output_file_signal.precision(std::numeric_limits<double>::max_digits10);
     for (auto i : signal) output_file_signal << i << ",";
-    output_file_signal.seekp(-1, ios_base::end);    
+    output_file_signal.seekp(-1, std::ios_base::end);    
     output_file_signal << "\n";
 
     output_file_signal.close();

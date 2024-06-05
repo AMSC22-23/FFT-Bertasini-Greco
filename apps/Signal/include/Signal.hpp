@@ -20,9 +20,9 @@ class Signal {
     Typedefs::vec amps; ///< Amplitudes of the signal components
     Typedefs::vec x; ///< Sample points of the signal
     Typedefs::vec signal; ///< Generated signal
-    std::unique_ptr<Transform<Typedefs::vec>> tr; ///< Transform object for signal processing
-    std::unique_ptr<Transform<Typedefs::vec>::InputSpace> input_space; ///< Input space for the transform
-    std::unique_ptr<Transform<Typedefs::vec>::OutputSpace> output_space; ///< Output space for the transform
+    std::unique_ptr<tr::Transform<Typedefs::vec>> tr; ///< Transform object for signal processing
+    std::unique_ptr<tr::Transform<Typedefs::vec>::InputSpace> input_space; ///< Input space for the transform
+    std::unique_ptr<tr::Transform<Typedefs::vec>::OutputSpace> output_space; ///< Output space for the transform
 
     /**
      * @brief Generates the signal based on frequencies and amplitudes.
@@ -44,7 +44,7 @@ class Signal {
      * @param tr Unique pointer to a Transform object for signal processing.
      * @param padding Boolean indicating if padding should be applied (default is true).
      */
-    Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::unique_ptr<Transform<Typedefs::vec>> tr, bool padding = true);
+    Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::unique_ptr<tr::Transform<Typedefs::vec>> tr, bool padding = true);
 
     /**
      * @brief Denoises the signal by filtering out frequencies above the specified flat frequency.

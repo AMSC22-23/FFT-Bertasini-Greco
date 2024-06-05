@@ -6,6 +6,7 @@
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
 
 Signal::Signal(vec _freqs, vec _amps, size_t n_samples, unique_ptr<Transform<vec>> _tr, bool padding) : tr(std::move(_tr))
 {
@@ -13,7 +14,7 @@ Signal::Signal(vec _freqs, vec _amps, size_t n_samples, unique_ptr<Transform<vec
     move(_amps.begin(), _amps.end(), back_inserter(this->amps));
 
     auto is_padding_needed = n_samples & (n_samples - 1);
-    auto correct_padding = (is_padding_needed && padding) ? next_power_of_2(n_samples) : n_samples;
+    auto correct_padding = (is_padding_needed && padding) ? utils::next_power_of_2(n_samples) : n_samples;
 
     this->x.resize(n_samples * 2, 0);
     this->signal.resize(correct_padding, 0);

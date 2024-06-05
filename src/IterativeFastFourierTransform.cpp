@@ -9,6 +9,7 @@
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
 
 #if USE_CUDA == 0
 auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -> void 
@@ -17,7 +18,7 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -
     size_t N = x.size();
     if (N == 1) return;
     // bit reverse copy of x
-    bit_reverse_copy(x);
+    bitreverse::bit_reverse_copy(x);
     // butterfly
     for (size_t s = 1; s <= log2(N); s++){
         auto m = (size_t)pow(2, s);

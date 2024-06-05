@@ -4,6 +4,7 @@
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
 
 auto DiscreteFourierTransform::dft(vcpx& x, const bool is_inverse) const -> void
 {

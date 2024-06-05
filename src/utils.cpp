@@ -5,8 +5,9 @@
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr::utils;
 
-auto next_power_of_2(size_t n) -> size_t
+auto tr::utils::next_power_of_2(size_t n) -> size_t
 {
     n--;
     n |= n >> 1;   
@@ -19,7 +20,7 @@ auto next_power_of_2(size_t n) -> size_t
     return n;
 }
 
-auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -> int {
+auto tr::utils::countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -> int {
     auto currentRows = rows;
     auto currentCols = cols;
 
@@ -43,7 +44,7 @@ auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, 
     return 0;
 }
 
-auto read_signal(const string& signal_file, vec& real_signal) -> void {
+auto tr::utils::read_signal(const string& signal_file, vec& real_signal) -> void {
   // read signal from file
     ifstream input_file_signal(signal_file);
     if (!input_file_signal.is_open()) {

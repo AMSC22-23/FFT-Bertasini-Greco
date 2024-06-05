@@ -20,7 +20,7 @@ auto bit_reversed_index(int index, uint8_t levels) -> int
     return rev;
 }
 
-auto partial_bit_reverse(vec& signal, size_t n, uint8_t levels) -> void
+auto tr::bitreverse::partial_bit_reverse(vec& signal, size_t n, uint8_t levels) -> void
 {
    std::vector<std::pair<int, double>> temp(n);
 
@@ -57,7 +57,7 @@ auto bit_reverse(size_t i, size_t N) -> size_t
 }
 
 template <typename T>
-auto bit_reverse_copy(T& v) -> void
+auto tr::bitreverse::bit_reverse_copy(T& v) -> void
 {
     size_t N = v.size();
     T v_copy = v;
@@ -67,14 +67,14 @@ auto bit_reverse_copy(T& v) -> void
     }
 }
 
-auto next_multiple_of_levels(size_t n, size_t m) -> size_t
+auto tr::bitreverse::next_multiple_of_levels(size_t n, size_t m) -> size_t
 {
     size_t mask = (1 << m) - 1;
     size_t lowerMultiple = n & ~mask;
     return lowerMultiple + (1 << m);   
 }
 
-auto bit_reverse_image(Typedefs::vec3D &image, uint8_t user_levels) -> void
+auto tr::bitreverse::bit_reverse_image(Typedefs::vec3D &image, uint8_t user_levels) -> void
 {
   int channels = image.size();
   int rows = image[0].size();
@@ -85,13 +85,13 @@ auto bit_reverse_image(Typedefs::vec3D &image, uint8_t user_levels) -> void
     for (int c = 0; c < channels; ++c)
     {
       for (int i = 0; i < rows; ++i)
-        partial_bit_reverse(image[c][i], cols, 1);
+        tr::bitreverse::partial_bit_reverse(image[c][i], cols, 1);
       for (int j = 0; j < cols; j++)
       {
         vec temp;
         for (int i = 0; i < rows; ++i)
           temp.push_back(image[c][i][j]);
-        partial_bit_reverse(temp, rows, 1);
+        tr::bitreverse::partial_bit_reverse(temp, rows, 1);
         for (int i = 0; i < rows; ++i)
           image[c][i][j] = temp[i];
       }
@@ -101,7 +101,7 @@ auto bit_reverse_image(Typedefs::vec3D &image, uint8_t user_levels) -> void
   }
 }
 
-auto reverse_bit_reverse_image(vec3D &bit_reversed_image, uint8_t levels) -> void
+auto tr::bitreverse::reverse_bit_reverse_image(vec3D &bit_reversed_image, uint8_t levels) -> void
 {
   int channels = bit_reversed_image.size();
 
@@ -141,5 +141,5 @@ auto reverse_bit_reverse_image(vec3D &bit_reversed_image, uint8_t levels) -> voi
   // return tmp_mat;
 }
 
-template void bit_reverse_copy<vec>(vec &v);
-template void bit_reverse_copy<vcpx>(vcpx &v);
+template void tr::bitreverse::bit_reverse_copy<vec>(vec &v);
+template void tr::bitreverse::bit_reverse_copy<vcpx>(vcpx &v);

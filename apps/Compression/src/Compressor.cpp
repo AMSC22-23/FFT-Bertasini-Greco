@@ -12,16 +12,17 @@ using namespace std;
 using namespace cv;
 using namespace Typedefs;
 using namespace compression;
+using namespace tr;
 
 auto Compressor::apply_dwt() -> void {
-  DiscreteWaveletTransform2D dwt(tr, levels);
+  DiscreteWaveletTransform2D dwt(tr_mat, levels);
   auto in_space = dwt.get_input_space(img);
   auto &in_data = dynamic_cast<DiscreteWaveletTransform2D::InputSpace&>(*in_space).data;
 
   img_size = img.size();
 
   dwt(in_data, false);
-  bit_reverse_image(in_data, levels);
+  bitreverse::bit_reverse_image(in_data, levels);
 
   coeff = in_data;
 }
@@ -38,7 +39,7 @@ auto Compressor::quantize () -> void {
   for (size_t c = 0; c < coeff.size(); ++c)
     for (size_t i = 0; i < coeff[0].size(); ++i)
       for (size_t j = 0; j < coeff[0][0].size(); ++j){
-        int k = levels - countSubdivisions(i, j, rows, cols, levels+1);
+        int k = levels - tr::utils::countSubdivisions(i, j, rows, cols, levels+1);
         if (k == levels) quantize_value(coeff[c][i][j], tau / pow(2, k));
         else quantize_value(coeff[c][i][j], tau / pow(2, k-compression_coeff));
       }

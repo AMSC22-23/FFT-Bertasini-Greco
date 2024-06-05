@@ -17,6 +17,7 @@
 namespace plt = matplotlibcpp;
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
 
 auto plot_stuff (vec& x, vec& y, vec& y2, vec& freq, vec& freq_filtered, const int N, const bool truncate = false) -> void
 {

@@ -11,6 +11,7 @@ using namespace std;
 using namespace cv;
 using namespace Typedefs;
 using namespace compression;
+using namespace tr;
 
 auto Decompressor::dequantize () -> void {
   const double tau = pow(2, R - c + (double)levels) * (1. + f / pow(2, 11));
@@ -19,7 +20,7 @@ auto Decompressor::dequantize () -> void {
   for (size_t c = 0; c < coeff.size(); ++c)
     for (size_t i = 0; i < coeff[0].size(); ++i)
       for (size_t j = 0; j < coeff[0][0].size(); ++j){
-        int k = levels - countSubdivisions(i, j, rows, cols, levels+1);
+        int k = levels - tr::utils::countSubdivisions(i, j, rows, cols, levels+1);
         if (k == levels) coeff[c][i][j] *= tau / pow(2, k);
         else coeff[c][i][j] *= tau / pow(2, k-compression_coeff);
       }
@@ -110,8 +111,8 @@ auto Decompressor::HuffmanDecoding(const std::string& filename) -> void {
 }
 
 auto Decompressor::apply_idwt() -> void {
-    reverse_bit_reverse_image(coeff, levels);
-    DiscreteWaveletTransform2D dwt(tr, levels);
+    bitreverse::reverse_bit_reverse_image(coeff, levels);
+    DiscreteWaveletTransform2D dwt(tr_mat, levels);
     dwt(coeff, true);
 }
 

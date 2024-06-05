@@ -11,6 +11,7 @@
 using namespace std;
 using namespace cv;
 using namespace Typedefs;
+using namespace tr;
 
 int main () {
     unique_ptr<Transform<Mat>> tr_obj = make_unique<DiscreteWaveletTransform2D>(TRANSFORM_MATRICES::HAAR, 3);

@@ -7,6 +7,8 @@
 #include <cmath>
 #include <cuda_runtime.h>
 
+using namespace cudabackend;
+
 namespace Typedefs {
     using vec = std::vector<double>;
 }

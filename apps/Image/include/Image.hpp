@@ -18,9 +18,9 @@ class Image {
 private:
     cv::Mat img; /**< The OpenCV matrix representing the image. */
     cv::Size og_size; /**< The original size of the image. */
-    std::unique_ptr<Transform<cv::Mat>> tr; /**< A unique pointer to the transformation object. */
-    std::unique_ptr<Transform<cv::Mat>::InputSpace> input_space; /**< A unique pointer to the input space object. */
-    std::unique_ptr<Transform<cv::Mat>::OutputSpace> output_space; /**< A unique pointer to the output space object. */
+    std::unique_ptr<tr::Transform<cv::Mat>> tr; /**< A unique pointer to the transformation object. */
+    std::unique_ptr<tr::Transform<cv::Mat>::InputSpace> input_space; /**< A unique pointer to the input space object. */
+    std::unique_ptr<tr::Transform<cv::Mat>::OutputSpace> output_space; /**< A unique pointer to the output space object. */
 
     /**
      * @brief Performs the inverse transformation on the image.
@@ -40,7 +40,7 @@ public:
      * @param img The OpenCV matrix representing the image.
      * @param tr The unique pointer to the transformation object.
      */
-    Image(const cv::Mat& img, std::unique_ptr<Transform<cv::Mat>> tr);
+    Image(const cv::Mat& img, std::unique_ptr<tr::Transform<cv::Mat>> tr);
 
     /**
      * @brief Performs the transformation on the image.

@@ -7,6 +7,7 @@
 using namespace std;
 using namespace cv;
 using namespace Typedefs;
+using namespace tr;
 
 Image::Image(const Mat& _img, unique_ptr<Transform<Mat>> _tr) : img(_img), og_size(img.size()), tr(std::move(_tr)) {
     // auto is_padding_needed = n_samples & (n_samples - 1);

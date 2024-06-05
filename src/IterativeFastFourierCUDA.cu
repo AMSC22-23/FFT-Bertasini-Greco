@@ -7,9 +7,8 @@
 #include <iostream>
 #include <cmath>
 
-
-// typedef cuda::std::complex<double> cpx;
 using cpx = cuda::std::complex<double>;
+using namespace cudabackend;
 
 __global__ void fft_kernel(cpx *x, int N, int m, int is_inverse) {
     int k = blockIdx.x * blockDim.x + threadIdx.x;

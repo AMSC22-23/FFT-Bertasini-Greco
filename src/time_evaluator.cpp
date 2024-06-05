@@ -4,8 +4,10 @@
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
+using namespace test_suite;
 
- auto time_ev (const vcpx& x, const unique_ptr<FourierTransform>& f) -> long unsigned int
+ auto tr::test_suite::time_ev (const vcpx& x, const unique_ptr<FourierTransform>& f) -> long unsigned int
  {
     vcpx x_time = x;
     auto start = chrono::high_resolution_clock::now();
@@ -15,7 +17,7 @@ using namespace Typedefs;
     return duration1.count();
  }
 
-auto time_ev_dwt (const Typedefs::vec& x, const DiscreteWaveletTransform& dwt) -> long unsigned int
+auto tr::test_suite::time_ev_dwt (const Typedefs::vec& x, const DiscreteWaveletTransform& dwt) -> long unsigned int
 {
     Typedefs::vec real_signal = x;
     auto start = std::chrono::high_resolution_clock::now();

@@ -2,6 +2,7 @@
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
 
 auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) const -> void
 {

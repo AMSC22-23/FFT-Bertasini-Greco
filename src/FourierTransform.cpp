@@ -3,6 +3,7 @@
 #include "FourierTransform.hpp"
 
 using namespace Typedefs;
+using namespace tr;
 
 FourierTransform::InputSpace::InputSpace(const vec& _signal) : data(_signal.size()) { 
     for (size_t i = 0; i < _signal.size(); i++) data[i] = cpx(_signal[i], 0); 

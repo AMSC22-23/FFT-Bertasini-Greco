@@ -1,14 +1,14 @@
 #include <iostream>
 #include <fstream>
 
-#include <typedefs.hpp>
+#include "typedefs.hpp"
 
-#include <DiscreteWaveletTransform.hpp>
+#include "DiscreteWaveletTransform.hpp"
 
-#include <bitreverse.hpp>
-#include <utils.hpp>
+#include "bitreverse.hpp"
+#include "utils.hpp"
 
-#include <time_evaluator.hpp>
+#include "time_evaluator.hpp"
 
 
 using namespace std;
@@ -36,7 +36,7 @@ auto dwt_tests(const string& output_folder) -> int
 
     //read signal from file
     vec real_signal;
-    read_signal(signal_file, real_signal);
+    utils::read_signal(signal_file, real_signal);
 
 
     //test1: strong scalability
@@ -44,12 +44,12 @@ auto dwt_tests(const string& output_folder) -> int
     cout << "1. STRONG SCALABILITY TEST:\n";
     DiscreteWaveletTransform dwt(TRANSFORM_MATRICES::DAUBECHIES_D40, 10);
     dwt.set_n_cores(1);
-    auto time_0 = time_ev_dwt(real_signal, dwt);
+    auto time_0 = test_suite::time_ev_dwt(real_signal, dwt);
     cout << "Time for   1 processor: " << time_0 << " µs\n";
     output_file_strong << 1 << "," << (double)time_0 << "\n";
     for (int i = 2; i < 20; i++) {
        dwt.set_n_cores(i);
-        auto time = time_ev_dwt(real_signal, dwt);
+        auto time = test_suite::time_ev_dwt(real_signal, dwt);
         cout << "Time with " << (i < 10 ? " " : "") << i << " processors: " << time << " µs | ";
         cout << "Speedup: " << (double)time_0 / time << "\n";
         output_file_strong << i << "," << time << "\n";
@@ -63,7 +63,7 @@ auto dwt_tests(const string& output_folder) -> int
     for (int i=1; i<9; i*=2){
         dwt.set_n_cores(i);
         vec signal = vec(real_signal.begin(), real_signal.begin() + n);
-        auto elapsed = time_ev_dwt(signal, dwt);
+        auto elapsed = test_suite::time_ev_dwt(signal, dwt);
         if (i==1) cout << "Time with " << i << " core: " << elapsed << "  µs "<< "for a signal of size " << signal.size() << "\n";
         else cout << "Time with " << i << " cores: " << elapsed << " µs "<< "for a signal of size " << signal.size() << "\n";
         output_file_weak << i << "," <<signal.size() << "," << elapsed << "\n";

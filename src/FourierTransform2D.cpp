@@ -6,6 +6,8 @@ using namespace std;
 using namespace cv;
 using namespace Typedefs;
 
+using namespace tr;
+
 template <class FT> requires std::is_base_of_v<FourierTransform, FT>
 FourierTransform2D<FT>::InputSpace::InputSpace(const cv::Mat& og_image) {
     cv::Mat image;
@@ -184,8 +186,8 @@ auto FourierTransform2D<FT>::get_input_space(const cv::Mat& og_image) const -> s
     auto is_padding_needed_row = og_image.rows & (og_image.rows - 1);
     auto is_padding_needed_col = og_image.cols & (og_image.cols - 1);
 
-    auto correct_padding_row = (is_padding_needed_row) ? next_power_of_2(og_image.rows) : og_image.rows;
-    auto correct_padding_col = (is_padding_needed_col) ? next_power_of_2(og_image.cols) : og_image.cols;
+    auto correct_padding_row = (is_padding_needed_row) ? utils::next_power_of_2(og_image.rows) : og_image.rows;
+    auto correct_padding_col = (is_padding_needed_col) ? utils::next_power_of_2(og_image.cols) : og_image.cols;
 
     cv::copyMakeBorder(og_image, image, 0, correct_padding_row - og_image.rows, 0, correct_padding_col - og_image.cols, cv::BORDER_CONSTANT, cv::Scalar(0));
 
@@ -214,6 +216,6 @@ auto FourierTransform2D<FT>::operator()(Transform::InputSpace& in, Transform::Ou
 }
 
 // Explicit instantiation of the template classes
-template class FourierTransform2D<IterativeFastFourierTransform>;
-template class FourierTransform2D<RecursiveFastFourierTransform>;
-template class FourierTransform2D<DiscreteFourierTransform>;
+template class tr::FourierTransform2D<tr::IterativeFastFourierTransform>;
+template class tr::FourierTransform2D<tr::RecursiveFastFourierTransform>;
+template class tr::FourierTransform2D<tr::DiscreteFourierTransform>;

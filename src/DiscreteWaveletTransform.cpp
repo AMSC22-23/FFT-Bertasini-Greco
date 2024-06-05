@@ -8,6 +8,7 @@
 #endif
 
 using namespace Typedefs;
+using namespace tr;
 
 DiscreteWaveletTransform::InputSpace::InputSpace(const vec& _signal) : data(_signal) {}
 
@@ -15,17 +16,17 @@ auto DiscreteWaveletTransform::InputSpace::get_data() const -> vec { return data
 
 auto DiscreteWaveletTransform::OutputSpace::get_plottable_representation () const -> vec  {
     vec plottable(data);
-    bit_reverse_copy(plottable);
+    bitreverse::bit_reverse_copy(plottable);
     return plottable;
 }
 
 auto DiscreteWaveletTransform::OutputSpace::compress (const std::string& /*method*/, const double kept) -> void {
     auto cutoff_freq = (size_t)(kept*(double)data.size());
-    bit_reverse_copy(data);
+    bitreverse::bit_reverse_copy(data);
     for (size_t i=cutoff_freq; i<data.size(); i++){
         data[i] = 0;
     }
-    bit_reverse_copy(data); 
+    bitreverse::bit_reverse_copy(data); 
 }
 
 auto DiscreteWaveletTransform::get_input_space(const vec & v) const -> std::unique_ptr<Transform::InputSpace> {

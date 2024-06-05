@@ -1,19 +1,20 @@
 #include <iostream>
 #include <fstream>
 
-#include <typedefs.hpp>
+#include "typedefs.hpp"
 
-#include <DiscreteFourierTransform.hpp>
-#include <RecursiveFastFourierTransform.hpp>
-#include <IterativeFastFourierTransform.hpp>
+#include "DiscreteFourierTransform.hpp"
+#include "RecursiveFastFourierTransform.hpp"
+#include "IterativeFastFourierTransform.hpp"
 
-#include <bitreverse.hpp>
-#include <utils.hpp>
+#include "bitreverse.hpp"
+#include "utils.hpp"
 
-#include <time_evaluator.hpp>
+#include "time_evaluator.hpp"
 
 using namespace std;
 using namespace Typedefs;
+using namespace tr;
 
 // Time comparison between iterative and recursive fft
 void time_evaluation (const vcpx& s)
@@ -22,8 +23,8 @@ void time_evaluation (const vcpx& s)
     unique_ptr<FourierTransform> i_fft = make_unique<IterativeFastFourierTransform>();
     unique_ptr<FourierTransform> r_fft = make_unique<RecursiveFastFourierTransform>();
     
-    auto time_i = time_ev(s, i_fft);
-    auto time_r = time_ev(s, r_fft);
+    auto time_i = test_suite::time_ev(s, i_fft);
+    auto time_r = test_suite::time_ev(s, r_fft);
     //auto time_d = time_ev(s.get_signal(), dft);
     cout << "Time for optimal iterative fft: " << time_i << " µs\n";
     cout << "Time for recursive fft: " << time_r << " µs\n";
@@ -35,12 +36,12 @@ void strong_scaling_evaluation (const vcpx& s, ofstream& output_file)
 {
     unique_ptr<FourierTransform> i_fft = make_unique<IterativeFastFourierTransform>();
     dynamic_cast<IterativeFastFourierTransform*>(i_fft.get())->set_n_cores(1);
-    auto time_0 = time_ev(s, i_fft);
+    auto time_0 = test_suite::time_ev(s, i_fft);
     cout << "Time for   1 processor:  " << time_0 << " µs\n";
     output_file << 1 << "," << (double)time_0 << "\n";
     for (int i = 2; i < 20; i++) {
         dynamic_cast<IterativeFastFourierTransform*>(i_fft.get())->set_n_cores(i);
-        auto time = time_ev(s, i_fft);
+        auto time = test_suite::time_ev(s, i_fft);
         cout << "Time with " << (i < 10 ? " " : "") << i << " processors: " << time << " µs | ";
         cout << "Speedup: " << (double)time_0 / time << "\n";
         output_file << i << "," << time << "\n";
@@ -56,7 +57,7 @@ void weak_scaling_evaluation (const vcpx& s, ofstream& output_file)
     for (int i=1; i<9; i*=2){
         dynamic_cast<IterativeFastFourierTransform*>(fft.get())->set_n_cores(i);
         vcpx signal = vcpx(s.begin(), s.begin() + n);
-        auto elapsed = time_ev(signal, fft);
+        auto elapsed = test_suite::time_ev(signal, fft);
         cout << "Time with " << i << " cores: " << elapsed << " µs "<< "for a signal of size " << signal.size() << "\n";
         output_file << i << "," <<signal.size() << "," << elapsed << "\n";
         n*=2;
@@ -93,7 +94,7 @@ auto fft_tests(const string& output_folder) -> int
     }
 
     vec real_signal;
-    read_signal(signal_file, real_signal);
+    utils::read_signal(signal_file, real_signal);
 
     IterativeFastFourierTransform fft;
     vcpx signal;

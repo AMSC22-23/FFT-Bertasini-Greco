@@ -5,6 +5,7 @@
 using namespace std;
 using namespace cv;
 using namespace Typedefs;
+using namespace tr;
 
 DiscreteWaveletTransform2D::InputSpace::InputSpace(const cv::Mat& og_image) {
     cv::Mat image;
@@ -35,7 +36,7 @@ auto DiscreteWaveletTransform2D::InputSpace::get_data() const -> cv::Mat {
 auto DiscreteWaveletTransform2D::OutputSpace::get_plottable_representation() const -> cv::Mat
 {
     auto tmp = data;
-    bit_reverse_image(tmp, user_levels);
+    bitreverse::bit_reverse_image(tmp, user_levels);
     normalize_coefficients(tmp);
     cv::Mat dwt_image_colored;
     dwt_image_colored.create(tmp[0].size(), tmp[0][0].size(), CV_64FC3);
@@ -59,7 +60,7 @@ auto DiscreteWaveletTransform2D::OutputSpace::normalize_coefficients(Typedefs::v
         for (auto i = 0ull; i < rows; ++i) {
             for (auto j = 0ull; j < cols; ++j) {
             
-                uint8_t point_level = countSubdivisions(i, j, rows, cols, user_levels+1);
+                uint8_t point_level = utils::countSubdivisions(i, j, rows, cols, user_levels+1);
                 if (point_level == 0) continue;
                 if (max_abs_val_details[c][point_level]<std::abs(image[c][i][j])){
                     max_abs_val_details[c][point_level] = std::abs(image[c][i][j]);
@@ -75,7 +76,7 @@ auto DiscreteWaveletTransform2D::OutputSpace::normalize_coefficients(Typedefs::v
     for (auto c = 0ull; c < channels; ++c) {
         for (auto i = 0ull; i < rows; ++i) {
             for (auto j = 0ull; j < cols; ++j) {
-                uint8_t point_level = countSubdivisions(i, j, rows, cols, user_levels+1);
+                uint8_t point_level = utils::countSubdivisions(i, j, rows, cols, user_levels+1);
                 if (point_level == 0) continue;
                 image[c][i][j] = (image[c][i][j] - min_abs_val_details[c][point_level]) / (max_abs_val_details[c][point_level] - min_abs_val_details[c][point_level]) * 255;
             }
@@ -155,8 +156,8 @@ auto DiscreteWaveletTransform2D::get_input_space(const cv::Mat& og_image) const 
     auto is_padding_needed_row = og_image.rows & ((1 << user_levels) - 1);
     auto is_padding_needed_col = og_image.cols & ((1 << user_levels) - 1);
 
-    auto correct_padding_row = (is_padding_needed_row) ? next_multiple_of_levels(og_image.rows, user_levels) : og_image.rows;
-    auto correct_padding_col = (is_padding_needed_col) ? next_multiple_of_levels(og_image.cols, user_levels) : og_image.cols;
+    auto correct_padding_row = (is_padding_needed_row) ? bitreverse::next_multiple_of_levels(og_image.rows, user_levels) : og_image.rows;
+    auto correct_padding_col = (is_padding_needed_col) ? bitreverse::next_multiple_of_levels(og_image.cols, user_levels) : og_image.cols;
 
     cv::copyMakeBorder(og_image, image, 0, correct_padding_row - og_image.rows, 0, correct_padding_col - og_image.cols, cv::BORDER_CONSTANT, cv::Scalar(0));
 
