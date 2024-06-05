@@ -99,6 +99,7 @@ Prerequisites</h1>
 <li>matplotlib</li>
 <li>numpy</li>
 <li>opencv (c++)</li>
+<li>CUDA (optional)</li>
 </ul>
 <p>Install the required packages:</p>
 <div class="fragment"><div class="line">sudo apt-get install g++</div>
@@ -111,24 +112,79 @@ Prerequisites</h1>
 Usage</h1>
 <p>Clone the repository:</p>
 <div class="fragment"><div class="line">git clone https://github.com/AMSC22-23/FFT-Bertasini-Greco.git</div>
-</div><!-- fragment --><p>Compile the library:</p>
+</div><!-- fragment --><p>The library provides both a cpu and gpu backend, the gpu backend is implemented using the CUDA library. In order to choose which backend to use, an enviroment variable can be set:</p>
+<div class="fragment"><div class="line">export USE_CUDA=1 # to use the gpu backend</div>
+<div class="line">export USE_CUDA=0 # to use the cpu backend</div>
+</div><!-- fragment --><p>By default if the nvcc compiler is not found the cpu backend will be used, to use the gpu backend the CUDA toolkit must be installed.</p>
+<p>Before using any of the provided applications it is needed to compile the library:</p>
 <div class="fragment"><div class="line">cd FFT-Bertasini-Greco</div>
 <div class="line">make</div>
 </div><!-- fragment --><p>The library will be compiled in the <code>lib</code> folder.</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
 Applications</h1>
-<p>Three applications are provided in the <code>app</code> folder:</p>
+<p>Below a general overview of the provided applications, specific information can be found in the next subsections.</p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Overview</h2>
+<p>Three applications are provided in the <code>apps</code> folder:</p>
 <ol type="1">
-<li><code>app/Signal</code>: computes a transformation of a regular with noise and denoises it, plots the result.</li>
-<li><code>app/Image</code>: computes a ètransformation of a given image and plots the result.</li>
-<li><code>app/Compression</code>: compresses an image using the DWT and generates a compressed file.</li>
+<li><code>apps/Signal/</code>: computes a transformation of a regular with noise and denoises it, plots the result.</li>
+<li><code>apps/Image/</code>: computes a transformation of a given image and plots the result.</li>
+<li><code>apps/Compression/</code>: compresses an image using the DWT and generates a compressed file.</li>
 </ol>
 <p>Each Application can be compiled using the following command:</p>
 <div class="fragment"><div class="line">make</div>
 </div><!-- fragment --><p>Once compiled the application can be run using the following command:</p>
 <div class="fragment"><div class="line">make run</div>
 </div><!-- fragment --><p>For all of them an interactive session will start asking the user with some kind of parameters, for a faster demo run is also possible to just press enter to use the default parameters.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Signal</h2>
+<p>The signal application is loaded with a very simple signal coupled with some noise. The application computes asks the user to choose the transformation to apply to the signal and then plots the results</p>
+<ol type="1">
+<li>Go to the <code>apps/Signal</code> folder</li>
+</ol>
+<div class="fragment"><div class="line">cd apps/Signal</div>
+</div><!-- fragment --><ol type="1">
+<li>Compile the application</li>
+</ol>
+<div class="fragment"><div class="line">make</div>
+</div><!-- fragment --><ol type="1">
+<li>Run the application</li>
+</ol>
+<div class="fragment"><div class="line">make run</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+Image</h2>
+<p>The image application when run asks the user various information about the image to load and the transformation to apply to it, as well as the parameters of the transformation.</p>
+<ol type="1">
+<li>Go to the <code>apps/Image</code> folder</li>
+</ol>
+<div class="fragment"><div class="line">cd apps/Image</div>
+</div><!-- fragment --><ol type="1">
+<li>Compile the application</li>
+</ol>
+<div class="fragment"><div class="line">make</div>
+</div><!-- fragment --><ol type="1">
+<li>Run the application</li>
+</ol>
+<div class="fragment"><div class="line">make run</div>
+</div><!-- fragment --><p>By default the application will load the lena image and apply the DWT transformation to it with 3 levels of decomposition and 75% of the coefficients discarded.</p>
+<p>The result will be shown in a window, to close the window press any key. Moreover the application will save the transformed image in the <code>output</code> folder.</p>
+<p>N.B: for the dwt filtering the application asks for a percentage of the coefficients to discard, since the DWT does not provide any way to filter a specific percentage of the coefficients, the application will discard as many levels as needed to not exceed the percentage of discarded coefficients, eg (extremes included): 0 - 0.74 -&gt; no compression 0.75 - 0.9374 -&gt; 1 level of compression 0.9375 - 0.984374 -&gt; 2 levels of compression 0.984375 - 0.99609375 -&gt; 3 levels of compression</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+Compression</h2>
+<p>The compression application when run asks the user which image to compress and the level (integer) of compression to apply, the bigger the image the higher the level of compression that can be applied. For the stock lena image a level of 2-3 is suggested.</p>
+<ol type="1">
+<li>Go to the <code>apps/Compression</code> folder</li>
+</ol>
+<div class="fragment"><div class="line">cd apps/Compression</div>
+</div><!-- fragment --><ol type="1">
+<li>Compile the application</li>
+</ol>
+<div class="fragment"><div class="line">make</div>
+</div><!-- fragment --><ol type="1">
+<li>Run the application</li>
+</ol>
+<div class="fragment"><div class="line">make run</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
 Authors</h1>
 <ul>
 <li><b>Luca Venerando Greco</b></li>

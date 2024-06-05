@@ -28,8 +28,13 @@ var NAVTREE =
     [ "DWT&FFT by Bertasini&Greco", "index.html", [
       [ "Prerequisites", "index.html#autotoc_md1", null ],
       [ "Usage", "index.html#autotoc_md2", null ],
-      [ "Applications", "index.html#autotoc_md3", null ],
-      [ "Authors", "index.html#autotoc_md4", null ]
+      [ "Applications", "index.html#autotoc_md3", [
+        [ "Overview", "index.html#autotoc_md4", null ],
+        [ "Signal", "index.html#autotoc_md5", null ],
+        [ "Image", "index.html#autotoc_md6", null ],
+        [ "Compression", "index.html#autotoc_md7", null ]
+      ] ],
+      [ "Authors", "index.html#autotoc_md8", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -66,7 +71,7 @@ var NAVTREEINDEX =
 [
 "Compression_2src_2main_8cpp.html",
 "index.html#autotoc_md3",
-"pages.html"
+"namespaceplot__scaling__tests__results.html#af4bc1f4aa39ebc5fa7ee777490fb869d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

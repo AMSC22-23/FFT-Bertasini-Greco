@@ -1,5 +1,9 @@
 var NAVTREEINDEX2 =
 {
+"namespaceplot__scaling__tests__results.html#af4bc1f4aa39ebc5fa7ee777490fb869d":[1,0,4,3],
+"namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc":[1,0,4,7],
+"namespaceplot__scaling__tests__results.html#afeae39f587ffac7dd1cd8ca3b2038d2e":[1,0,4,5],
+"namespaces.html":[1,0],
 "pages.html":[],
 "pipeline_8cpp.html":[3,0,3,3],
 "pipeline_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97":[3,0,3,3,0],

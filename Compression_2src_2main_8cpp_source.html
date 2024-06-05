@@ -136,20 +136,23 @@ $(document).ready(function(){initNavTree('Compression_2src_2main_8cpp_source.htm
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="classCompressor.html">Compressor</a> compressor; <a class="code" href="classDecompressor.html">Decompressor</a> decompressor;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">string</span> compressed_file = <span class="stringliteral">&quot;output/compressed_lena.gb&quot;</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  compressor.<a class="code" href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">compress</a>(compressed_file, og_image, n_levels);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  decompressor.<a class="code" href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">decompress</a>(compressed_file, decompressed_image);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">string</span> base_name = img_path.substr(img_path.find_last_of(<span class="stringliteral">&quot;/\\&quot;</span>) + 1);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  base_name = base_name.substr(0, base_name.find_last_of(<span class="stringliteral">&quot;.&quot;</span>));</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <a class="code" href="classCompressor.html">Compressor</a> compressor; <a class="code" href="classDecompressor.html">Decompressor</a> decompressor;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">string</span> compressed_file = <span class="stringliteral">&quot;output/&quot;</span> + base_name + <span class="stringliteral">&quot;.gb&quot;</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="namespacematplotlibcpp_1_1detail.html#ab78ea1d46cdefdf8037d2a2c0bcfaedb">imshow</a>(<span class="stringliteral">&quot;Original Image&quot;</span>, og_image);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <a class="code" href="namespacematplotlibcpp_1_1detail.html#ab78ea1d46cdefdf8037d2a2c0bcfaedb">imshow</a>(<span class="stringliteral">&quot;Decompressed Image&quot;</span>, decompressed_image);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  imwrite(<span class="stringliteral">&quot;output/original_lena.jpg&quot;</span>, og_image);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  imwrite(<span class="stringliteral">&quot;output/compressed_lena.jpg&quot;</span>, decompressed_image);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  waitKey(0);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  compressor.<a class="code" href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">compress</a>(compressed_file, og_image, n_levels);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  decompressor.<a class="code" href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">decompress</a>(compressed_file, decompressed_image);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="namespacematplotlibcpp_1_1detail.html#ab78ea1d46cdefdf8037d2a2c0bcfaedb">imshow</a>(<span class="stringliteral">&quot;Original Image&quot;</span>, og_image);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="namespacematplotlibcpp_1_1detail.html#ab78ea1d46cdefdf8037d2a2c0bcfaedb">imshow</a>(<span class="stringliteral">&quot;Decompressed Image&quot;</span>, decompressed_image);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  imwrite(<span class="stringliteral">&quot;output/&quot;</span> + base_name + <span class="stringliteral">&quot;.jpg&quot;</span>, og_image);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  imwrite(<span class="stringliteral">&quot;output/&quot;</span> + base_name + <span class="stringliteral">&quot;_compressed.jpg&quot;</span>, decompressed_image);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  waitKey(0);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
 <div class="ttc" id="aCompression_2src_2main_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="Compression_2src_2main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> <a href="Compression_2src_2main_8cpp_source.html#l00026">main.cpp:26</a></div></div>
 <div class="ttc" id="aCompression_2src_2main_8cpp_html_ae8d78ef3b94bd294ca77dc33e0812e30"><div class="ttname"><a href="Compression_2src_2main_8cpp.html#ae8d78ef3b94bd294ca77dc33e0812e30">plot_image</a></div><div class="ttdeci">auto plot_image(vec3D &amp;coeff, string title) -&gt; void</div><div class="ttdef"><b>Definition:</b> <a href="Compression_2src_2main_8cpp_source.html#l00013">main.cpp:13</a></div></div>
 <div class="ttc" id="aCompressor_8hpp_html"><div class="ttname"><a href="Compressor_8hpp.html">Compressor.hpp</a></div><div class="ttdoc">Defines the Compressor class for image compression using the discrete wavelet transform and Huffman e...</div></div>

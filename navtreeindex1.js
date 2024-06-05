@@ -1,7 +1,11 @@
 var NAVTREEINDEX1 =
 {
 "index.html#autotoc_md3":[0,2],
-"index.html#autotoc_md4":[0,3],
+"index.html#autotoc_md4":[0,2,0],
+"index.html#autotoc_md5":[0,2,1],
+"index.html#autotoc_md6":[0,2,2],
+"index.html#autotoc_md7":[0,2,3],
+"index.html#autotoc_md8":[0,3],
 "matplotlibcpp_8h.html":[3,0,0,2,0,0],
 "matplotlibcpp_8h.html#a00a57926330764f8490142b3ce06bd2e":[3,0,0,2,0,0,47],
 "matplotlibcpp_8h.html#a02a1939d1d0b7b61878bd7cf2d8cd7f3":[3,0,0,2,0,0,99],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "namespaceplot__scaling__tests__results.html#a8f5fcea491d1a0ac9126de1bce7ef34b":[1,0,4,10],
 "namespaceplot__scaling__tests__results.html#aa79d9f50170f610e2c286c2a307f6ec6":[1,0,4,8],
 "namespaceplot__scaling__tests__results.html#ac9e775ab23d830e6bf9fff5049e1d6e5":[1,0,4,2],
-"namespaceplot__scaling__tests__results.html#ae616da8bda2b3468b65ee69466c0aa89":[1,0,4,6],
-"namespaceplot__scaling__tests__results.html#af4bc1f4aa39ebc5fa7ee777490fb869d":[1,0,4,3],
-"namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc":[1,0,4,7],
-"namespaceplot__scaling__tests__results.html#afeae39f587ffac7dd1cd8ca3b2038d2e":[1,0,4,5],
-"namespaces.html":[1,0]
+"namespaceplot__scaling__tests__results.html#ae616da8bda2b3468b65ee69466c0aa89":[1,0,4,6]
 };
