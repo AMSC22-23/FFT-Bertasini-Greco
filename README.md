@@ -1,4 +1,6 @@
-# FFT-B(ernoulli)G(auss)
+# DWT&FFT by Bertasini&Greco
+
+This README is also available on the [doxygen documentation](https://amsc22-23.github.io/FFT-Bertasini-Greco/) of the project.
 
 ## Prerequisites
 
