@@ -5,6 +5,9 @@ var hierarchy =
     [ "HuffmanTree< T >::Compare", "structHuffmanTree_1_1Compare.html", null ],
     [ "Compressor", "classCompressor.html", null ],
     [ "Decompressor", "classDecompressor.html", null ],
+    [ "MyLibrary::Example", "classMyLibrary_1_1Example.html", [
+      [ "MyLibrary::SubclassExample< TemplatedClass >", "classMyLibrary_1_1SubclassExample.html", null ]
+    ] ],
     [ "matplotlibcpp::detail::is_callable_impl< true, T >::Fallback", "structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Fallback.html", [
       [ "matplotlibcpp::detail::is_callable_impl< true, T >::Derived", "structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Derived.html", null ]
     ] ],
@@ -31,6 +34,7 @@ var hierarchy =
     [ "matplotlibcpp::detail::plot_impl< IsYDataCallable >", "structmatplotlibcpp_1_1detail_1_1plot__impl.html", null ],
     [ "matplotlibcpp::detail::plot_impl< std::false_type >", "structmatplotlibcpp_1_1detail_1_1plot__impl_3_01std_1_1false__type_01_4.html", null ],
     [ "matplotlibcpp::detail::plot_impl< std::true_type >", "structmatplotlibcpp_1_1detail_1_1plot__impl_3_01std_1_1true__type_01_4.html", null ],
+    [ "MyLibrary::SecondExample", "classMyLibrary_1_1SecondExample.html", null ],
     [ "matplotlibcpp::detail::select_npy_type< T >", "structmatplotlibcpp_1_1detail_1_1select__npy__type.html", null ],
     [ "matplotlibcpp::detail::select_npy_type< bool >", "structmatplotlibcpp_1_1detail_1_1select__npy__type_3_01bool_01_4.html", null ],
     [ "matplotlibcpp::detail::select_npy_type< double >", "structmatplotlibcpp_1_1detail_1_1select__npy__type_3_01double_01_4.html", null ],

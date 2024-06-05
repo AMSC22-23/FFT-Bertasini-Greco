@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['detail_381',['detail',['../namespacematplotlibcpp_1_1detail.html',1,'matplotlibcpp']]],
-  ['matplotlibcpp_382',['matplotlibcpp',['../namespacematplotlibcpp.html',1,'']]]
+  ['detail_407',['detail',['../namespacematplotlibcpp_1_1detail.html',1,'matplotlibcpp']]],
+  ['matplotlibcpp_408',['matplotlibcpp',['../namespacematplotlibcpp.html',1,'']]],
+  ['mylibrary_409',['MyLibrary',['../namespaceMyLibrary.html',1,'']]]
 ];
