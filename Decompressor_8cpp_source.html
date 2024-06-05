@@ -101,140 +101,142 @@ $(document).ready(function(){initNavTree('Decompressor_8cpp_source.html',''); in
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using namespace </span>cv;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceTypedefs.html">Typedefs</a>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacecompression.html">compression</a>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">auto</span> Decompressor::dequantize () -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">double</span> tau = pow(2, <a class="code" href="namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee">R</a> - <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> + (<span class="keywordtype">double</span>)levels) * (1. + <a class="code" href="namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade">f</a> / pow(2, 11));</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> rows = coeff[0].size();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> cols = coeff[0][0].size();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j){</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">int</span> k = levels - <a class="code" href="utils_8hpp.html#a3ec45136383a69a5a35d24a4a3579160">countSubdivisions</a>(i, j, rows, cols, levels+1);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordflow">if</span> (k == levels) coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j] *= tau / pow(2, k);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">else</span> coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j] *= tau / pow(2, k-<a class="code" href="namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c">compression_coeff</a>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">   28</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">read_bits</a>(ifstream&amp; file) -&gt; vector&lt;bool&gt; {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    vector&lt;bool&gt; bits;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">char</span> byte;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">while</span> (file.read(&amp;<span class="keywordtype">byte</span>, 1)) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 7; i &gt;= 0; --i) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            bits.push_back((<span class="keywordtype">byte</span> &gt;&gt; i) &amp; 1);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> bits;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">auto</span> Decompressor::HuffmanDecoding(<span class="keyword">const</span> std::string&amp; filename) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// 1. Read the encoded data</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    ifstream encoded_file(filename, ios::binary);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (!encoded_file.is_open()) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Could not open file encoded_data.txt&quot;</span> &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">int</span> rows, cols;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// 2. Reconstruct the Huffman tree</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;img_size, <span class="keyword">sizeof</span>(img_size));</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;rows, <span class="keyword">sizeof</span>(rows));</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;cols, <span class="keyword">sizeof</span>(cols));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;levels, <span class="keyword">sizeof</span>(levels));</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">size_t</span> size;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;size, <span class="keyword">sizeof</span>(size));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    vector&lt;int&gt; keys(size);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    vector&lt;char&gt; code_sizes(size);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    vector&lt;vector&lt;bool&gt;&gt; values;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)keys.data(), keys.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)code_sizes.data(), code_sizes.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>));</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    vector&lt;char&gt; tmp;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">auto</span> total_code_size = 0;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; code_size : code_sizes) total_code_size += code_size;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    tmp.resize(total_code_size / 8 + 1);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)tmp.data(), total_code_size / 8 + 1);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">int</span> cnt = 0;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      vector&lt;bool&gt; code;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; code_sizes[i]; ++j) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        code.push_back((tmp[cnt &gt;&gt; 3] &gt;&gt; (7 - (cnt &amp; 7))) &amp; 1);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        cnt++;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      values.push_back(code);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    unordered_map&lt;vector&lt;bool&gt;, <span class="keywordtype">int</span>&gt; reverse_huffman_code_table;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      reverse_huffman_code_table[values[i]] = keys[i];</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    vector&lt;bool&gt; encoded_data = <a class="code" href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">read_bits</a>(encoded_file);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    encoded_file.close();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="comment">// 3. Decode the data</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    vector&lt;double&gt; decoded_coefficients;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    vector&lt;bool&gt; current_code;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> bit : encoded_data) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      current_code.push_back(bit);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      <span class="keywordflow">if</span> (reverse_huffman_code_table.find(current_code) != reverse_huffman_code_table.end()) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        decoded_coefficients.push_back(reverse_huffman_code_table[current_code]);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        current_code.clear();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// 4. Reshape the flat coefficient vector back into the 3D matrix format</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    coeff.resize(3, vector&lt;vector&lt;double&gt;&gt;(rows, vector&lt;double&gt;(cols, 0)));</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">size_t</span> idx = 0;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>){</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i){</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j){</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j] = decoded_coefficients[idx++];</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">auto</span> Decompressor::apply_idwt() -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="bitreverse_8hpp.html#af84c0dd0a580fbcc93bc3037d3771192">reverse_bit_reverse_image</a>(coeff, levels);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="classDiscreteWaveletTransform2D.html">DiscreteWaveletTransform2D</a> dwt(<a class="code" href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">tr</a>, levels);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    dwt(coeff, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">  118</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">Decompressor::decompress</a>(<span class="keyword">const</span> std::string&amp; filename, cv::Mat&amp; img) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    HuffmanDecoding(filename);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    dequantize();</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    apply_idwt();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    img.create(img_size, CV_64FC3);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0ull; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; img_size.height; ++i)</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0; j &lt; img_size.width; ++j)</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                img.at&lt;cv::Vec3d&gt;(i, j)[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>] = coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j];</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    img.convertTo(img, CV_8UC3);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
-<div class="ttc" id="aDecompressor_8cpp_html_a80c3896ef3f98d36f3c007e766f3e608"><div class="ttname"><a href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">read_bits</a></div><div class="ttdeci">auto read_bits(ifstream &amp;file) -&gt; vector&lt; bool &gt;</div><div class="ttdef"><b>Definition:</b> <a href="Decompressor_8cpp_source.html#l00028">Decompressor.cpp:28</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacetr.html">tr</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">auto</span> Decompressor::dequantize () -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">double</span> tau = pow(2, <a class="code" href="namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee">R</a> - <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> + (<span class="keywordtype">double</span>)levels) * (1. + <a class="code" href="namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade">f</a> / pow(2, 11));</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> rows = coeff[0].size();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> cols = coeff[0][0].size();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j){</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">int</span> k = levels - <a class="code" href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">tr::utils::countSubdivisions</a>(i, j, rows, cols, levels+1);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (k == levels) coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j] *= tau / pow(2, k);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">else</span> coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j] *= tau / pow(2, k-<a class="code" href="namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c">compression_coeff</a>);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">   29</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">read_bits</a>(ifstream&amp; file) -&gt; vector&lt;bool&gt; {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    vector&lt;bool&gt; bits;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">char</span> byte;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">while</span> (file.read(&amp;<span class="keywordtype">byte</span>, 1)) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 7; i &gt;= 0; --i) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            bits.push_back((<span class="keywordtype">byte</span> &gt;&gt; i) &amp; 1);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> bits;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">auto</span> Decompressor::HuffmanDecoding(<span class="keyword">const</span> std::string&amp; filename) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="comment">// 1. Read the encoded data</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    ifstream encoded_file(filename, ios::binary);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (!encoded_file.is_open()) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Could not open file encoded_data.txt&quot;</span> &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">int</span> rows, cols;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// 2. Reconstruct the Huffman tree</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;img_size, <span class="keyword">sizeof</span>(img_size));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;rows, <span class="keyword">sizeof</span>(rows));</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;cols, <span class="keyword">sizeof</span>(cols));</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;levels, <span class="keyword">sizeof</span>(levels));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">size_t</span> size;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)&amp;size, <span class="keyword">sizeof</span>(size));</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    vector&lt;int&gt; keys(size);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    vector&lt;char&gt; code_sizes(size);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    vector&lt;vector&lt;bool&gt;&gt; values;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)keys.data(), keys.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)code_sizes.data(), code_sizes.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    vector&lt;char&gt; tmp;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">auto</span> total_code_size = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; code_size : code_sizes) total_code_size += code_size;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    tmp.resize(total_code_size / 8 + 1);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    encoded_file.read((<span class="keywordtype">char</span>*)tmp.data(), total_code_size / 8 + 1);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">int</span> cnt = 0;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      vector&lt;bool&gt; code;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; code_sizes[i]; ++j) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        code.push_back((tmp[cnt &gt;&gt; 3] &gt;&gt; (7 - (cnt &amp; 7))) &amp; 1);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        cnt++;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      values.push_back(code);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    unordered_map&lt;vector&lt;bool&gt;, <span class="keywordtype">int</span>&gt; reverse_huffman_code_table;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      reverse_huffman_code_table[values[i]] = keys[i];</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    vector&lt;bool&gt; encoded_data = <a class="code" href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">read_bits</a>(encoded_file);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    encoded_file.close();</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment">// 3. Decode the data</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    vector&lt;double&gt; decoded_coefficients;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    vector&lt;bool&gt; current_code;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> bit : encoded_data) {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      current_code.push_back(bit);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;      <span class="keywordflow">if</span> (reverse_huffman_code_table.find(current_code) != reverse_huffman_code_table.end()) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        decoded_coefficients.push_back(reverse_huffman_code_table[current_code]);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        current_code.clear();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// 4. Reshape the flat coefficient vector back into the 3D matrix format</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    coeff.resize(3, vector&lt;vector&lt;double&gt;&gt;(rows, vector&lt;double&gt;(cols, 0)));</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">size_t</span> idx = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>){</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i){</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j){</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j] = decoded_coefficients[idx++];</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">auto</span> Decompressor::apply_idwt() -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="namespacetr_1_1bitreverse.html#a0d0d3b454c6111ef201d8f82c82d0362">bitreverse::reverse_bit_reverse_image</a>(coeff, levels);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="classtr_1_1DiscreteWaveletTransform2D.html">DiscreteWaveletTransform2D</a> dwt(<a class="code" href="namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b">tr_mat</a>, levels);</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    dwt(coeff, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">  119</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">Decompressor::decompress</a>(<span class="keyword">const</span> std::string&amp; filename, cv::Mat&amp; img) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    HuffmanDecoding(filename);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    dequantize();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    apply_idwt();</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    img.create(img_size, CV_64FC3);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0ull; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = 0; i &lt; img_size.height; ++i)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = 0; j &lt; img_size.width; ++j)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                img.at&lt;cv::Vec3d&gt;(i, j)[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>] = coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j];</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    img.convertTo(img, CV_8UC3);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+<div class="ttc" id="aDecompressor_8cpp_html_a80c3896ef3f98d36f3c007e766f3e608"><div class="ttname"><a href="Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608">read_bits</a></div><div class="ttdeci">auto read_bits(ifstream &amp;file) -&gt; vector&lt; bool &gt;</div><div class="ttdef"><b>Definition:</b> <a href="Decompressor_8cpp_source.html#l00029">Decompressor.cpp:29</a></div></div>
 <div class="ttc" id="aDecompressor_8hpp_html"><div class="ttname"><a href="Decompressor_8hpp.html">Decompressor.hpp</a></div><div class="ttdoc">Defines the Decompressor class for decompressing images compressed using the discrete wavelet transfo...</div></div>
 <div class="ttc" id="aDiscreteWaveletTransform2D_8hpp_html"><div class="ttname"><a href="DiscreteWaveletTransform2D_8hpp.html">DiscreteWaveletTransform2D.hpp</a></div><div class="ttdoc">Defines the DiscreteWaveletTransform2D class, which inherits from the Transform class for 2D discrete...</div></div>
 <div class="ttc" id="abitreverse_8hpp_html"><div class="ttname"><a href="bitreverse_8hpp.html">bitreverse.hpp</a></div><div class="ttdoc">Declares functions for bit-reversing vectors and 3D vectors (images).</div></div>
-<div class="ttc" id="abitreverse_8hpp_html_af84c0dd0a580fbcc93bc3037d3771192"><div class="ttname"><a href="bitreverse_8hpp.html#af84c0dd0a580fbcc93bc3037d3771192">reverse_bit_reverse_image</a></div><div class="ttdeci">auto reverse_bit_reverse_image(Typedefs::vec3D &amp;bit_reversed_image, uint8_t levels) -&gt; void</div><div class="ttdoc">Reverse the bit-reversal operation on a 3D vector (image).</div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8cpp_source.html#l00104">bitreverse.cpp:104</a></div></div>
-<div class="ttc" id="aclassDecompressor_html_a90a608bb68396e87c23f32303848be0a"><div class="ttname"><a href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">Decompressor::decompress</a></div><div class="ttdeci">auto decompress(const std::string &amp;filename, cv::Mat &amp;img) -&gt; void</div><div class="ttdoc">Decompress an image from a compressed file.</div><div class="ttdef"><b>Definition:</b> <a href="Decompressor_8cpp_source.html#l00118">Decompressor.cpp:118</a></div></div>
-<div class="ttc" id="aclassDiscreteWaveletTransform2D_html"><div class="ttname"><a href="classDiscreteWaveletTransform2D.html">DiscreteWaveletTransform2D</a></div><div class="ttdoc">Represents a 2D discrete wavelet transform operation.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00018">DiscreteWaveletTransform2D.hpp:18</a></div></div>
+<div class="ttc" id="aclassDecompressor_html_a90a608bb68396e87c23f32303848be0a"><div class="ttname"><a href="classDecompressor.html#a90a608bb68396e87c23f32303848be0a">Decompressor::decompress</a></div><div class="ttdeci">auto decompress(const std::string &amp;filename, cv::Mat &amp;img) -&gt; void</div><div class="ttdoc">Decompress an image from a compressed file.</div><div class="ttdef"><b>Definition:</b> <a href="Decompressor_8cpp_source.html#l00119">Decompressor.cpp:119</a></div></div>
+<div class="ttc" id="aclasstr_1_1DiscreteWaveletTransform2D_html"><div class="ttname"><a href="classtr_1_1DiscreteWaveletTransform2D.html">tr::DiscreteWaveletTransform2D</a></div><div class="ttdoc">Represents a 2D discrete wavelet transform operation.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00021">DiscreteWaveletTransform2D.hpp:22</a></div></div>
 <div class="ttc" id="ahyperparameters_8hpp_html"><div class="ttname"><a href="hyperparameters_8hpp.html">hyperparameters.hpp</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html"><div class="ttname"><a href="namespaceTypedefs.html">Typedefs</a></div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00013">typedefs.hpp:13</a></div></div>
 <div class="ttc" id="anamespacecompression_html"><div class="ttname"><a href="namespacecompression.html">compression</a></div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00003">hyperparameters.hpp:3</a></div></div>
 <div class="ttc" id="anamespacecompression_html_a1b011f011b3f91ecff82beadb355f27c"><div class="ttname"><a href="namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c">compression::compression_coeff</a></div><div class="ttdeci">const double compression_coeff</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00004">hyperparameters.hpp:4</a></div></div>
+<div class="ttc" id="anamespacecompression_html_a437ac2cee5913fb8cb34502170d43f2b"><div class="ttname"><a href="namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b">compression::tr_mat</a></div><div class="ttdeci">const auto tr_mat</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00008">hyperparameters.hpp:8</a></div></div>
 <div class="ttc" id="anamespacecompression_html_a6f1d12b8ec27ff71492e1dc7c99b2fee"><div class="ttname"><a href="namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee">compression::R</a></div><div class="ttdeci">const double R</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00005">hyperparameters.hpp:5</a></div></div>
 <div class="ttc" id="anamespacecompression_html_abb66facd58f173f3fea05441a7c02d07"><div class="ttname"><a href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">compression::c</a></div><div class="ttdeci">const double c</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00006">hyperparameters.hpp:6</a></div></div>
 <div class="ttc" id="anamespacecompression_html_ac7a61e390e9d7046c495f61d6c06cade"><div class="ttname"><a href="namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade">compression::f</a></div><div class="ttdeci">const double f</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00007">hyperparameters.hpp:7</a></div></div>
-<div class="ttc" id="anamespacecompression_html_acf57056af965ddab20aec5d2a6e9bdce"><div class="ttname"><a href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">compression::tr</a></div><div class="ttdeci">const auto tr</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00008">hyperparameters.hpp:8</a></div></div>
+<div class="ttc" id="anamespacetr_1_1bitreverse_html_a0d0d3b454c6111ef201d8f82c82d0362"><div class="ttname"><a href="namespacetr_1_1bitreverse.html#a0d0d3b454c6111ef201d8f82c82d0362">tr::bitreverse::reverse_bit_reverse_image</a></div><div class="ttdeci">auto reverse_bit_reverse_image(Typedefs::vec3D &amp;bit_reversed_image, uint8_t levels) -&gt; void</div><div class="ttdoc">Reverse the bit-reversal operation on a 3D vector (image).</div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8cpp_source.html#l00104">bitreverse.cpp:104</a></div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html_ab09f64334bf742724d2291281cf78518"><div class="ttname"><a href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">tr::utils::countSubdivisions</a></div><div class="ttdeci">auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int</div><div class="ttdoc">Count the number of subdivisions for a given row and column index.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00023">utils.cpp:23</a></div></div>
+<div class="ttc" id="anamespacetr_html"><div class="ttname"><a href="namespacetr.html">tr</a></div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8hpp_source.html#l00014">bitreverse.hpp:15</a></div></div>
 <div class="ttc" id="autils_8hpp_html"><div class="ttname"><a href="utils_8hpp.html">utils.hpp</a></div><div class="ttdoc">Declares utility functions for various operations.</div></div>
-<div class="ttc" id="autils_8hpp_html_a3ec45136383a69a5a35d24a4a3579160"><div class="ttname"><a href="utils_8hpp.html#a3ec45136383a69a5a35d24a4a3579160">countSubdivisions</a></div><div class="ttdeci">auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int</div><div class="ttdoc">Count the number of subdivisions for a given row and column index.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00022">utils.cpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_5finterpreter_334',['_interpreter',['../structmatplotlibcpp_1_1detail_1_1__interpreter.html',1,'matplotlibcpp::detail']]]
+  ['compare_150',['Compare',['../structHuffmanTree_1_1Compare.html',1,'HuffmanTree']]],
+  ['compressor_151',['Compressor',['../classCompressor.html',1,'']]]
 ];

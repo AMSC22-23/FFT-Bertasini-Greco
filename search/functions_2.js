@@ -1,13 +1,9 @@
 var searchData=
 [
-  ['cla_446',['cla',['../namespacematplotlibcpp.html#aa3ccefcc977791fc66c1cff63d589d00',1,'matplotlibcpp']]],
-  ['clear_447',['clear',['../classmatplotlibcpp_1_1Plot.html#a177f13fea5b50e991a373bdbea36fb59',1,'matplotlibcpp::Plot']]],
-  ['clf_448',['clf',['../namespacematplotlibcpp.html#adea4113b0ff7f393e18f1a99eb7e1718',1,'matplotlibcpp']]],
-  ['close_449',['close',['../namespacematplotlibcpp.html#a62aaaf872c41a9d1b71add44c0cc0447',1,'matplotlibcpp']]],
-  ['colorbar_450',['colorbar',['../namespacematplotlibcpp.html#a9ecea5f5240b0840556926e8c172952c',1,'matplotlibcpp']]],
-  ['compare_5ffft_451',['compare_fft',['../namespacecompare__fft.html#a4f1a0792f0c7ed2f98e975ca948eb6a8',1,'compare_fft']]],
-  ['compress_452',['compress',['../classCompressor.html#a66f351ad3530865f069d72499c107a1b',1,'Compressor::compress()'],['../classTransform_1_1OutputSpace.html#a0c02826f222661b51e45c82bbeb7652a',1,'Transform::OutputSpace::compress()'],['../classFourierTransform2D_1_1OutputSpace.html#a642d8eb16c89ed5923d13231dedfed56',1,'FourierTransform2D::OutputSpace::compress()'],['../classFourierTransform_1_1OutputSpace.html#a75e7597462a8cfee6a7fd9997eeb7b54',1,'FourierTransform::OutputSpace::compress()'],['../classDiscreteWaveletTransform2D_1_1OutputSpace.html#a05f7f262758a0d07ba138ad65d674bc0',1,'DiscreteWaveletTransform2D::OutputSpace::compress()'],['../classDiscreteWaveletTransform_1_1OutputSpace.html#a7d828bb2f81071e67c29a94dd60b8d08',1,'DiscreteWaveletTransform::OutputSpace::compress()'],['../classImage.html#a274a0221dfa68efba0fb83a6c10ed58a',1,'Image::compress()']]],
-  ['compute2dfft_453',['compute2DFFT',['../classFourierTransform2D.html#ad467a6128d82272d1bda0e0deb9cb584',1,'FourierTransform2D']]],
-  ['contour_454',['contour',['../namespacematplotlibcpp.html#ae9d836f539838bbe3a48056d4883f3b1',1,'matplotlibcpp::contour(const std::vector&lt;::std::vector&lt; Numeric &gt;&gt; &amp;x, const std::vector&lt;::std::vector&lt; Numeric &gt;&gt; &amp;y, const std::vector&lt;::std::vector&lt; Numeric &gt;&gt; &amp;z, const std::map&lt; std::string, std::string &gt; &amp;keywords={})'],['../namespacematplotlibcpp.html#a9b436f92bc261d6d938c60e626e13be9',1,'matplotlibcpp::contour(const std::vector&lt; NumericX &gt; &amp;x, const std::vector&lt; NumericY &gt; &amp;y, const std::vector&lt; NumericZ &gt; &amp;z, const std::map&lt; std::string, std::string &gt; &amp;keywords={})']]],
-  ['countsubdivisions_455',['countSubdivisions',['../utils_8hpp.html#a3ec45136383a69a5a35d24a4a3579160',1,'countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int:&#160;utils.cpp'],['../utils_8cpp.html#a3ec45136383a69a5a35d24a4a3579160',1,'countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int:&#160;utils.cpp']]]
+  ['decompress_224',['decompress',['../classDecompressor.html#a90a608bb68396e87c23f32303848be0a',1,'Decompressor']]],
+  ['denoise_225',['denoise',['../classSignal.html#a67c9278fe4019182616a8814ecba9cfa',1,'Signal::denoise()'],['../classtr_1_1FourierTransform_1_1OutputSpace.html#a1f504e0b4257cc0d701dfd70b16a6b0f',1,'tr::FourierTransform::OutputSpace::denoise()']]],
+  ['discretefouriertransform_226',['DiscreteFourierTransform',['../classtr_1_1DiscreteFourierTransform.html#a0016e29ee859065a5290f57b264b5472',1,'tr::DiscreteFourierTransform']]],
+  ['discretewavelettransform_227',['DiscreteWaveletTransform',['../classtr_1_1DiscreteWaveletTransform.html#a41725f533a4f57fcde4fbef86d719e7e',1,'tr::DiscreteWaveletTransform']]],
+  ['discretewavelettransform2d_228',['DiscreteWaveletTransform2D',['../classtr_1_1DiscreteWaveletTransform2D.html#a0f7c31b58f260beee25ab4c7f123f606',1,'tr::DiscreteWaveletTransform2D']]],
+  ['dwt_5ftests_229',['dwt_tests',['../test__dwt_8hpp.html#a54830af94574de63cb29d14181bf4f64',1,'test_dwt.hpp']]]
 ];

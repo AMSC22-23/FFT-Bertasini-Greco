@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['legend_501',['legend',['../namespacematplotlibcpp.html#a916bb5a9dc5f6a24877cc027bf4ee624',1,'matplotlibcpp::legend()'],['../namespacematplotlibcpp.html#af1bd4fb8c531bd4e9b0c0a2c6fa4d69b',1,'matplotlibcpp::legend(const std::map&lt; std::string, std::string &gt; &amp;keywords)']]],
-  ['loglog_502',['loglog',['../namespacematplotlibcpp.html#a6cfa8cba00f52a2c4614fa7a8a0bcd2b',1,'matplotlibcpp']]]
+  ['partial_5fbit_5freverse_258',['partial_bit_reverse',['../namespacetr_1_1bitreverse.html#af561a30ebf3d841ec06327d19df44a70',1,'tr::bitreverse']]],
+  ['pass_5ffilter_259',['pass_filter',['../classtr_1_1FourierTransform2D_1_1OutputSpace.html#a3c15337e935022879ad255d1bcb563fc',1,'tr::FourierTransform2D::OutputSpace']]],
+  ['plot_5fimage_260',['plot_image',['../Compression_2src_2main_8cpp.html#ae8d78ef3b94bd294ca77dc33e0812e30',1,'main.cpp']]],
+  ['plot_5fstuff_261',['plot_stuff',['../Signal_2src_2main_8cpp.html#a91f6fa48e3c0631438e9fdd56f29cd38',1,'main.cpp']]]
 ];

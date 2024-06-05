@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['m_603',['m',['../namespaceplot__scaling__tests__results.html#ae616da8bda2b3468b65ee69466c0aa89',1,'plot_scaling_tests_results']]]
+  ['tr_5fmat_300',['tr_mat',['../namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b',1,'compression']]]
 ];

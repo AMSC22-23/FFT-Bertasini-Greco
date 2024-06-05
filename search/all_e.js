@@ -1,5 +1,26 @@
 var searchData=
 [
-  ['operator_28_29_159',['operator()',['../structmatplotlibcpp_1_1detail_1_1plot__impl_3_01std_1_1true__type_01_4.html#ad182cd7d9a599f3a12d3ac7316b68ecb',1,'matplotlibcpp::detail::plot_impl&lt; std::true_type &gt;::operator()()'],['../classFourierTransform2D.html#a5fef61b1cf4deac217ae57a176db4535',1,'FourierTransform2D::operator()()'],['../classFourierTransform.html#a3719154210c46aef55971c860ebd7755',1,'FourierTransform::operator()(Typedefs::vcpx &amp;signal, const bool is_inverse) const -&gt; void=0'],['../classFourierTransform.html#ae8ea71fb0290b3125b12b9c8ca6476f9',1,'FourierTransform::operator()(Transform::InputSpace &amp;in, Transform::OutputSpace &amp;out, const bool is_inverse) const -&gt; void override'],['../classDiscreteWaveletTransform2D.html#a5f3d1effbc81f83d102046368d099d94',1,'DiscreteWaveletTransform2D::operator()(Transform::InputSpace &amp;in, Transform::OutputSpace &amp;out, const bool inverse) const -&gt; void override'],['../classDiscreteWaveletTransform2D.html#a517cd4f35395debe82e01573985698dc',1,'DiscreteWaveletTransform2D::operator()(Typedefs::vec3D &amp;dwt_coeff, const bool is_inverse) const -&gt; void'],['../classDiscreteWaveletTransform.html#a0d472684ade03bfd66b0943d07f94b8a',1,'DiscreteWaveletTransform::operator()(Transform::InputSpace &amp;in, Transform::OutputSpace &amp;out, const bool inverse) const -&gt; void override'],['../classDiscreteWaveletTransform.html#adbe09a53c11430fdb942bd2b505d0933',1,'DiscreteWaveletTransform::operator()(Typedefs::vec &amp;signal, const bool is_inverse) const -&gt; void'],['../classDiscreteFourierTransform.html#a68d304e5439d7ff03f89844186f0db1c',1,'DiscreteFourierTransform::operator()()'],['../structmatplotlibcpp_1_1detail_1_1plot__impl_3_01std_1_1false__type_01_4.html#ab430540b63185e4a76526b47d3b195e5',1,'matplotlibcpp::detail::plot_impl&lt; std::false_type &gt;::operator()()'],['../structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Fallback.html#ad72a88facc127249a3a171a462a7a95e',1,'matplotlibcpp::detail::is_callable_impl&lt; true, T &gt;::Fallback::operator()()'],['../structHuffmanTree_1_1Compare.html#a85893f76bf219a78f7cec9b1189dec5b',1,'HuffmanTree::Compare::operator()()'],['../classIterativeFastFourierTransform.html#ac811068f307cf00610e9524211f6405d',1,'IterativeFastFourierTransform::operator()()'],['../classRecursiveFastFourierTransform.html#afa318a2d2884444aed047813aa04998b',1,'RecursiveFastFourierTransform::operator()()'],['../classTransform.html#a9604425eb271b0ee31bc0dbefb3881c5',1,'Transform::operator()()']]],
-  ['outputspace_160',['OutputSpace',['../classDiscreteWaveletTransform2D_1_1OutputSpace.html',1,'DiscreteWaveletTransform2D::OutputSpace'],['../classDiscreteWaveletTransform_1_1OutputSpace.html',1,'DiscreteWaveletTransform::OutputSpace'],['../classFourierTransform2D_1_1OutputSpace.html',1,'FourierTransform2D&lt; FT &gt;::OutputSpace'],['../classFourierTransform_1_1OutputSpace.html',1,'FourierTransform::OutputSpace'],['../classDiscreteWaveletTransform2D_1_1OutputSpace.html#a1176b052c9d62779208e9bf08bf03d10',1,'DiscreteWaveletTransform2D::OutputSpace::OutputSpace()'],['../classTransform_1_1OutputSpace.html',1,'Transform&lt; T &gt;::OutputSpace']]]
+  ['bitreverse_112',['bitreverse',['../namespacetr_1_1bitreverse.html',1,'tr']]],
+  ['test_5fdwt_2ehpp_113',['test_dwt.hpp',['../test__dwt_8hpp.html',1,'']]],
+  ['test_5ffft_2ehpp_114',['test_fft.hpp',['../test__fft_8hpp.html',1,'']]],
+  ['test_5fsuite_115',['test_suite',['../namespacetr_1_1test__suite.html',1,'tr']]],
+  ['time_5fev_116',['time_ev',['../namespacetr_1_1test__suite.html#a245bf46de09b7e4da5d44ed0d3c186e4',1,'tr::test_suite']]],
+  ['time_5fev_5fdwt_117',['time_ev_dwt',['../namespacetr_1_1test__suite.html#ae12ff7cb9e6a80252de6bfa6f5a097d3',1,'tr::test_suite']]],
+  ['time_5fevaluation_118',['time_evaluation',['../test__fft_8hpp.html#a682a72e6747d5f6cc5f7881318039f0a',1,'test_fft.hpp']]],
+  ['time_5fevaluator_2ecpp_119',['time_evaluator.cpp',['../time__evaluator_8cpp.html',1,'']]],
+  ['time_5fevaluator_2ehpp_120',['time_evaluator.hpp',['../time__evaluator_8hpp.html',1,'']]],
+  ['tr_121',['tr',['../namespacetr.html',1,'']]],
+  ['tr_5fmat_122',['tr_mat',['../namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b',1,'compression']]],
+  ['transform_123',['Transform',['../classtr_1_1Transform.html',1,'tr']]],
+  ['transform_124',['transform',['../classImage.html#a69f8e04e30e6860431c7f8732901eb6a',1,'Image']]],
+  ['transform_125',['TRANSFORM',['../namespaceTRANSFORM__MATRICES_1_1TRANSFORM.html',1,'TRANSFORM_MATRICES']]],
+  ['transform_2ehpp_126',['Transform.hpp',['../Transform_8hpp.html',1,'']]],
+  ['transform_3c_20cv_3a_3amat_20_3e_127',['Transform&lt; cv::Mat &gt;',['../classtr_1_1Transform.html',1,'tr']]],
+  ['transform_3c_20typedefs_3a_3avec_20_3e_128',['Transform&lt; Typedefs::vec &gt;',['../classtr_1_1Transform.html',1,'tr']]],
+  ['transform_5fmatrices_129',['TRANSFORM_MATRICES',['../namespaceTRANSFORM__MATRICES.html',1,'']]],
+  ['transformmatrices_2ehpp_130',['TransformMatrices.hpp',['../TransformMatrices_8hpp.html',1,'']]],
+  ['transformmatrix_131',['TransformMatrix',['../structTRANSFORM__MATRICES_1_1TransformMatrix.html',1,'TRANSFORM_MATRICES::TransformMatrix&lt; T, N &gt;'],['../structTRANSFORM__MATRICES_1_1TransformMatrix.html#a0c847b3acfa04c91871993b39a2b7d1c',1,'TRANSFORM_MATRICES::TransformMatrix::TransformMatrix()']]],
+  ['typedefs_132',['Typedefs',['../namespaceTypedefs.html',1,'']]],
+  ['typedefs_2ehpp_133',['typedefs.hpp',['../typedefs_8hpp.html',1,'']]],
+  ['utils_134',['utils',['../namespacetr_1_1utils.html',1,'tr']]]
 ];

@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['image_494',['Image',['../classImage.html#ae859cf6c2cebc86ab057897a48653a28',1,'Image']]],
-  ['imshow_495',['imshow',['../namespacematplotlibcpp_1_1detail.html#ab78ea1d46cdefdf8037d2a2c0bcfaedb',1,'matplotlibcpp::detail::imshow()'],['../namespacematplotlibcpp.html#a4cc9d207ab565df55b663b264be9ce72',1,'matplotlibcpp::imshow(const unsigned char *ptr, const int rows, const int columns, const int colors, const std::map&lt; std::string, std::string &gt; &amp;keywords={}, PyObject **out=nullptr)'],['../namespacematplotlibcpp.html#a61bc8aab0ceca9c4df59dbbccc8ffb3f',1,'matplotlibcpp::imshow(const float *ptr, const int rows, const int columns, const int colors, const std::map&lt; std::string, std::string &gt; &amp;keywords={}, PyObject **out=nullptr)']]],
-  ['inputspace_496',['InputSpace',['../classDiscreteWaveletTransform_1_1InputSpace.html#a0be95d35c52806f365463164539df3aa',1,'DiscreteWaveletTransform::InputSpace::InputSpace()'],['../classDiscreteWaveletTransform2D_1_1InputSpace.html#a54f7101963986ee2cec4263dee848081',1,'DiscreteWaveletTransform2D::InputSpace::InputSpace()'],['../classFourierTransform_1_1InputSpace.html#ad6a1b9221ec1ac48d5c55b94a6bf78a0',1,'FourierTransform::InputSpace::InputSpace()'],['../classFourierTransform2D_1_1InputSpace.html#a9c48d48c7be4f2dd781e9cd1aeac240d',1,'FourierTransform2D::InputSpace::InputSpace()']]],
-  ['interkeeper_497',['interkeeper',['../structmatplotlibcpp_1_1detail_1_1__interpreter.html#accf36ff8fd9f1bd757d028fa4a14be40',1,'matplotlibcpp::detail::_interpreter']]],
-  ['ion_498',['ion',['../namespacematplotlibcpp.html#a9bddb5276ddc48f4ff9c2b36b98db71a',1,'matplotlibcpp']]],
-  ['iterativefastfouriertransform_499',['IterativeFastFourierTransform',['../classIterativeFastFourierTransform.html#ae1b0e6f3d27e89109917867410a51eda',1,'IterativeFastFourierTransform']]]
+  ['next_5fmultiple_5fof_5flevels_252',['next_multiple_of_levels',['../namespacetr_1_1bitreverse.html#aee27f4de0b7855992a5909a854829fb2',1,'tr::bitreverse']]],
+  ['next_5fpower_5fof_5f2_253',['next_power_of_2',['../namespacetr_1_1utils.html#a9440e6ef641f2649205bd58c37f03767',1,'tr::utils']]],
+  ['node_254',['Node',['../structHuffmanTree_1_1Node.html#ad17edcc13e7e87773383bf679038a6a0',1,'HuffmanTree::Node']]],
+  ['normalize_5fcoefficients_255',['normalize_coefficients',['../classtr_1_1DiscreteWaveletTransform2D_1_1OutputSpace.html#a3582f334bb368d3b98f0a695ed7bf03f',1,'tr::DiscreteWaveletTransform2D::OutputSpace']]]
 ];

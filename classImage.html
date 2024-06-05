@@ -99,9 +99,9 @@ $(document).ready(function(){initNavTree('classImage.html',''); initResizable();
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae859cf6c2cebc86ab057897a48653a28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#ae859cf6c2cebc86ab057897a48653a28">Image</a> (const cv::Mat &amp;img, std::unique_ptr&lt; <a class="el" href="classTransform.html">Transform</a>&lt; cv::Mat &gt;&gt; tr)</td></tr>
-<tr class="memdesc:ae859cf6c2cebc86ab057897a48653a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classImage.html" title="The Image class represents an image and provides methods for transformation, compression,...">Image</a> object.  <a href="classImage.html#ae859cf6c2cebc86ab057897a48653a28">More...</a><br /></td></tr>
-<tr class="separator:ae859cf6c2cebc86ab057897a48653a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe724deecc3ee02c3625614029e814d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#abe724deecc3ee02c3625614029e814d2">Image</a> (const cv::Mat &amp;img, std::unique_ptr&lt; <a class="el" href="classtr_1_1Transform.html">tr::Transform</a>&lt; cv::Mat &gt;&gt; tr)</td></tr>
+<tr class="memdesc:abe724deecc3ee02c3625614029e814d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an <a class="el" href="classImage.html" title="The Image class represents an image and provides methods for transformation, compression,...">Image</a> object.  <a href="classImage.html#abe724deecc3ee02c3625614029e814d2">More...</a><br /></td></tr>
+<tr class="separator:abe724deecc3ee02c3625614029e814d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69f8e04e30e6860431c7f8732901eb6a"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classImage.html#a69f8e04e30e6860431c7f8732901eb6a">transform</a> () -&gt; void</td></tr>
 <tr class="memdesc:a69f8e04e30e6860431c7f8732901eb6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the transformation on the image.  <a href="classImage.html#a69f8e04e30e6860431c7f8732901eb6a">More...</a><br /></td></tr>
 <tr class="separator:a69f8e04e30e6860431c7f8732901eb6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,8 +120,8 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Image_8hpp_source.html#l00017">17</a> of file <a class="el" href="Image_8hpp_source.html">Image.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae859cf6c2cebc86ab057897a48653a28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae859cf6c2cebc86ab057897a48653a28">&#9670;&nbsp;</a></span>Image()</h2>
+<a id="abe724deecc3ee02c3625614029e814d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe724deecc3ee02c3625614029e814d2">&#9670;&nbsp;</a></span>Image()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,7 +135,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classTransform.html">Transform</a>&lt; cv::Mat &gt;&gt;&#160;</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classtr_1_1Transform.html">tr::Transform</a>&lt; cv::Mat &gt;&gt;&#160;</td>
           <td class="paramname"><em>tr</em>&#160;</td>
         </tr>
         <tr>
@@ -155,7 +155,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00011">11</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00012">12</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
 
 </div>
 </div>
@@ -195,9 +195,9 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00031">31</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00032">32</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00015">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00016">main()</a>.</p>
 
 </div>
 </div>
@@ -219,9 +219,9 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the image as an OpenCV matrix. </p>
 <dl class="section return"><dt>Returns</dt><dd>The OpenCV matrix representing the image. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00041">41</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00042">42</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00015">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00016">main()</a>.</p>
 
 </div>
 </div>
@@ -243,9 +243,9 @@ Public Member Functions</h2></td></tr>
 <p>Retrieves the transformation coefficients. </p>
 <dl class="section return"><dt>Returns</dt><dd>The OpenCV matrix containing the transformation coefficients. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00045">45</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00046">46</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00015">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00016">main()</a>.</p>
 
 </div>
 </div>
@@ -266,11 +266,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Performs the transformation on the image. </p>
 
-<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00037">37</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Image_8cpp_source.html#l00038">38</a> of file <a class="el" href="Image_8cpp_source.html">Image.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="hyperparameters_8hpp_source.html#l00008">compression::tr</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00015">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Image_2src_2main_8cpp_source.html#l00016">main()</a>.</p>
 
 </div>
 </div>

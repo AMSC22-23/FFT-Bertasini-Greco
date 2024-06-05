@@ -102,145 +102,146 @@ $(document).ready(function(){initNavTree('Compressor_8cpp_source.html',''); init
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span>cv;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceTypedefs.html">Typedefs</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacecompression.html">compression</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">auto</span> Compressor::apply_dwt() -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="classDiscreteWaveletTransform2D.html">DiscreteWaveletTransform2D</a> dwt(<a class="code" href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">tr</a>, levels);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">auto</span> in_space = dwt.get_input_space(img);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">auto</span> &amp;in_data = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="classDiscreteWaveletTransform2D_1_1InputSpace.html">DiscreteWaveletTransform2D::InputSpace</a>&amp;<span class="keyword">&gt;</span>(*in_space).<a class="code" href="classDiscreteWaveletTransform2D_1_1InputSpace.html#a92bd5ec61f2cf63606f2780539332743">data</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  img_size = img.size();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  dwt(in_data, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="bitreverse_8hpp.html#a06499e7ac9b9a555e5a4e0c001042e4c">bit_reverse_image</a>(in_data, levels);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  coeff = in_data;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">//q(t)=sgn(t)td</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">auto</span> Compressor::quantize_value(<span class="keywordtype">double</span>&amp; value, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; step) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    value = copysign(1.0, value) * floor(abs(value) / step);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">auto</span> Compressor::quantize () -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">double</span> tau = pow(2, <a class="code" href="namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee">R</a> - <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> + (<span class="keywordtype">double</span>)levels) * (1. + <a class="code" href="namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade">f</a> / pow(2, 11));</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> rows = coeff[0].size();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> cols = coeff[0][0].size();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j){</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordtype">int</span> k = levels - <a class="code" href="utils_8hpp.html#a3ec45136383a69a5a35d24a4a3579160">countSubdivisions</a>(i, j, rows, cols, levels+1);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">if</span> (k == levels) quantize_value(coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j], tau / pow(2, k));</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">else</span> quantize_value(coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j], tau / pow(2, k-<a class="code" href="namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c">compression_coeff</a>));</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">   47</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a>(ofstream&amp; file, vector&lt;bool&gt;&amp; bits) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> = 0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">char</span> <span class="keywordtype">byte</span> = 0;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> bit : bits) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">byte</span> = <span class="keywordtype">byte</span> &lt;&lt; 1 | bit;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>++;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> == 8) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      file.write(&amp;<span class="keywordtype">byte</span>, 1);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> = 0;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keywordtype">byte</span> = 0;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> != 0) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">byte</span> = <span class="keywordtype">byte</span> &lt;&lt; (8 - <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    file.write(&amp;<span class="keywordtype">byte</span>, 1);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">auto</span> Compressor::HuffmanEncoding(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="comment">// 1. Flatten the 3D matrix into a 1D vector</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  vector&lt;int&gt; flat_coeff;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i)</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j)</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        flat_coeff.push_back(coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j]);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="comment">// 2. Create a frequency table</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  unordered_map&lt;int, int&gt; freq_table;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; val : flat_coeff)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    freq_table[val]++;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">// 3. Create a Huffman tree</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keyword">auto</span> huffman_tree = make_shared&lt;HuffmanTree&lt;int&gt;&gt;(freq_table);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="comment">// 4. Create a Huffman code table</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keyword">auto</span> huffman_code_table = huffman_tree-&gt;get_code_table();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="comment">// 5. Encode the data</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  vector&lt;bool&gt; encoded_data;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; val : flat_coeff) {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">auto</span> code = huffman_code_table[val];</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    encoded_data.insert(encoded_data.end(), code.begin(), code.end());</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="comment">// 6. Save the encoded data</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  ofstream encoded_file(filename, ios::binary);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keywordflow">if</span> (!encoded_file.is_open()) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Could not open file encoded_data.txt&quot;</span> &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="comment">// 7. Write the Huffman map to the file</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="keywordtype">int</span> rows = coeff[0].size();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">int</span> cols = coeff[0][0].size();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;img_size, <span class="keyword">sizeof</span>(img_size));</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;rows, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;cols, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;levels, <span class="keyword">sizeof</span>(levels));</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordtype">size_t</span> size = huffman_code_table.size();</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;size, <span class="keyword">sizeof</span>(size));</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  vector&lt;int&gt; keys;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  vector&lt;bool&gt; values;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  vector&lt;char&gt; code_sizes;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [key, value] : huffman_code_table) {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    keys.push_back(key);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    values.insert(values.end(), value.begin(), value.end());</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    code_sizes.push_back(value.size());</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)keys.data(), keys.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)code_sizes.data(), code_sizes.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>));</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <a class="code" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a>(encoded_file, values);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="comment">// 8. Write the encoded data to the file</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a>(encoded_file, encoded_data);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  encoded_file.close();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">  126</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">Compressor::compress</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename, <span class="keyword">const</span> cv::Mat&amp; _img, <span class="keyword">const</span> <span class="keywordtype">int</span> _levels) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    img = _img;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    levels = _levels;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    apply_dwt();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    quantize();</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    HuffmanEncoding(filename);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
-<div class="ttc" id="aCompressor_8cpp_html_ad0243cfc504103a1b11e4b26aae8cb93"><div class="ttname"><a href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a></div><div class="ttdeci">auto write_bits(ofstream &amp;file, vector&lt; bool &gt; &amp;bits) -&gt; void</div><div class="ttdef"><b>Definition:</b> <a href="Compressor_8cpp_source.html#l00047">Compressor.cpp:47</a></div></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacetr.html">tr</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">auto</span> Compressor::apply_dwt() -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <a class="code" href="classtr_1_1DiscreteWaveletTransform2D.html">DiscreteWaveletTransform2D</a> dwt(<a class="code" href="namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b">tr_mat</a>, levels);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">auto</span> in_space = dwt.get_input_space(img);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">auto</span> &amp;in_data = <span class="keyword">dynamic_cast&lt;</span><a class="code" href="classtr_1_1DiscreteWaveletTransform2D_1_1InputSpace.html">DiscreteWaveletTransform2D::InputSpace</a>&amp;<span class="keyword">&gt;</span>(*in_space).<a class="code" href="classtr_1_1DiscreteWaveletTransform2D_1_1InputSpace.html#ab4c7e2b39affdfb29d0d446d9a7b64cb">data</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  img_size = img.size();</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  dwt(in_data, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="namespacetr_1_1bitreverse.html#a290f09a7c25fd9fbc1b0d00cdc4e0655">bitreverse::bit_reverse_image</a>(in_data, levels);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  coeff = in_data;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//q(t)=sgn(t)td</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">auto</span> Compressor::quantize_value(<span class="keywordtype">double</span>&amp; value, <span class="keyword">const</span> <span class="keywordtype">double</span>&amp; step) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    value = copysign(1.0, value) * floor(abs(value) / step);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">auto</span> Compressor::quantize () -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">double</span> tau = pow(2, <a class="code" href="namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee">R</a> - <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> + (<span class="keywordtype">double</span>)levels) * (1. + <a class="code" href="namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade">f</a> / pow(2, 11));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> rows = coeff[0].size();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">const</span> <span class="keywordtype">int</span> cols = coeff[0][0].size();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j){</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">int</span> k = levels - <a class="code" href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">tr::utils::countSubdivisions</a>(i, j, rows, cols, levels+1);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">if</span> (k == levels) quantize_value(coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j], tau / pow(2, k));</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">else</span> quantize_value(coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j], tau / pow(2, k-<a class="code" href="namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c">compression_coeff</a>));</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">   48</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a>(ofstream&amp; file, vector&lt;bool&gt;&amp; bits) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">int</span> n = 0;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">char</span> <span class="keywordtype">byte</span> = 0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span> bit : bits) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">byte</span> = <span class="keywordtype">byte</span> &lt;&lt; 1 | bit;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    n++;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (n == 8) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      file.write(&amp;<span class="keywordtype">byte</span>, 1);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      n = 0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordtype">byte</span> = 0;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span> (n != 0) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">byte</span> = <span class="keywordtype">byte</span> &lt;&lt; (8 - n);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    file.write(&amp;<span class="keywordtype">byte</span>, 1);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">auto</span> Compressor::HuffmanEncoding(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// 1. Flatten the 3D matrix into a 1D vector</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  vector&lt;int&gt; flat_coeff;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> = 0; <a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a> &lt; coeff.size(); ++<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; coeff[0].size(); ++i)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; coeff[0][0].size(); ++j)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        flat_coeff.push_back(coeff[<a class="code" href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">c</a>][i][j]);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="comment">// 2. Create a frequency table</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  unordered_map&lt;int, int&gt; freq_table;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; val : flat_coeff)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    freq_table[val]++;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="comment">// 3. Create a Huffman tree</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keyword">auto</span> huffman_tree = make_shared&lt;HuffmanTree&lt;int&gt;&gt;(freq_table);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="comment">// 4. Create a Huffman code table</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">auto</span> huffman_code_table = huffman_tree-&gt;get_code_table();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="comment">// 5. Encode the data</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  vector&lt;bool&gt; encoded_data;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; val : flat_coeff) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">auto</span> code = huffman_code_table[val];</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    encoded_data.insert(encoded_data.end(), code.begin(), code.end());</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="comment">// 6. Save the encoded data</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  ofstream encoded_file(filename, ios::binary);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordflow">if</span> (!encoded_file.is_open()) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Could not open file encoded_data.txt&quot;</span> &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="comment">// 7. Write the Huffman map to the file</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <span class="keywordtype">int</span> rows = coeff[0].size();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <span class="keywordtype">int</span> cols = coeff[0][0].size();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;img_size, <span class="keyword">sizeof</span>(img_size));</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;rows, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;cols, <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;levels, <span class="keyword">sizeof</span>(levels));</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordtype">size_t</span> size = huffman_code_table.size();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)&amp;size, <span class="keyword">sizeof</span>(size));</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  vector&lt;int&gt; keys;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  vector&lt;bool&gt; values;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  vector&lt;char&gt; code_sizes;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; [key, value] : huffman_code_table) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    keys.push_back(key);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    values.insert(values.end(), value.begin(), value.end());</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    code_sizes.push_back(value.size());</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)keys.data(), keys.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  encoded_file.write((<span class="keywordtype">char</span>*)code_sizes.data(), code_sizes.size() * <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>));</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <a class="code" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a>(encoded_file, values);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="comment">// 8. Write the encoded data to the file</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <a class="code" href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a>(encoded_file, encoded_data);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  encoded_file.close();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">  127</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">Compressor::compress</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; filename, <span class="keyword">const</span> cv::Mat&amp; _img, <span class="keyword">const</span> <span class="keywordtype">int</span> _levels) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    img = _img;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    levels = _levels;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    apply_dwt();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    quantize();</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    HuffmanEncoding(filename);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
+<div class="ttc" id="aCompressor_8cpp_html_ad0243cfc504103a1b11e4b26aae8cb93"><div class="ttname"><a href="Compressor_8cpp.html#ad0243cfc504103a1b11e4b26aae8cb93">write_bits</a></div><div class="ttdeci">auto write_bits(ofstream &amp;file, vector&lt; bool &gt; &amp;bits) -&gt; void</div><div class="ttdef"><b>Definition:</b> <a href="Compressor_8cpp_source.html#l00048">Compressor.cpp:48</a></div></div>
 <div class="ttc" id="aCompressor_8hpp_html"><div class="ttname"><a href="Compressor_8hpp.html">Compressor.hpp</a></div><div class="ttdoc">Defines the Compressor class for image compression using the discrete wavelet transform and Huffman e...</div></div>
 <div class="ttc" id="aDiscreteWaveletTransform2D_8hpp_html"><div class="ttname"><a href="DiscreteWaveletTransform2D_8hpp.html">DiscreteWaveletTransform2D.hpp</a></div><div class="ttdoc">Defines the DiscreteWaveletTransform2D class, which inherits from the Transform class for 2D discrete...</div></div>
 <div class="ttc" id="aHuffmanTree_8hpp_html"><div class="ttname"><a href="HuffmanTree_8hpp.html">HuffmanTree.hpp</a></div><div class="ttdoc">Defines the HuffmanTree class for constructing a Huffman tree and generating Huffman codes.</div></div>
 <div class="ttc" id="abitreverse_8hpp_html"><div class="ttname"><a href="bitreverse_8hpp.html">bitreverse.hpp</a></div><div class="ttdoc">Declares functions for bit-reversing vectors and 3D vectors (images).</div></div>
-<div class="ttc" id="abitreverse_8hpp_html_a06499e7ac9b9a555e5a4e0c001042e4c"><div class="ttname"><a href="bitreverse_8hpp.html#a06499e7ac9b9a555e5a4e0c001042e4c">bit_reverse_image</a></div><div class="ttdeci">auto bit_reverse_image(Typedefs::vec3D &amp;image, uint8_t user_levels) -&gt; void</div><div class="ttdoc">Perform bit-reversal on a 3D vector (image).</div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8cpp_source.html#l00077">bitreverse.cpp:77</a></div></div>
-<div class="ttc" id="aclassCompressor_html_a66f351ad3530865f069d72499c107a1b"><div class="ttname"><a href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">Compressor::compress</a></div><div class="ttdeci">auto compress(const std::string &amp;filename, const cv::Mat &amp;img, const int levels=3) -&gt; void</div><div class="ttdoc">Compress an image using the discrete wavelet transform and Huffman encoding.</div><div class="ttdef"><b>Definition:</b> <a href="Compressor_8cpp_source.html#l00126">Compressor.cpp:126</a></div></div>
-<div class="ttc" id="aclassDiscreteWaveletTransform2D_1_1InputSpace_html"><div class="ttname"><a href="classDiscreteWaveletTransform2D_1_1InputSpace.html">DiscreteWaveletTransform2D::InputSpace</a></div><div class="ttdoc">Represents the input space for the 2D discrete wavelet transform.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00028">DiscreteWaveletTransform2D.hpp:28</a></div></div>
-<div class="ttc" id="aclassDiscreteWaveletTransform2D_1_1InputSpace_html_a92bd5ec61f2cf63606f2780539332743"><div class="ttname"><a href="classDiscreteWaveletTransform2D_1_1InputSpace.html#a92bd5ec61f2cf63606f2780539332743">DiscreteWaveletTransform2D::InputSpace::data</a></div><div class="ttdeci">Typedefs::vec3D data</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00030">DiscreteWaveletTransform2D.hpp:30</a></div></div>
-<div class="ttc" id="aclassDiscreteWaveletTransform2D_html"><div class="ttname"><a href="classDiscreteWaveletTransform2D.html">DiscreteWaveletTransform2D</a></div><div class="ttdoc">Represents a 2D discrete wavelet transform operation.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00018">DiscreteWaveletTransform2D.hpp:18</a></div></div>
+<div class="ttc" id="aclassCompressor_html_a66f351ad3530865f069d72499c107a1b"><div class="ttname"><a href="classCompressor.html#a66f351ad3530865f069d72499c107a1b">Compressor::compress</a></div><div class="ttdeci">auto compress(const std::string &amp;filename, const cv::Mat &amp;img, const int levels=3) -&gt; void</div><div class="ttdoc">Compress an image using the discrete wavelet transform and Huffman encoding.</div><div class="ttdef"><b>Definition:</b> <a href="Compressor_8cpp_source.html#l00127">Compressor.cpp:127</a></div></div>
+<div class="ttc" id="aclasstr_1_1DiscreteWaveletTransform2D_1_1InputSpace_html"><div class="ttname"><a href="classtr_1_1DiscreteWaveletTransform2D_1_1InputSpace.html">tr::DiscreteWaveletTransform2D::InputSpace</a></div><div class="ttdoc">Represents the input space for the 2D discrete wavelet transform.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00032">DiscreteWaveletTransform2D.hpp:33</a></div></div>
+<div class="ttc" id="aclasstr_1_1DiscreteWaveletTransform2D_1_1InputSpace_html_ab4c7e2b39affdfb29d0d446d9a7b64cb"><div class="ttname"><a href="classtr_1_1DiscreteWaveletTransform2D_1_1InputSpace.html#ab4c7e2b39affdfb29d0d446d9a7b64cb">tr::DiscreteWaveletTransform2D::InputSpace::data</a></div><div class="ttdeci">Typedefs::vec3D data</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00035">DiscreteWaveletTransform2D.hpp:35</a></div></div>
+<div class="ttc" id="aclasstr_1_1DiscreteWaveletTransform2D_html"><div class="ttname"><a href="classtr_1_1DiscreteWaveletTransform2D.html">tr::DiscreteWaveletTransform2D</a></div><div class="ttdoc">Represents a 2D discrete wavelet transform operation.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteWaveletTransform2D_8hpp_source.html#l00021">DiscreteWaveletTransform2D.hpp:22</a></div></div>
 <div class="ttc" id="ahyperparameters_8hpp_html"><div class="ttname"><a href="hyperparameters_8hpp.html">hyperparameters.hpp</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html"><div class="ttname"><a href="namespaceTypedefs.html">Typedefs</a></div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00013">typedefs.hpp:13</a></div></div>
 <div class="ttc" id="anamespacecompression_html"><div class="ttname"><a href="namespacecompression.html">compression</a></div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00003">hyperparameters.hpp:3</a></div></div>
 <div class="ttc" id="anamespacecompression_html_a1b011f011b3f91ecff82beadb355f27c"><div class="ttname"><a href="namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c">compression::compression_coeff</a></div><div class="ttdeci">const double compression_coeff</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00004">hyperparameters.hpp:4</a></div></div>
+<div class="ttc" id="anamespacecompression_html_a437ac2cee5913fb8cb34502170d43f2b"><div class="ttname"><a href="namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b">compression::tr_mat</a></div><div class="ttdeci">const auto tr_mat</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00008">hyperparameters.hpp:8</a></div></div>
 <div class="ttc" id="anamespacecompression_html_a6f1d12b8ec27ff71492e1dc7c99b2fee"><div class="ttname"><a href="namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee">compression::R</a></div><div class="ttdeci">const double R</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00005">hyperparameters.hpp:5</a></div></div>
 <div class="ttc" id="anamespacecompression_html_abb66facd58f173f3fea05441a7c02d07"><div class="ttname"><a href="namespacecompression.html#abb66facd58f173f3fea05441a7c02d07">compression::c</a></div><div class="ttdeci">const double c</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00006">hyperparameters.hpp:6</a></div></div>
 <div class="ttc" id="anamespacecompression_html_ac7a61e390e9d7046c495f61d6c06cade"><div class="ttname"><a href="namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade">compression::f</a></div><div class="ttdeci">const double f</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00007">hyperparameters.hpp:7</a></div></div>
-<div class="ttc" id="anamespacecompression_html_acf57056af965ddab20aec5d2a6e9bdce"><div class="ttname"><a href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">compression::tr</a></div><div class="ttdeci">const auto tr</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00008">hyperparameters.hpp:8</a></div></div>
-<div class="ttc" id="anamespaceplot__scaling__tests__results_html_af4bf7dd4dd62d0beaf4aba2ac1209bfc"><div class="ttname"><a href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">plot_scaling_tests_results.n</a></div><div class="ttdeci">n</div><div class="ttdef"><b>Definition:</b> <a href="plot__scaling__tests__results_8py_source.html#l00013">plot_scaling_tests_results.py:13</a></div></div>
+<div class="ttc" id="anamespacetr_1_1bitreverse_html_a290f09a7c25fd9fbc1b0d00cdc4e0655"><div class="ttname"><a href="namespacetr_1_1bitreverse.html#a290f09a7c25fd9fbc1b0d00cdc4e0655">tr::bitreverse::bit_reverse_image</a></div><div class="ttdeci">auto bit_reverse_image(Typedefs::vec3D &amp;image, uint8_t user_levels) -&gt; void</div><div class="ttdoc">Perform bit-reversal on a 3D vector (image).</div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8cpp_source.html#l00077">bitreverse.cpp:77</a></div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html_ab09f64334bf742724d2291281cf78518"><div class="ttname"><a href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">tr::utils::countSubdivisions</a></div><div class="ttdeci">auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int</div><div class="ttdoc">Count the number of subdivisions for a given row and column index.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00023">utils.cpp:23</a></div></div>
+<div class="ttc" id="anamespacetr_html"><div class="ttname"><a href="namespacetr.html">tr</a></div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8hpp_source.html#l00014">bitreverse.hpp:15</a></div></div>
 <div class="ttc" id="autils_8hpp_html"><div class="ttname"><a href="utils_8hpp.html">utils.hpp</a></div><div class="ttdoc">Declares utility functions for various operations.</div></div>
-<div class="ttc" id="autils_8hpp_html_a3ec45136383a69a5a35d24a4a3579160"><div class="ttname"><a href="utils_8hpp.html#a3ec45136383a69a5a35d24a4a3579160">countSubdivisions</a></div><div class="ttdeci">auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int</div><div class="ttdoc">Count the number of subdivisions for a given row and column index.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00022">utils.cpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

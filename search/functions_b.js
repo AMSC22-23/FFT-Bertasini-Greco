@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['magnitude_5ffilter_503',['magnitude_filter',['../classFourierTransform2D_1_1OutputSpace.html#a71aacea11b8a24fa6fede44261c11698',1,'FourierTransform2D::OutputSpace']]],
-  ['main_504',['main',['../Compression_2src_2main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp'],['../Image_2src_2main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp'],['../Signal_2src_2main_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef',1,'main() -&gt; int:&#160;main.cpp'],['../pipeline_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;pipeline.cpp']]],
-  ['margins_505',['margins',['../namespacematplotlibcpp.html#a468096a42e46d0a26e8a237ffb24caca',1,'matplotlibcpp::margins(Numeric margin)'],['../namespacematplotlibcpp.html#ac4907337da083bf670acecc6624cf244',1,'matplotlibcpp::margins(Numeric margin_x, Numeric margin_y)']]]
+  ['read_5fbits_262',['read_bits',['../Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608',1,'Decompressor.cpp']]],
+  ['read_5fsignal_263',['read_signal',['../namespacetr_1_1utils.html#a9200eccf8163b008f774b5940ac98ad5',1,'tr::utils']]],
+  ['rearrenge_5fquadrants_5fto_5fcenter_264',['rearrenge_quadrants_to_center',['../classtr_1_1FourierTransform2D_1_1OutputSpace.html#a928543b32e370a88351a8f7e509123c1',1,'tr::FourierTransform2D::OutputSpace']]],
+  ['recursivefastfouriertransform_265',['RecursiveFastFourierTransform',['../classtr_1_1RecursiveFastFourierTransform.html#aa1815644a278d4f1fe04db872b381609',1,'tr::RecursiveFastFourierTransform']]],
+  ['reverse_5fbit_5freverse_5fimage_266',['reverse_bit_reverse_image',['../namespacetr_1_1bitreverse.html#a0d0d3b454c6111ef201d8f82c82d0362',1,'tr::bitreverse']]]
 ];

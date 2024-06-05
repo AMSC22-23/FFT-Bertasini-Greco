@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['n_604',['n',['../namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc',1,'plot_scaling_tests_results']]]
+  ['user_5flevels_301',['user_levels',['../classtr_1_1DiscreteWaveletTransform2D_1_1OutputSpace.html#add2edaeda052a2b2c9722c923db26b3a',1,'tr::DiscreteWaveletTransform2D::OutputSpace']]]
 ];

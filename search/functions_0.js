@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['annotate_430',['annotate',['../namespacematplotlibcpp.html#a4854fc237468144bd46809ea7ce8f2a0',1,'matplotlibcpp']]],
-  ['arrow_431',['arrow',['../namespacematplotlibcpp.html#a5da5568ee4a63f144e4541c6c84ed0ce',1,'matplotlibcpp']]],
-  ['axhline_432',['axhline',['../namespacematplotlibcpp.html#aad674397c3890c8454edbd6363b1564e',1,'matplotlibcpp']]],
-  ['axis_433',['axis',['../namespacematplotlibcpp.html#aab5287e30ebd90df0f5614d8da0f5291',1,'matplotlibcpp']]],
-  ['axvline_434',['axvline',['../namespacematplotlibcpp.html#a74882742dd5b2fa53cce6c2d4f5bbc2c',1,'matplotlibcpp']]],
-  ['axvspan_435',['axvspan',['../namespacematplotlibcpp.html#aa895bc53f99e3630b8c0adb41880b485',1,'matplotlibcpp']]]
+  ['bit_5freverse_217',['bit_reverse',['../bitreverse_8cpp.html#a85f2375b431811a1164fe6f9b4ebc0f9',1,'bitreverse.cpp']]],
+  ['bit_5freverse_5fcopy_218',['bit_reverse_copy',['../namespacetr_1_1bitreverse.html#a91c2d7d6487a944b118ad6780a2e2cb3',1,'tr::bitreverse']]],
+  ['bit_5freverse_5fimage_219',['bit_reverse_image',['../namespacetr_1_1bitreverse.html#a290f09a7c25fd9fbc1b0d00cdc4e0655',1,'tr::bitreverse']]],
+  ['bit_5freversed_5findex_220',['bit_reversed_index',['../bitreverse_8cpp.html#a2b64bcd8077ed2a528d4f1a218ace414',1,'bitreverse.cpp']]]
 ];

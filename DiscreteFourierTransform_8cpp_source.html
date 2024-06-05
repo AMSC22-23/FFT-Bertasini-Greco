@@ -94,29 +94,29 @@ $(document).ready(function(){initNavTree('DiscreteFourierTransform_8cpp_source.h
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceTypedefs.html">Typedefs</a>;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">auto</span> DiscreteFourierTransform::dft(<a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a>&amp; x, <span class="keyword">const</span> <span class="keywordtype">bool</span> is_inverse) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> N = x.size();</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a> X(N, 0);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> mult = (1-2*is_inverse)*-2*M_PI/N;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> k = 0; k &lt; N; k++){</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> = 0; <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &lt; N; <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>++){</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            X[k] += x[<a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>] * polar(1.0, mult*k*<a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    move(X.begin(), X.end(), x.begin()); </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classDiscreteFourierTransform.html#a68d304e5439d7ff03f89844186f0db1c">   21</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classDiscreteFourierTransform.html#a68d304e5439d7ff03f89844186f0db1c">DiscreteFourierTransform::operator()</a>(<a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a>&amp; x, <span class="keyword">const</span> <span class="keywordtype">bool</span> is_inverse) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    dft(x, is_inverse);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacetr.html">tr</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">auto</span> DiscreteFourierTransform::dft(<a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a>&amp; x, <span class="keyword">const</span> <span class="keywordtype">bool</span> is_inverse) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> N = x.size();</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a> X(N, 0);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> mult = (1-2*is_inverse)*-2*M_PI/N;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> k = 0; k &lt; N; k++){</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; N; n++){</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            X[k] += x[n] * polar(1.0, mult*k*n);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    move(X.begin(), X.end(), x.begin()); </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classtr_1_1DiscreteFourierTransform.html#a68d304e5439d7ff03f89844186f0db1c">   22</a></span>&#160;<span class="keyword">auto</span> DiscreteFourierTransform::operator()(<a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a>&amp; x, <span class="keyword">const</span> <span class="keywordtype">bool</span> is_inverse) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    dft(x, is_inverse);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 <div class="ttc" id="aDiscreteFourierTransform_8hpp_html"><div class="ttname"><a href="DiscreteFourierTransform_8hpp.html">DiscreteFourierTransform.hpp</a></div><div class="ttdoc">Defines the DiscreteFourierTransform class for discrete Fourier transform operations.</div></div>
-<div class="ttc" id="aclassDiscreteFourierTransform_html_a68d304e5439d7ff03f89844186f0db1c"><div class="ttname"><a href="classDiscreteFourierTransform.html#a68d304e5439d7ff03f89844186f0db1c">DiscreteFourierTransform::operator()</a></div><div class="ttdeci">auto operator()(Typedefs::vcpx &amp;signal, const bool is_inverse) const -&gt; void override</div><div class="ttdoc">Perform the discrete Fourier transform operation on a complex signal.</div><div class="ttdef"><b>Definition:</b> <a href="DiscreteFourierTransform_8cpp_source.html#l00021">DiscreteFourierTransform.cpp:21</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html"><div class="ttname"><a href="namespaceTypedefs.html">Typedefs</a></div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00013">typedefs.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html_a8adf1ea1e0f419a87998c38498e91123"><div class="ttname"><a href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">Typedefs::vcpx</a></div><div class="ttdeci">std::vector&lt; cpx &gt; vcpx</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00019">typedefs.hpp:19</a></div></div>
-<div class="ttc" id="anamespaceplot__scaling__tests__results_html_af4bf7dd4dd62d0beaf4aba2ac1209bfc"><div class="ttname"><a href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">plot_scaling_tests_results.n</a></div><div class="ttdeci">n</div><div class="ttdef"><b>Definition:</b> <a href="plot__scaling__tests__results_8py_source.html#l00013">plot_scaling_tests_results.py:13</a></div></div>
+<div class="ttc" id="anamespacetr_html"><div class="ttname"><a href="namespacetr.html">tr</a></div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8hpp_source.html#l00014">bitreverse.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

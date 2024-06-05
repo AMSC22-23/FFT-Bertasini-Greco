@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['inverse_600',['inverse',['../structTRANSFORM__MATRICES_1_1TransformMatrix.html#a89a11d0a56512b44ea6f4752668cc8ce',1,'TRANSFORM_MATRICES::TransformMatrix']]]
+  ['left_297',['left',['../structHuffmanTree_1_1Node.html#a6f6042c0d220eb418c97fc2d103db5b1',1,'HuffmanTree::Node']]]
 ];

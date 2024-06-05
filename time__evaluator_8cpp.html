@@ -84,8 +84,6 @@ $(document).ready(function(){initNavTree('time__evaluator_8cpp.html',''); initRe
 </div>
 
 <div class="header">
-  <div class="summary">
-<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">time_evaluator.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -94,91 +92,6 @@ $(document).ready(function(){initNavTree('time__evaluator_8cpp.html',''); initRe
 <code>#include &quot;<a class="el" href="time__evaluator_8hpp_source.html">time_evaluator.hpp</a>&quot;</code><br />
 </div>
 <p><a href="time__evaluator_8cpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:aa858d77c2aa81cb111788612a2a9c8d5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time__evaluator_8cpp.html#aa858d77c2aa81cb111788612a2a9c8d5">time_ev</a> (const <a class="el" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a> &amp;x, const unique_ptr&lt; <a class="el" href="classFourierTransform.html">FourierTransform</a> &gt; &amp;f) -&gt; long unsigned int</td></tr>
-<tr class="separator:aa858d77c2aa81cb111788612a2a9c8d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7acc3a5b30e5d3e372eb0e32c4c3cea2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time__evaluator_8cpp.html#a7acc3a5b30e5d3e372eb0e32c4c3cea2">time_ev_dwt</a> (const <a class="el" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">Typedefs::vec</a> &amp;x, const <a class="el" href="classDiscreteWaveletTransform.html">DiscreteWaveletTransform</a> &amp;dwt) -&gt; long unsigned int</td></tr>
-<tr class="memdesc:a7acc3a5b30e5d3e372eb0e32c4c3cea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time the execution of a discrete wavelet transform on a signal vector.  <a href="time__evaluator_8cpp.html#a7acc3a5b30e5d3e372eb0e32c4c3cea2">More...</a><br /></td></tr>
-<tr class="separator:a7acc3a5b30e5d3e372eb0e32c4c3cea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="aa858d77c2aa81cb111788612a2a9c8d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa858d77c2aa81cb111788612a2a9c8d5">&#9670;&nbsp;</a></span>time_ev()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto time_ev </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a> &amp;&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const unique_ptr&lt; <a class="el" href="classFourierTransform.html">FourierTransform</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>f</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> -&gt; long unsigned int
- </td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="time__evaluator_8cpp_source.html#l00008">8</a> of file <a class="el" href="time__evaluator_8cpp_source.html">time_evaluator.cpp</a>.</p>
-
-<p class="reference">References <a class="el" href="hyperparameters_8hpp_source.html#l00007">compression::f</a>.</p>
-
-</div>
-</div>
-<a id="a7acc3a5b30e5d3e372eb0e32c4c3cea2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7acc3a5b30e5d3e372eb0e32c4c3cea2">&#9670;&nbsp;</a></span>time_ev_dwt()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto time_ev_dwt </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">Typedefs::vec</a> &amp;&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classDiscreteWaveletTransform.html">DiscreteWaveletTransform</a> &amp;&#160;</td>
-          <td class="paramname"><em>dwt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> -&gt;  long unsigned int</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Time the execution of a discrete wavelet transform on a signal vector. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x</td><td>The input signal vector. </td></tr>
-    <tr><td class="paramname">dwt</td><td>The discrete wavelet transform object. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The execution time in microseconds. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="time__evaluator_8cpp_source.html#l00018">18</a> of file <a class="el" href="time__evaluator_8cpp_source.html">time_evaluator.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="test__dwt_8hpp_source.html#l00017">dwt_tests()</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

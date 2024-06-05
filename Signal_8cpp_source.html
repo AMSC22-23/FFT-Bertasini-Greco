@@ -96,74 +96,74 @@ $(document).ready(function(){initNavTree('Signal_8cpp_source.html',''); initResi
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceTypedefs.html">Typedefs</a>;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classSignal.html#a9f246e562a8beb804872d76f24836101">   10</a></span>&#160;<a class="code" href="classSignal.html#a9f246e562a8beb804872d76f24836101">Signal::Signal</a>(<a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a> _freqs, <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a> _amps, <span class="keywordtype">size_t</span> n_samples, unique_ptr&lt;<a class="code" href="classTransform.html">Transform&lt;vec&gt;</a>&gt; _tr, <span class="keywordtype">bool</span> padding) : <a class="code" href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">tr</a>(std::move(_tr))</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    move(_freqs.begin(), _freqs.end(), back_inserter(this-&gt;freqs));</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    move(_amps.begin(), _amps.end(), back_inserter(this-&gt;amps));</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">auto</span> is_padding_needed = n_samples &amp; (n_samples - 1);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">auto</span> correct_padding = (is_padding_needed &amp;&amp; padding) ? <a class="code" href="utils_8hpp.html#a418b9dcb321aa5adf928afb2e501d348">next_power_of_2</a>(n_samples) : n_samples;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    this-&gt;x.resize(n_samples * 2, 0);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    this-&gt;signal.resize(correct_padding, 0);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    this-&gt;generate_signal(n_samples);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    this-&gt;x.resize(correct_padding);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    this-&gt;input_space  = this-&gt;tr-&gt;get_input_space(this-&gt;signal);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    this-&gt;output_space = this-&gt;tr-&gt;get_output_space();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    this-&gt;transform_signal();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">auto</span> Signal::generate_signal(<span class="keywordtype">size_t</span> n_samples) -&gt; <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{   </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    generate(x.begin(), x.end(), [i = 0, <span class="keyword">this</span>]() <span class="keyword">mutable</span> {return i++ * M_PI * 4 / (double)this-&gt;x.size();});</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; freqs.size(); i++)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> = 0; <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &lt; n_samples; <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>++)</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            signal[<a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>] += amps[i] * sin(freqs[i] * x[<a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>]);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">auto</span> Signal::transform_signal() -&gt; <span class="keywordtype">void</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    this-&gt;<a class="code" href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">tr</a>-&gt;operator()(*this-&gt;input_space, *this-&gt;output_space, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classSignal.html#a67c9278fe4019182616a8814ecba9cfa">   42</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a67c9278fe4019182616a8814ecba9cfa">Signal::denoise</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> percentile) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    this-&gt;output_space-&gt;compress(<span class="stringliteral">&quot;denoise&quot;</span>, percentile);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    this-&gt;<a class="code" href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">tr</a>-&gt;operator()(*this-&gt;input_space, *this-&gt;output_space, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    this-&gt;signal = this-&gt;input_space-&gt;get_data();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classSignal.html#a784b9cab824a9d62b938e071999e43ba">   48</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a784b9cab824a9d62b938e071999e43ba">Signal::get_signal</a>() const -&gt; const <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a>&amp;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> this-&gt;signal;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classSignal.html#a4617420d88a08f6ca205b28713c1ace7">   53</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a4617420d88a08f6ca205b28713c1ace7">Signal::get_x</a>() const -&gt; const <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a>&amp;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> this-&gt;x;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classSignal.html#a15039e47f6d7358683b7a97e788fac10">   58</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a15039e47f6d7358683b7a97e788fac10">Signal::get_freqs</a>() const -&gt; const <a class="code" href="namespaceTypedefs.html">Typedefs</a>::<a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;{</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> this-&gt;output_space-&gt;get_plottable_representation();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacetr.html">tr</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classSignal.html#a2cf7448d7f74e012d63290609ab553b1">   11</a></span>&#160;<a class="code" href="classSignal.html#a2cf7448d7f74e012d63290609ab553b1">Signal::Signal</a>(<a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a> _freqs, <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a> _amps, <span class="keywordtype">size_t</span> n_samples, unique_ptr&lt;<a class="code" href="classtr_1_1Transform.html">Transform&lt;vec&gt;</a>&gt; _tr, <span class="keywordtype">bool</span> padding) : <a class="code" href="namespacetr.html">tr</a>(std::move(_tr))</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    move(_freqs.begin(), _freqs.end(), back_inserter(this-&gt;freqs));</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    move(_amps.begin(), _amps.end(), back_inserter(this-&gt;amps));</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">auto</span> is_padding_needed = n_samples &amp; (n_samples - 1);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span> correct_padding = (is_padding_needed &amp;&amp; padding) ? <a class="code" href="namespacetr_1_1utils.html#a9440e6ef641f2649205bd58c37f03767">utils::next_power_of_2</a>(n_samples) : n_samples;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    this-&gt;x.resize(n_samples * 2, 0);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    this-&gt;signal.resize(correct_padding, 0);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    this-&gt;generate_signal(n_samples);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    this-&gt;x.resize(correct_padding);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    this-&gt;input_space  = this-&gt;<a class="code" href="namespacetr.html">tr</a>-&gt;get_input_space(this-&gt;signal);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    this-&gt;output_space = this-&gt;<a class="code" href="namespacetr.html">tr</a>-&gt;get_output_space();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    this-&gt;transform_signal();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">auto</span> Signal::generate_signal(<span class="keywordtype">size_t</span> n_samples) -&gt; <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{   </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    generate(x.begin(), x.end(), [i = 0, <span class="keyword">this</span>]() <span class="keyword">mutable</span> {return i++ * M_PI * 4 / (double)this-&gt;x.size();});</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; freqs.size(); i++)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; n_samples; n++)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            signal[n] += amps[i] * sin(freqs[i] * x[n]);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">auto</span> Signal::transform_signal() -&gt; <span class="keywordtype">void</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    this-&gt;<a class="code" href="namespacetr.html">tr</a>-&gt;operator()(*this-&gt;input_space, *this-&gt;output_space, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="classSignal.html#a67c9278fe4019182616a8814ecba9cfa">   43</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a67c9278fe4019182616a8814ecba9cfa">Signal::denoise</a>(<span class="keyword">const</span> <span class="keywordtype">double</span> percentile) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    this-&gt;output_space-&gt;compress(<span class="stringliteral">&quot;denoise&quot;</span>, percentile);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    this-&gt;<a class="code" href="namespacetr.html">tr</a>-&gt;operator()(*this-&gt;input_space, *this-&gt;output_space, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    this-&gt;signal = this-&gt;input_space-&gt;get_data();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classSignal.html#a784b9cab824a9d62b938e071999e43ba">   49</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a784b9cab824a9d62b938e071999e43ba">Signal::get_signal</a>() const -&gt; const <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a>&amp;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;{</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">return</span> this-&gt;signal;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classSignal.html#a4617420d88a08f6ca205b28713c1ace7">   54</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a4617420d88a08f6ca205b28713c1ace7">Signal::get_x</a>() const -&gt; const <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a>&amp;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> this-&gt;x;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classSignal.html#a15039e47f6d7358683b7a97e788fac10">   59</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="classSignal.html#a15039e47f6d7358683b7a97e788fac10">Signal::get_freqs</a>() const -&gt; const <a class="code" href="namespaceTypedefs.html">Typedefs</a>::<a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;{</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> this-&gt;output_space-&gt;get_plottable_representation();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="ttc" id="aSignal_8hpp_html"><div class="ttname"><a href="Signal_8hpp.html">Signal.hpp</a></div><div class="ttdoc">Defines the Signal class for generating and transforming signals.</div></div>
 <div class="ttc" id="abitreverse_8hpp_html"><div class="ttname"><a href="bitreverse_8hpp.html">bitreverse.hpp</a></div><div class="ttdoc">Declares functions for bit-reversing vectors and 3D vectors (images).</div></div>
-<div class="ttc" id="aclassSignal_html_a15039e47f6d7358683b7a97e788fac10"><div class="ttname"><a href="classSignal.html#a15039e47f6d7358683b7a97e788fac10">Signal::get_freqs</a></div><div class="ttdeci">auto get_freqs() const -&gt; const Typedefs::vec</div><div class="ttdoc">Gets the frequencies of the signal components.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00058">Signal.cpp:58</a></div></div>
-<div class="ttc" id="aclassSignal_html_a4617420d88a08f6ca205b28713c1ace7"><div class="ttname"><a href="classSignal.html#a4617420d88a08f6ca205b28713c1ace7">Signal::get_x</a></div><div class="ttdeci">auto get_x() const -&gt; const Typedefs::vec &amp;</div><div class="ttdoc">Gets the sample points of the signal.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00053">Signal.cpp:53</a></div></div>
-<div class="ttc" id="aclassSignal_html_a67c9278fe4019182616a8814ecba9cfa"><div class="ttname"><a href="classSignal.html#a67c9278fe4019182616a8814ecba9cfa">Signal::denoise</a></div><div class="ttdeci">auto denoise(const double flat_freq) -&gt; void</div><div class="ttdoc">Denoises the signal by filtering out frequencies above the specified flat frequency.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00042">Signal.cpp:42</a></div></div>
-<div class="ttc" id="aclassSignal_html_a784b9cab824a9d62b938e071999e43ba"><div class="ttname"><a href="classSignal.html#a784b9cab824a9d62b938e071999e43ba">Signal::get_signal</a></div><div class="ttdeci">auto get_signal() const -&gt; const Typedefs::vec &amp;</div><div class="ttdoc">Gets the generated signal.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00048">Signal.cpp:48</a></div></div>
-<div class="ttc" id="aclassSignal_html_a9f246e562a8beb804872d76f24836101"><div class="ttname"><a href="classSignal.html#a9f246e562a8beb804872d76f24836101">Signal::Signal</a></div><div class="ttdeci">Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::unique_ptr&lt; Transform&lt; Typedefs::vec &gt;&gt; tr, bool padding=true)</div><div class="ttdoc">Constructor for the Signal class.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00010">Signal.cpp:10</a></div></div>
-<div class="ttc" id="aclassTransform_html"><div class="ttname"><a href="classTransform.html">Transform</a></div><div class="ttdef"><b>Definition:</b> <a href="Transform_8hpp_source.html#l00017">Transform.hpp:17</a></div></div>
+<div class="ttc" id="aclassSignal_html_a15039e47f6d7358683b7a97e788fac10"><div class="ttname"><a href="classSignal.html#a15039e47f6d7358683b7a97e788fac10">Signal::get_freqs</a></div><div class="ttdeci">auto get_freqs() const -&gt; const Typedefs::vec</div><div class="ttdoc">Gets the frequencies of the signal components.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00059">Signal.cpp:59</a></div></div>
+<div class="ttc" id="aclassSignal_html_a2cf7448d7f74e012d63290609ab553b1"><div class="ttname"><a href="classSignal.html#a2cf7448d7f74e012d63290609ab553b1">Signal::Signal</a></div><div class="ttdeci">Signal(Typedefs::vec freqs, Typedefs::vec amps, size_t N, std::unique_ptr&lt; tr::Transform&lt; Typedefs::vec &gt;&gt; tr, bool padding=true)</div><div class="ttdoc">Constructor for the Signal class.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00011">Signal.cpp:11</a></div></div>
+<div class="ttc" id="aclassSignal_html_a4617420d88a08f6ca205b28713c1ace7"><div class="ttname"><a href="classSignal.html#a4617420d88a08f6ca205b28713c1ace7">Signal::get_x</a></div><div class="ttdeci">auto get_x() const -&gt; const Typedefs::vec &amp;</div><div class="ttdoc">Gets the sample points of the signal.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00054">Signal.cpp:54</a></div></div>
+<div class="ttc" id="aclassSignal_html_a67c9278fe4019182616a8814ecba9cfa"><div class="ttname"><a href="classSignal.html#a67c9278fe4019182616a8814ecba9cfa">Signal::denoise</a></div><div class="ttdeci">auto denoise(const double flat_freq) -&gt; void</div><div class="ttdoc">Denoises the signal by filtering out frequencies above the specified flat frequency.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00043">Signal.cpp:43</a></div></div>
+<div class="ttc" id="aclassSignal_html_a784b9cab824a9d62b938e071999e43ba"><div class="ttname"><a href="classSignal.html#a784b9cab824a9d62b938e071999e43ba">Signal::get_signal</a></div><div class="ttdeci">auto get_signal() const -&gt; const Typedefs::vec &amp;</div><div class="ttdoc">Gets the generated signal.</div><div class="ttdef"><b>Definition:</b> <a href="Signal_8cpp_source.html#l00049">Signal.cpp:49</a></div></div>
+<div class="ttc" id="aclasstr_1_1Transform_html"><div class="ttname"><a href="classtr_1_1Transform.html">tr::Transform</a></div><div class="ttdef"><b>Definition:</b> <a href="Transform_8hpp_source.html#l00020">Transform.hpp:21</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html"><div class="ttname"><a href="namespaceTypedefs.html">Typedefs</a></div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00013">typedefs.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html_a71ae6d86813b47bd8797e280c14afa29"><div class="ttname"><a href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">Typedefs::vec</a></div><div class="ttdeci">std::vector&lt; DType &gt; vec</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00015">typedefs.hpp:15</a></div></div>
-<div class="ttc" id="anamespacecompression_html_acf57056af965ddab20aec5d2a6e9bdce"><div class="ttname"><a href="namespacecompression.html#acf57056af965ddab20aec5d2a6e9bdce">compression::tr</a></div><div class="ttdeci">const auto tr</div><div class="ttdef"><b>Definition:</b> <a href="hyperparameters_8hpp_source.html#l00008">hyperparameters.hpp:8</a></div></div>
-<div class="ttc" id="anamespaceplot__scaling__tests__results_html_af4bf7dd4dd62d0beaf4aba2ac1209bfc"><div class="ttname"><a href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">plot_scaling_tests_results.n</a></div><div class="ttdeci">n</div><div class="ttdef"><b>Definition:</b> <a href="plot__scaling__tests__results_8py_source.html#l00013">plot_scaling_tests_results.py:13</a></div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html_a9440e6ef641f2649205bd58c37f03767"><div class="ttname"><a href="namespacetr_1_1utils.html#a9440e6ef641f2649205bd58c37f03767">tr::utils::next_power_of_2</a></div><div class="ttdeci">auto next_power_of_2(const std::size_t n) -&gt; std::size_t</div><div class="ttdoc">Find the next power of 2 that is greater than or equal to the given number.</div></div>
+<div class="ttc" id="anamespacetr_html"><div class="ttname"><a href="namespacetr.html">tr</a></div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8hpp_source.html#l00014">bitreverse.hpp:15</a></div></div>
 <div class="ttc" id="autils_8hpp_html"><div class="ttname"><a href="utils_8hpp.html">utils.hpp</a></div><div class="ttdoc">Declares utility functions for various operations.</div></div>
-<div class="ttc" id="autils_8hpp_html_a418b9dcb321aa5adf928afb2e501d348"><div class="ttname"><a href="utils_8hpp.html#a418b9dcb321aa5adf928afb2e501d348">next_power_of_2</a></div><div class="ttdeci">auto next_power_of_2(const std::size_t n) -&gt; std::size_t</div><div class="ttdoc">Find the next power of 2 that is greater than or equal to the given number.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

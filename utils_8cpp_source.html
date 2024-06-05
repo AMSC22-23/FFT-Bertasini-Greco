@@ -95,77 +95,78 @@ $(document).ready(function(){initNavTree('utils_8cpp_source.html',''); initResiz
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespaceTypedefs.html">Typedefs</a>;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="utils_8cpp.html#a75588b11d75ff2675a10d228d8af3b5a">    9</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="utils_8cpp.html#a75588b11d75ff2675a10d228d8af3b5a">next_power_of_2</a>(<span class="keywordtype">size_t</span> <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>) -&gt; <span class="keywordtype">size_t</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>--;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> |= <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &gt;&gt; 1;   </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> |= <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &gt;&gt; 2;   </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> |= <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &gt;&gt; 4;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> |= <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &gt;&gt; 8;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> |= <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &gt;&gt; 16;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> |= <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a> &gt;&gt; 32;  </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>++;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">n</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="utils_8hpp.html#a3ec45136383a69a5a35d24a4a3579160">   22</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="utils_8cpp.html#a3ec45136383a69a5a35d24a4a3579160">countSubdivisions</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rows, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cols, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> subdivisions) -&gt; <span class="keywordtype">int</span> {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">auto</span> currentRows = rows;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">auto</span> currentCols = cols;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> level = 0; level &lt; subdivisions; ++level) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">auto</span> halfRows = currentRows / 2;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">auto</span> halfCols = currentCols / 2;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (i &lt; halfRows &amp;&amp; j &lt; halfCols) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="comment">// Point is in the top-left submatrix</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            currentRows = halfRows;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            currentCols = halfCols;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="comment">// Adjust i and j for the next level of subdivision</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">if</span> (i &gt;= halfRows) i -= halfRows;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">if</span> (j &gt;= halfCols) j -= halfCols;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">return</span> subdivisions - level - 1; <span class="comment">// Subtract 1 to make the count 0-based</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="comment">// If the point is not in the top-left submatrix after all subdivisions</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="utils_8cpp.html#a778fed1c990bdaf501480bf67162f001">   46</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="utils_8cpp.html#a778fed1c990bdaf501480bf67162f001">read_signal</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; signal_file, <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a>&amp; real_signal) -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">// read signal from file</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    ifstream input_file_signal(signal_file);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (!input_file_signal.is_open()) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Could not open file &quot;</span> &lt;&lt; signal_file &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">string</span> line;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">if</span> (getline(input_file_signal, line)) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        stringstream ss(line);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordtype">string</span> value;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">while</span> (getline(ss, value, <span class="charliteral">&#39;,&#39;</span>)) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordflow">if</span> (!value.empty()) { </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    real_signal.push_back(stod(value));</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> invalid_argument&amp; e) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                    cerr &lt;&lt; <span class="stringliteral">&quot;Invalid value found: &quot;</span> &lt;&lt; value &lt;&lt; endl;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    input_file_signal.close();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">using namespace </span><a class="code" href="namespacetr_1_1utils.html">tr::utils</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">auto</span> <a class="code" href="namespacetr_1_1utils.html#a9440e6ef641f2649205bd58c37f03767">tr::utils::next_power_of_2</a>(<span class="keywordtype">size_t</span> n) -&gt; <span class="keywordtype">size_t</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    n--;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    n |= n &gt;&gt; 1;   </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    n |= n &gt;&gt; 2;   </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    n |= n &gt;&gt; 4;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    n |= n &gt;&gt; 8;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    n |= n &gt;&gt; 16;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    n |= n &gt;&gt; 32;  </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    n++;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> n;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">   23</a></span>&#160;<span class="keyword">auto</span> <a class="code" href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">tr::utils::countSubdivisions</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rows, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cols, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> subdivisions) -&gt; <span class="keywordtype">int</span> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">auto</span> currentRows = rows;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">auto</span> currentCols = cols;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> level = 0; level &lt; subdivisions; ++level) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">auto</span> halfRows = currentRows / 2;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">auto</span> halfCols = currentCols / 2;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (i &lt; halfRows &amp;&amp; j &lt; halfCols) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="comment">// Point is in the top-left submatrix</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            currentRows = halfRows;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            currentCols = halfCols;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="comment">// Adjust i and j for the next level of subdivision</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">if</span> (i &gt;= halfRows) i -= halfRows;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordflow">if</span> (j &gt;= halfCols) j -= halfCols;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">return</span> subdivisions - level - 1; <span class="comment">// Subtract 1 to make the count 0-based</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// If the point is not in the top-left submatrix after all subdivisions</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">auto</span> <a class="code" href="namespacetr_1_1utils.html#a9200eccf8163b008f774b5940ac98ad5">tr::utils::read_signal</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; signal_file, <a class="code" href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">vec</a>&amp; real_signal) -&gt; <span class="keywordtype">void</span> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="comment">// read signal from file</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    ifstream input_file_signal(signal_file);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (!input_file_signal.is_open()) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Could not open file &quot;</span> &lt;&lt; signal_file &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">string</span> line;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (getline(input_file_signal, line)) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        stringstream ss(line);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordtype">string</span> value;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">while</span> (getline(ss, value, <span class="charliteral">&#39;,&#39;</span>)) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">if</span> (!value.empty()) { </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">try</span> {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    real_signal.push_back(stod(value));</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                } <span class="keywordflow">catch</span> (<span class="keyword">const</span> invalid_argument&amp; e) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                    cerr &lt;&lt; <span class="stringliteral">&quot;Invalid value found: &quot;</span> &lt;&lt; value &lt;&lt; endl;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    input_file_signal.close();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="ttc" id="anamespaceTypedefs_html"><div class="ttname"><a href="namespaceTypedefs.html">Typedefs</a></div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00013">typedefs.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html_a71ae6d86813b47bd8797e280c14afa29"><div class="ttname"><a href="namespaceTypedefs.html#a71ae6d86813b47bd8797e280c14afa29">Typedefs::vec</a></div><div class="ttdeci">std::vector&lt; DType &gt; vec</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00015">typedefs.hpp:15</a></div></div>
-<div class="ttc" id="anamespaceplot__scaling__tests__results_html_af4bf7dd4dd62d0beaf4aba2ac1209bfc"><div class="ttname"><a href="namespaceplot__scaling__tests__results.html#af4bf7dd4dd62d0beaf4aba2ac1209bfc">plot_scaling_tests_results.n</a></div><div class="ttdeci">n</div><div class="ttdef"><b>Definition:</b> <a href="plot__scaling__tests__results_8py_source.html#l00013">plot_scaling_tests_results.py:13</a></div></div>
-<div class="ttc" id="autils_8cpp_html_a3ec45136383a69a5a35d24a4a3579160"><div class="ttname"><a href="utils_8cpp.html#a3ec45136383a69a5a35d24a4a3579160">countSubdivisions</a></div><div class="ttdeci">auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int</div><div class="ttdoc">Count the number of subdivisions for a given row and column index.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00022">utils.cpp:22</a></div></div>
-<div class="ttc" id="autils_8cpp_html_a75588b11d75ff2675a10d228d8af3b5a"><div class="ttname"><a href="utils_8cpp.html#a75588b11d75ff2675a10d228d8af3b5a">next_power_of_2</a></div><div class="ttdeci">auto next_power_of_2(size_t n) -&gt; size_t</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00009">utils.cpp:9</a></div></div>
-<div class="ttc" id="autils_8cpp_html_a778fed1c990bdaf501480bf67162f001"><div class="ttname"><a href="utils_8cpp.html#a778fed1c990bdaf501480bf67162f001">read_signal</a></div><div class="ttdeci">auto read_signal(const string &amp;signal_file, vec &amp;real_signal) -&gt; void</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00046">utils.cpp:46</a></div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html"><div class="ttname"><a href="namespacetr_1_1utils.html">tr::utils</a></div><div class="ttdef"><b>Definition:</b> <a href="utils_8hpp_source.html#l00014">utils.hpp:15</a></div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html_a9200eccf8163b008f774b5940ac98ad5"><div class="ttname"><a href="namespacetr_1_1utils.html#a9200eccf8163b008f774b5940ac98ad5">tr::utils::read_signal</a></div><div class="ttdeci">auto read_signal(const std::string &amp;signal_file, Typedefs::vec &amp;real_signal) -&gt; void</div><div class="ttdoc">Read a signal from a file and store it in a vector.</div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html_a9440e6ef641f2649205bd58c37f03767"><div class="ttname"><a href="namespacetr_1_1utils.html#a9440e6ef641f2649205bd58c37f03767">tr::utils::next_power_of_2</a></div><div class="ttdeci">auto next_power_of_2(const std::size_t n) -&gt; std::size_t</div><div class="ttdoc">Find the next power of 2 that is greater than or equal to the given number.</div></div>
+<div class="ttc" id="anamespacetr_1_1utils_html_ab09f64334bf742724d2291281cf78518"><div class="ttname"><a href="namespacetr_1_1utils.html#ab09f64334bf742724d2291281cf78518">tr::utils::countSubdivisions</a></div><div class="ttdeci">auto countSubdivisions(unsigned int i, unsigned int j, const unsigned int rows, const unsigned int cols, const unsigned int subdivisions) -&gt; int</div><div class="ttdoc">Count the number of subdivisions for a given row and column index.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00023">utils.cpp:23</a></div></div>
 <div class="ttc" id="autils_8hpp_html"><div class="ttname"><a href="utils_8hpp.html">utils.hpp</a></div><div class="ttdoc">Declares utility functions for various operations.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

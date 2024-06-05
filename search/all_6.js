@@ -1,22 +1,11 @@
 var searchData=
 [
-  ['f_73',['f',['../namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade',1,'compression']]],
-  ['fallback_74',['Fallback',['../structmatplotlibcpp_1_1detail_1_1is__callable__impl_3_01true_00_01T_01_4_1_1Fallback.html',1,'matplotlibcpp::detail::is_callable_impl&lt; true, T &gt;']]],
-  ['fft_5ftests_75',['fft_tests',['../test__fft_8hpp.html#a45b22374ce84fd6e20659ddc46d08c07',1,'test_fft.hpp']]],
-  ['fignum_5fexists_76',['fignum_exists',['../namespacematplotlibcpp.html#a63173b57d788807c1c6860dbc7961e40',1,'matplotlibcpp']]],
-  ['figure_77',['figure',['../namespacematplotlibcpp.html#a34e6ea8c8ee6779fe909ecac2ef945c8',1,'matplotlibcpp']]],
-  ['figure_5fsize_78',['figure_size',['../namespacematplotlibcpp.html#a91e91bcdcfc7632a917830bfe3f71ca3',1,'matplotlibcpp']]],
-  ['file_5fpath_79',['file_path',['../namespaceplot__scaling__tests__results.html#a3c8dbe91ab7d4222d0e3f118bca14007',1,'plot_scaling_tests_results']]],
-  ['fill_80',['fill',['../namespacematplotlibcpp.html#a00a57926330764f8490142b3ce06bd2e',1,'matplotlibcpp']]],
-  ['fill_5fbetween_81',['fill_between',['../namespacematplotlibcpp.html#a928fb4c83f29554b1b37aeea7af9bb73',1,'matplotlibcpp']]],
-  ['filter_5ffreqs_82',['filter_freqs',['../classFourierTransform_1_1OutputSpace.html#a0cc5fcb7c27e2755bc793408386943a1',1,'FourierTransform::OutputSpace']]],
-  ['filter_5fmagnitude_83',['filter_magnitude',['../classFourierTransform_1_1OutputSpace.html#a4b709ad2355cf79e7fde9130dcb62d85',1,'FourierTransform::OutputSpace']]],
-  ['forward_84',['forward',['../structTRANSFORM__MATRICES_1_1TransformMatrix.html#aa206f569b5ca528cfdb65d448cabe07b',1,'TRANSFORM_MATRICES::TransformMatrix']]],
-  ['fouriertransform_85',['FourierTransform',['../classFourierTransform.html',1,'']]],
-  ['fouriertransform_2ecpp_86',['FourierTransform.cpp',['../FourierTransform_8cpp.html',1,'']]],
-  ['fouriertransform_2ehpp_87',['FourierTransform.hpp',['../FourierTransform_8hpp.html',1,'']]],
-  ['fouriertransform2d_88',['FourierTransform2D',['../classFourierTransform2D.html',1,'']]],
-  ['fouriertransform2d_2ecpp_89',['FourierTransform2D.cpp',['../FourierTransform2D_8cpp.html',1,'']]],
-  ['fouriertransform2d_2ehpp_90',['FourierTransform2D.hpp',['../FourierTransform2D_8hpp.html',1,'']]],
-  ['freq_91',['freq',['../structHuffmanTree_1_1Node.html#a928570b16bfcd8245712f6493c825d00',1,'HuffmanTree::Node']]]
+  ['image_74',['Image',['../classImage.html',1,'Image'],['../classImage.html#abe724deecc3ee02c3625614029e814d2',1,'Image::Image()']]],
+  ['image_2ecpp_75',['Image.cpp',['../Image_8cpp.html',1,'']]],
+  ['image_2ehpp_76',['Image.hpp',['../Image_8hpp.html',1,'']]],
+  ['inputspace_77',['InputSpace',['../classtr_1_1FourierTransform2D_1_1InputSpace.html#a1fc2c12bdf9c9ea7ddc7551b6bb72a28',1,'tr::FourierTransform2D::InputSpace::InputSpace()'],['../classtr_1_1DiscreteWaveletTransform_1_1InputSpace.html#a0be95d35c52806f365463164539df3aa',1,'tr::DiscreteWaveletTransform::InputSpace::InputSpace()'],['../classtr_1_1DiscreteWaveletTransform2D_1_1InputSpace.html#a54f7101963986ee2cec4263dee848081',1,'tr::DiscreteWaveletTransform2D::InputSpace::InputSpace()'],['../classtr_1_1FourierTransform_1_1InputSpace.html#ad6a1b9221ec1ac48d5c55b94a6bf78a0',1,'tr::FourierTransform::InputSpace::InputSpace()'],['../classtr_1_1DiscreteWaveletTransform2D_1_1InputSpace.html',1,'tr::DiscreteWaveletTransform2D::InputSpace'],['../classtr_1_1DiscreteWaveletTransform_1_1InputSpace.html',1,'tr::DiscreteWaveletTransform::InputSpace'],['../classtr_1_1FourierTransform2D_1_1InputSpace.html',1,'tr::FourierTransform2D&lt; FT &gt;::InputSpace'],['../classtr_1_1FourierTransform_1_1InputSpace.html',1,'tr::FourierTransform::InputSpace'],['../classtr_1_1Transform_1_1InputSpace.html',1,'tr::Transform&lt; T &gt;::InputSpace']]],
+  ['inverse_78',['inverse',['../structTRANSFORM__MATRICES_1_1TransformMatrix.html#a89a11d0a56512b44ea6f4752668cc8ce',1,'TRANSFORM_MATRICES::TransformMatrix']]],
+  ['iterativefastfouriertransform_79',['IterativeFastFourierTransform',['../classtr_1_1IterativeFastFourierTransform.html#ad6f19286cfbd9149b09096c7fd2bfa5e',1,'tr::IterativeFastFourierTransform::IterativeFastFourierTransform()'],['../classtr_1_1IterativeFastFourierTransform.html',1,'tr::IterativeFastFourierTransform']]],
+  ['iterativefastfouriertransform_2ecpp_80',['IterativeFastFourierTransform.cpp',['../IterativeFastFourierTransform_8cpp.html',1,'']]],
+  ['iterativefastfouriertransform_2ehpp_81',['IterativeFastFourierTransform.hpp',['../IterativeFastFourierTransform_8hpp.html',1,'']]]
 ];

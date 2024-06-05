@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['haar_599',['HAAR',['../namespaceTRANSFORM__MATRICES.html#aa91e4f70b1cfdb491458bf126b572783',1,'TRANSFORM_MATRICES']]]
+  ['inverse_296',['inverse',['../structTRANSFORM__MATRICES_1_1TransformMatrix.html#a89a11d0a56512b44ea6f4752668cc8ce',1,'TRANSFORM_MATRICES::TransformMatrix']]]
 ];

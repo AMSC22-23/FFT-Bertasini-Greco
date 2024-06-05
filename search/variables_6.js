@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['label_601',['label',['../namespaceplot__scaling__tests__results.html#afeae39f587ffac7dd1cd8ca3b2038d2e',1,'plot_scaling_tests_results']]],
-  ['left_602',['left',['../structHuffmanTree_1_1Node.html#a6f6042c0d220eb418c97fc2d103db5b1',1,'HuffmanTree::Node']]]
+  ['r_298',['R',['../namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee',1,'compression']]],
+  ['right_299',['right',['../structHuffmanTree_1_1Node.html#af44d35758b82748af838257093bfcbcd',1,'HuffmanTree::Node']]]
 ];

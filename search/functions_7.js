@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hist_492',['hist',['../namespacematplotlibcpp.html#aeaf80309ad11083ec57bd6b246f6e4dc',1,'matplotlibcpp']]],
-  ['huffmantree_493',['HuffmanTree',['../classHuffmanTree.html#a9bfe47eae7ac1f3e556e7ca2d3bdfb24',1,'HuffmanTree']]]
+  ['magnitude_5ffilter_250',['magnitude_filter',['../classtr_1_1FourierTransform2D_1_1OutputSpace.html#aa505a92105e4c16a00f5e15490fcd1f6',1,'tr::FourierTransform2D::OutputSpace']]],
+  ['main_251',['main',['../Compression_2src_2main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp'],['../Image_2src_2main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp'],['../Signal_2src_2main_8cpp.html#a8216c1645620cdb2f629cde3ac02ffef',1,'main() -&gt; int:&#160;main.cpp'],['../pipeline_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;pipeline.cpp']]]
 ];
