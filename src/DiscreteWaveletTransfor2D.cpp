@@ -53,8 +53,8 @@ auto DiscreteWaveletTransform2D::OutputSpace::normalize_coefficients(Typedefs::v
     auto rows = image[0].size();
     auto cols = image[0][0].size();
 
-    std::vector<std::vector<double>>  max_abs_val_details(channels, std::vector<double>(user_levels+1, 0));
-    std::vector<std::vector<double>>  min_abs_val_details(channels, std::vector<double>(user_levels+1, 0));
+    vec2D max_abs_val_details(channels, vec(user_levels+1, 0));
+    vec2D  min_abs_val_details(channels, vec(user_levels+1, 0));
 
     for (auto c = 0ull; c < channels; ++c) {
         for (auto i = 0ull; i < rows; ++i) {
@@ -111,7 +111,7 @@ auto DiscreteWaveletTransform2D::operator()(Typedefs::vec3D& image, bool is_inve
         for (auto c = 0ull; c < channels; ++c)
             for (auto i = 0ull; i < rows; i += (1ull << l) ) 
             {
-                std::vector<double> temp;
+                vec temp;
                 for (auto j = 0ull; j < cols; j += (1ull << l) )
                 {
                     temp.push_back(image[c][i][j]);
@@ -130,7 +130,7 @@ auto DiscreteWaveletTransform2D::operator()(Typedefs::vec3D& image, bool is_inve
         for (auto c = 0ull; c < channels; ++c)
         {
             for (auto j=0ull; j<cols; j+=pow(2, l)){ 
-                std::vector<double> temp;
+                vec temp;
                 for (auto i = 0ull; i < rows; i += (1ull << l))
                 {
                     temp.push_back(image[c][i][j]);

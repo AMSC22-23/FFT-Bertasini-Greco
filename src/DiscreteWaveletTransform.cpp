@@ -40,13 +40,13 @@ auto DiscreteWaveletTransform::get_output_space() const -> std::unique_ptr<Trans
 }
 
 #if USE_CUDA==0
-auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const bool is_inverse) const -> void{
+auto DiscreteWaveletTransform::operator()(vec &signal, const bool is_inverse) const -> void{
     if (n_cores != -1) omp_set_num_threads(n_cores);
 
     auto& t_mat = is_inverse ? inverse_matrix : transform_matrix;
     const auto matrix_size = t_mat.size() / 2;
 
-    std::vector<double> temp;
+    vec temp;
     auto levels = user_levels == 0 ? static_cast<int>(log2(signal.size())) : user_levels;
     auto start = is_inverse ? levels-1 : 0; 
     auto end = is_inverse ? -1 : levels;
@@ -75,7 +75,7 @@ auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const boo
     }
 } 
 #else 
-auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const bool is_inverse) const -> void{
+auto DiscreteWaveletTransform::operator()(vec &signal, const bool is_inverse) const -> void{
     cudabackend::dwtCU(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
 }
 #endif

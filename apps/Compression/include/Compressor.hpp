@@ -30,7 +30,7 @@ private:
     * @param value The value to be quantized (input/output).
     * @param step The step size for quantization.
     */
-   auto quantize_value(double& value, const double& step) -> void;
+   auto quantize_value(Typedefs::DType& value, const Typedefs::DType& step) -> void;
 
    /**
     * @brief Quantize the wavelet coefficients of the image.

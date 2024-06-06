@@ -45,7 +45,7 @@ auto generate_signal_to_file(const std::string& output_folder) -> int
     x.resize(N * 2, 0);
     signal.resize(correct_padding, 0);
     
-    generate(x.begin(), x.end(), [i = 0, x]() mutable {return i++ * M_PI * 4 / (double)x.size();});
+    generate(x.begin(), x.end(), [i = 0, x]() mutable {return i++ * M_PI * 4 / (Typedefs::DType)x.size();});
     for (size_t i = 0; i < freqs.size(); i++)
         for (size_t n = 0; n < N; n++)
             signal[n] += amps[i] * sin(freqs[i] * x[n]);
@@ -54,7 +54,7 @@ auto generate_signal_to_file(const std::string& output_folder) -> int
 
 
     //write signal to file
-    output_file_signal.precision(std::numeric_limits<double>::max_digits10);
+    output_file_signal.precision(std::numeric_limits<Typedefs::DType>::max_digits10);
     for (auto i : signal) output_file_signal << i << ",";
     output_file_signal.seekp(-1, std::ios_base::end);    
     output_file_signal << "\n";

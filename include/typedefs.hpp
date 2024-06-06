@@ -11,7 +11,7 @@
 #include <functional>
 
 namespace Typedefs {
-    using DType  = double;
+    using DType  = float;
     using vec    = std::vector<DType>;
     using vec2D  = std::vector<std::vector<DType>>;
     using vec3D  = std::vector<std::vector<std::vector<DType>>>;

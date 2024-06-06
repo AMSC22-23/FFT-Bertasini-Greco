@@ -22,7 +22,7 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -
     // butterfly
     for (size_t s = 1; s <= log2(N); s++){
         auto m = (size_t)pow(2, s);
-        cpx Wm = polar(1.0, (1-2*is_inverse)*-2*M_PI/m);
+        cpx Wm = polar(DType(1.0), DType((1-2*is_inverse)*-2*M_PI/m));
         #pragma omp parallel for schedule(static) 
         for (size_t k = 0; k < N; k += m){
             cpx W = 1;

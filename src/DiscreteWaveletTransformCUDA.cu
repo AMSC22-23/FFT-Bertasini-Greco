@@ -7,10 +7,6 @@
 #include <cmath>
 #include <cuda_runtime.h>
 
-namespace Typedefs {
-    using vec = std::vector<double>;
-}
-
 #define CUDA_CALL(call) \
 do { \
     cudaError_t err = call; \
@@ -38,21 +34,21 @@ auto cudabackend::dwtCU(Typedefs::vec &signal, const bool is_inverse, const std:
     auto& t_mat = is_inverse ? inverse_matrix : transform_matrix;
     const unsigned long matrix_size = t_mat.size() / 2;
 
-    std::vector<double> temp;
+    Typedefs::vec temp;
     int levels = user_levels == 0 ? log2(signal.size()) : user_levels;
     int start = is_inverse ? levels-1 : 0; 
     int end = is_inverse ? -1 : levels;
     int step = is_inverse ? -1 : 1;
 
-    double* d_signal;
-    double* d_t_mat;
-    double* d_temp;
+    DType* d_signal;
+    DType* d_t_mat;
+    DType* d_temp;
 
-    CUDA_CALL(cudaMalloc((void**)&d_signal, signal.size() * sizeof(double)));
-    CUDA_CALL(cudaMalloc((void**)&d_t_mat, t_mat.size() * sizeof(double)));
+    CUDA_CALL(cudaMalloc((void**)&d_signal, signal.size() * sizeof(DType)));
+    CUDA_CALL(cudaMalloc((void**)&d_t_mat, t_mat.size() * sizeof(DType)));
 
-    CUDA_CALL(cudaMemcpy(d_signal, signal.data(), signal.size() * sizeof(double), cudaMemcpyHostToDevice));
-    CUDA_CALL(cudaMemcpy(d_t_mat, t_mat.data(), t_mat.size() * sizeof(double), cudaMemcpyHostToDevice));
+    CUDA_CALL(cudaMemcpy(d_signal, signal.data(), signal.size() * sizeof(DType), cudaMemcpyHostToDevice));
+    CUDA_CALL(cudaMemcpy(d_t_mat, t_mat.data(), t_mat.size() * sizeof(DType), cudaMemcpyHostToDevice));
 
     for (int i = start; i != end; i += step) {
         temp.clear();
@@ -64,18 +60,18 @@ auto cudabackend::dwtCU(Typedefs::vec &signal, const bool is_inverse, const std:
         if (!is_inverse) for (unsigned long j = 0; j < matrix_size-2; j++) temp.push_back(temp[j]);
         else             for (unsigned long j = 0; j < matrix_size-2; j++) temp.insert(temp.begin(), *(temp.end()-1-j));
 
-        CUDA_CALL(cudaMalloc((void**)&d_temp, temp.size() * sizeof(double)));
-        CUDA_CALL(cudaMemcpy(d_temp, temp.data(), temp.size() * sizeof(double), cudaMemcpyHostToDevice));
+        CUDA_CALL(cudaMalloc((void**)&d_temp, temp.size() * sizeof(DType)));
+        CUDA_CALL(cudaMemcpy(d_temp, temp.data(), temp.size() * sizeof(DType), cudaMemcpyHostToDevice));
 
         int threadsPerBlock = 256;
         int blocksPerGrid = (sub_size + threadsPerBlock - 1) / threadsPerBlock;
         transformKernel<<<blocksPerGrid, threadsPerBlock>>>(d_signal, d_t_mat, d_temp, sub_step, sub_size, matrix_size);
         CUDA_CALL(cudaDeviceSynchronize());
         CUDA_CALL(cudaFree(d_temp));
-        CUDA_CALL(cudaMemcpy(signal.data(), d_signal, signal.size() * sizeof(double), cudaMemcpyDeviceToHost));
+        CUDA_CALL(cudaMemcpy(signal.data(), d_signal, signal.size() * sizeof(DType), cudaMemcpyDeviceToHost));
     }
 
-    CUDA_CALL(cudaMemcpy(signal.data(), d_signal, signal.size() * sizeof(double), cudaMemcpyDeviceToHost));
+    CUDA_CALL(cudaMemcpy(signal.data(), d_signal, signal.size() * sizeof(DType), cudaMemcpyDeviceToHost));
 
     CUDA_CALL(cudaFree(d_signal));
     CUDA_CALL(cudaFree(d_t_mat));

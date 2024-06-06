@@ -58,8 +58,8 @@ auto main() -> int
     // generate signal
     const int N = 8192;
     
-    vector<double> freqs = {1, 100};
-    vector<double> amps = {1, 0.1};
+    vec freqs = {1, 100};
+    vec amps = {1, 0.1};
 
     cout << "Choose a transform:[newline for default]\n";
     cout << "1. Discrete Wavelet Transform\n";

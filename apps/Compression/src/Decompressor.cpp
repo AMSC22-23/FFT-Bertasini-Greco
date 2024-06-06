@@ -14,7 +14,7 @@ using namespace compression;
 using namespace tr;
 
 auto Decompressor::dequantize () -> void {
-  const double tau = pow(2, R - c + (double)levels) * (1. + f / pow(2, 11));
+  const DType tau = pow(2, R - c + (DType)levels) * (1. + f / pow(2, 11));
   const int rows = coeff[0].size();
   const int cols = coeff[0][0].size();
   for (size_t c = 0; c < coeff.size(); ++c)
@@ -88,7 +88,7 @@ auto Decompressor::HuffmanDecoding(const std::string& filename) -> void {
     encoded_file.close();
 
     // 3. Decode the data
-    vector<double> decoded_coefficients;
+    vector<DType> decoded_coefficients;
     vector<bool> current_code;
     for (auto bit : encoded_data) {
       current_code.push_back(bit);
@@ -99,7 +99,7 @@ auto Decompressor::HuffmanDecoding(const std::string& filename) -> void {
     }
 
     // 4. Reshape the flat coefficient vector back into the 3D matrix format
-    coeff.resize(3, vector<vector<double>>(rows, vector<double>(cols, 0)));
+    coeff.resize(3, vec2D(rows, vec(cols, 0)));
     size_t idx = 0;
     for (size_t c = 0; c < coeff.size(); ++c){
         for (size_t i = 0; i < coeff[0].size(); ++i){

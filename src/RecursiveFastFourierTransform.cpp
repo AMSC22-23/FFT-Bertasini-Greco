@@ -18,9 +18,9 @@ auto RecursiveFastFourierTransform::fft(vcpx& x, const bool is_inverse) const ->
     fft(x_even, is_inverse);
     fft(x_odd, is_inverse);
     vcpx X(N, 0);
-    const double mult = (1-2*is_inverse)*-2*M_PI/N;
+    const DType mult = (1-2*is_inverse)*-2*M_PI/N;
     for (size_t k = 0; k < N/2; k++){
-        cpx W = polar(1.0, mult*k) * x_odd[k];
+        cpx W = polar(DType(1.0), mult*k) * x_odd[k];
         X[k] = x_even[k] + W;
         X[k+N/2] = x_even[k] - W;
     }

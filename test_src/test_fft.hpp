@@ -101,13 +101,13 @@ auto fft_tests(const string& output_folder) -> int
 
     // fill complex signal
     signal.resize(real_signal.size(), 0);
-    transform(real_signal.begin(), real_signal.end(), signal.begin(), [](double d){return cpx(d, 0);});
+    transform(real_signal.begin(), real_signal.end(), signal.begin(), [](DType d){return cpx(d, 0);});
 
     vcpx transformed_signal = signal;
 
     fft(transformed_signal, false);
 
-    auto fft_freqs = vector<double>();
+    auto fft_freqs = Typedefs::vec();
 
     fft_freqs.resize(transformed_signal.size(), 0);
     transform(
@@ -119,7 +119,7 @@ auto fft_tests(const string& output_folder) -> int
     fft_freqs.resize(fft_freqs.size() / 2);
 
     // output should be with full precision
-    output_file_transformed.precision(numeric_limits<double>::max_digits10);
+    output_file_transformed.precision(numeric_limits<DType>::max_digits10);
     for (auto i : transformed_signal) output_file_transformed << "(" << i.real() << "+" << i.imag() << "j)\n";
 
     // output_file_signal.close();

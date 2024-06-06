@@ -28,12 +28,12 @@ auto Compressor::apply_dwt() -> void {
 }
 
 //q(t)=sgn(t)td
-auto Compressor::quantize_value(double& value, const double& step) -> void {
+auto Compressor::quantize_value(DType& value, const DType& step) -> void {
     value = copysign(1.0, value) * floor(abs(value) / step);
 }
 
 auto Compressor::quantize () -> void {
-  const double tau = pow(2, R - c + (double)levels) * (1. + f / pow(2, 11));
+  const DType tau = pow(2, R - c + (DType)levels) * (1. + f / pow(2, 11));
   const int rows = coeff[0].size();
   const int cols = coeff[0][0].size();
   for (size_t c = 0; c < coeff.size(); ++c)

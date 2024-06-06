@@ -74,6 +74,6 @@ auto FourierTransform::operator()(Transform::InputSpace& in, Transform::OutputSp
     } else {
         in_data = out_data;
         operator()(in_data, inverse);
-        transform(in_data.begin(), in_data.end(), in_data.begin(), [in_data](cpx c){return cpx(c.real()/(double)in_data.size()*2, c.imag()/(double)in_data.size()*2);});
+        transform(in_data.begin(), in_data.end(), in_data.begin(), [in_data](cpx c){return cpx(c.real()/(DType)in_data.size()*2, c.imag()/(DType)in_data.size()*2);});
     }
 }

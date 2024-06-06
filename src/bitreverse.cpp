@@ -22,7 +22,7 @@ auto bit_reversed_index(int index, uint8_t levels) -> int
 
 auto tr::bitreverse::partial_bit_reverse(vec& signal, size_t n, uint8_t levels) -> void
 {
-   std::vector<std::pair<int, double>> temp(n);
+   std::vector<std::pair<int, DType>> temp(n);
 
 
     // Compute bit-reversed indices and store in a temporary vector
@@ -33,7 +33,7 @@ auto tr::bitreverse::partial_bit_reverse(vec& signal, size_t n, uint8_t levels) 
     }
 
     // Sort the temporary vector by bit-reversed indices, preserving original order on ties
-    std::stable_sort(temp.begin(), temp.end(), [](const std::pair<int, double>& a, const std::pair<int, double>& b) {
+    std::stable_sort(temp.begin(), temp.end(), [](const std::pair<int, DType>& a, const std::pair<int, DType>& b) {
         return a.first < b.first;
     });
 
