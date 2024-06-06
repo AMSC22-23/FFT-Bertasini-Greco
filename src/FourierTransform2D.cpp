@@ -86,7 +86,8 @@ auto FourierTransform2D<FT>::OutputSpace::get_plottable_representation() const -
         for (auto i = 0ull; i < tmp[0].size(); ++i)
             for (auto j = 0ull; j < tmp[0][0].size(); ++j)
                 fft_image_colored.at<cv::Vec3d>(i, j)[c] = log(1 + abs(tmp[c][i][j]));
-    cv::normalize(fft_image_colored, fft_image_colored, 0, 1, NORM_MINMAX);
+    cv::normalize(fft_image_colored, fft_image_colored, 0, 255, NORM_MINMAX);
+    fft_image_colored.convertTo(fft_image_colored, CV_8UC3);
     return fft_image_colored;
 }
 

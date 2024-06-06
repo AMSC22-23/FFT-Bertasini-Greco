@@ -114,10 +114,11 @@ int main () {
 
     namedWindow("TR Image filtered", WINDOW_NORMAL);
     imshow("TR Image filtered", tr_filtered);
+    imwrite("output/tr_filtered.png", tr_filtered);
 
     namedWindow("Inverse TR Image", WINDOW_NORMAL);
     imshow("Inverse TR Image", output_image);
-    imwrite("output/output_image.png", output_image);
+    imwrite("output/output_image_" + std::to_string(percentile_cutoff) + ".png", output_image);
 
     waitKey(0);
 }
