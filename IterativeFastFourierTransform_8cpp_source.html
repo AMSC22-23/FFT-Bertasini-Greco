@@ -129,7 +129,7 @@ $(document).ready(function(){initNavTree('IterativeFastFourierTransform_8cpp_sou
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">auto</span> IterativeFastFourierTransform::fft (<a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a>&amp; x, <span class="keyword">const</span> <span class="keywordtype">bool</span> is_inverse) <span class="keyword">const</span> -&gt; <span class="keywordtype">void</span> {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  fftCU(x, is_inverse);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  cudabackend::fftCU(x, is_inverse);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
