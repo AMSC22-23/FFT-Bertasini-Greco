@@ -1,5 +1,6 @@
 #include "IterativeFastFourierCUDA.cuh"
 #include "bitreverse.hpp"
+#include "typedefs.hpp"
 
 #include <cuda_runtime.h>
 #include <cuda/std/complex>
@@ -7,13 +8,13 @@
 #include <iostream>
 #include <cmath>
 
-using cpx = cuda::std::complex<DType>;
+using cpx = cuda::std::complex<Typedefs::DType>;
 
 __global__ void fft_kernel(cpx *x, int N, int m, int is_inverse) {
     int k = blockIdx.x * blockDim.x + threadIdx.x;
     if (k < N / m) {
         int k_m = k * m;
-        cpx Wm = cuda::std::polar(1.0, (1-2*is_inverse)*-2*M_PI/m);
+        cpx Wm = cuda::std::polar(Typedefs::DType(1.0), Typedefs::DType((1-2*is_inverse)*-2*M_PI/m));
         cpx W = 1;
         for (int j = 0; j < m/2; j++) {
             cpx t = W * x[k_m + j + m/2];
@@ -28,7 +29,7 @@ __global__ void fft_kernel(cpx *x, int N, int m, int is_inverse) {
 void fft_cpu_kernel(Typedefs::cpx *x, int N, int m, int is_inverse) {
     for (int k = 0; k < N / m; k++) {
         int k_m = k * m;
-        Typedefs::cpx Wm = std::polar(1.0, (1-2*is_inverse)*-2*M_PI/m);
+        Typedefs::cpx Wm = std::polar(Typedefs::DType(1.0), Typedefs::DType((1-2*is_inverse)*-2*M_PI/m));
         Typedefs::cpx W = 1;
         for (int j = 0; j < m/2; j++) {
             Typedefs::cpx t = W * x[k_m + j + m/2];
