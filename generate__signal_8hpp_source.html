@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('generate__signal_8hpp_source.html','')
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    x.resize(N * 2, 0);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    signal.resize(correct_padding, 0);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    generate(x.begin(), x.end(), [i = 0, x]() <span class="keyword">mutable</span> {return i++ * M_PI * 4 / (double)x.size();});</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    generate(x.begin(), x.end(), [i = 0, x]() <span class="keyword">mutable</span> {return i++ * M_PI * 4 / (Typedefs::DType)x.size();});</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; freqs.size(); i++)</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; N; n++)</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            signal[n] += amps[i] * sin(freqs[i] * x[n]);</div>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('generate__signal_8hpp_source.html','')
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">//write signal to file</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    output_file_signal.precision(std::numeric_limits&lt;double&gt;::max_digits10);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    output_file_signal.precision(std::numeric_limits&lt;Typedefs::DType&gt;::max_digits10);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : signal) output_file_signal &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    output_file_signal.seekp(-1, std::ios_base::end);    </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    output_file_signal &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>

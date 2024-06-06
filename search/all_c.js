@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['r_97',['R',['../namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee',1,'compression']]],
+  ['r_97',['R',['../namespacecompression.html#ac9b97638f1f9f34643abb5aa987b9c86',1,'compression']]],
   ['read_5fbits_98',['read_bits',['../Decompressor_8cpp.html#a80c3896ef3f98d36f3c007e766f3e608',1,'Decompressor.cpp']]],
   ['read_5fsignal_99',['read_signal',['../namespacetr_1_1utils.html#a9200eccf8163b008f774b5940ac98ad5',1,'tr::utils']]],
   ['readme_2emd_100',['README.md',['../README_8md.html',1,'']]],

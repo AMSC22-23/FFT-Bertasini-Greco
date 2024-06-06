@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['f_44',['f',['../namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade',1,'compression']]],
+  ['f_44',['f',['../namespacecompression.html#abc46d27d18eca0151b7efbf92139fa27',1,'compression']]],
   ['fft_5ftests_45',['fft_tests',['../test__fft_8hpp.html#a45b22374ce84fd6e20659ddc46d08c07',1,'test_fft.hpp']]],
   ['filter_5ffreqs_46',['filter_freqs',['../classtr_1_1FourierTransform_1_1OutputSpace.html#a0cc5fcb7c27e2755bc793408386943a1',1,'tr::FourierTransform::OutputSpace']]],
   ['filter_5fmagnitude_47',['filter_magnitude',['../classtr_1_1FourierTransform_1_1OutputSpace.html#a4b709ad2355cf79e7fde9130dcb62d85',1,'tr::FourierTransform::OutputSpace']]],

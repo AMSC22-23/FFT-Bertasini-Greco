@@ -22,7 +22,7 @@ var searchData=
   ['discretewavelettransform_2ehpp_38',['DiscreteWaveletTransform.hpp',['../DiscreteWaveletTransform_8hpp.html',1,'']]],
   ['discretewavelettransform2d_39',['DiscreteWaveletTransform2D',['../classtr_1_1DiscreteWaveletTransform2D.html#a0f7c31b58f260beee25ab4c7f123f606',1,'tr::DiscreteWaveletTransform2D::DiscreteWaveletTransform2D()'],['../classtr_1_1DiscreteWaveletTransform2D.html',1,'tr::DiscreteWaveletTransform2D']]],
   ['discretewavelettransform2d_2ehpp_40',['DiscreteWaveletTransform2D.hpp',['../DiscreteWaveletTransform2D_8hpp.html',1,'']]],
-  ['dtype_41',['DType',['../namespaceTypedefs.html#a39fb93d67835634d22fe8e43dd3e9ad5',1,'Typedefs']]],
+  ['dtype_41',['DType',['../namespaceTypedefs.html#ab5a798a7631b9323caeb2c88b6bdd816',1,'Typedefs']]],
   ['dwt_26fft_20by_20bertasini_26greco_42',['DWT&amp;FFT by Bertasini&amp;Greco',['../index.html',1,'']]],
   ['dwt_5ftests_43',['dwt_tests',['../test__dwt_8hpp.html#a54830af94574de63cb29d14181bf4f64',1,'test_dwt.hpp']]]
 ];

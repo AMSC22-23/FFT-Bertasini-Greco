@@ -113,9 +113,9 @@ var NAVTREEINDEX0 =
 "classtr_1_1DiscreteWaveletTransform.html":[2,0,0,1],
 "classtr_1_1DiscreteWaveletTransform.html#a0210a9460bf9dece098fce6c8b8305e5":[2,0,0,1,4],
 "classtr_1_1DiscreteWaveletTransform.html#a0d472684ade03bfd66b0943d07f94b8a":[2,0,0,1,5],
-"classtr_1_1DiscreteWaveletTransform.html#a3f37f92793c51ca387f8548760ce54dc":[2,0,0,1,6],
 "classtr_1_1DiscreteWaveletTransform.html#a41725f533a4f57fcde4fbef86d719e7e":[2,0,0,1,2],
 "classtr_1_1DiscreteWaveletTransform.html#aa897d918e5c73abf7199012879f0573a":[2,0,0,1,3],
+"classtr_1_1DiscreteWaveletTransform.html#adbe09a53c11430fdb942bd2b505d0933":[2,0,0,1,6],
 "classtr_1_1DiscreteWaveletTransform.html#af64361a5a697a7afd3e667ff9243dad5":[2,0,0,1,7],
 "classtr_1_1DiscreteWaveletTransform2D.html":[2,0,0,2],
 "classtr_1_1DiscreteWaveletTransform2D.html#a0f7c31b58f260beee25ab4c7f123f606":[2,0,0,2,2],
@@ -217,11 +217,11 @@ var NAVTREEINDEX0 =
 "globals_func.html":[3,1,1],
 "hierarchy.html":[2,2],
 "hyperparameters_8hpp.html":[3,0,0,0,0,3],
-"hyperparameters_8hpp.html#a1b011f011b3f91ecff82beadb355f27c":[3,0,0,0,0,3,1],
 "hyperparameters_8hpp.html#a437ac2cee5913fb8cb34502170d43f2b":[3,0,0,0,0,3,4],
-"hyperparameters_8hpp.html#a6f1d12b8ec27ff71492e1dc7c99b2fee":[3,0,0,0,0,3,3],
-"hyperparameters_8hpp.html#abb66facd58f173f3fea05441a7c02d07":[3,0,0,0,0,3,0],
-"hyperparameters_8hpp.html#ac7a61e390e9d7046c495f61d6c06cade":[3,0,0,0,0,3,2],
+"hyperparameters_8hpp.html#aa3899f6f3e8f0d2f2fa5158643409c29":[3,0,0,0,0,3,1],
+"hyperparameters_8hpp.html#aaa9860c49d7a32983f0fd4e1dabf2245":[3,0,0,0,0,3,0],
+"hyperparameters_8hpp.html#abc46d27d18eca0151b7efbf92139fa27":[3,0,0,0,0,3,2],
+"hyperparameters_8hpp.html#ac9b97638f1f9f34643abb5aa987b9c86":[3,0,0,0,0,3,3],
 "hyperparameters_8hpp_source.html":[3,0,0,0,0,3],
 "index.html":[],
 "index.html":[0],
@@ -249,5 +249,5 @@ var NAVTREEINDEX0 =
 "namespaceTRANSFORM__MATRICES_1_1TRANSFORM.html#a3569fa0b21a9787d92310f0d9337e93f":[1,0,2,0,0],
 "namespaceTypedefs.html":[1,0,3],
 "namespaceTypedefs.html#a34003359abe930be226492dc567f3777":[1,0,3,6],
-"namespaceTypedefs.html#a39fb93d67835634d22fe8e43dd3e9ad5":[1,0,3,1]
+"namespaceTypedefs.html#a59acb6042b9c009d7b35a7330a91793c":[1,0,3,0]
 };

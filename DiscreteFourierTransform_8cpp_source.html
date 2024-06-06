@@ -100,10 +100,10 @@ $(document).ready(function(){initNavTree('DiscreteFourierTransform_8cpp_source.h
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">size_t</span> N = x.size();</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">vcpx</a> X(N, 0);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> mult = (1-2*is_inverse)*-2*M_PI/N;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">const</span> <a class="code" href="namespaceTypedefs.html#ab5a798a7631b9323caeb2c88b6bdd816">DType</a> mult = (1-2*is_inverse)*-2*M_PI/N;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> k = 0; k &lt; N; k++){</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> n = 0; n &lt; N; n++){</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            X[k] += x[n] * polar(1.0, mult*k*n);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            X[k] += x[n] * polar(<a class="code" href="namespaceTypedefs.html#ab5a798a7631b9323caeb2c88b6bdd816">DType</a>(1.0), mult*k*n);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        }</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    move(X.begin(), X.end(), x.begin()); </div>
@@ -116,6 +116,7 @@ $(document).ready(function(){initNavTree('DiscreteFourierTransform_8cpp_source.h
 <div class="ttc" id="aDiscreteFourierTransform_8hpp_html"><div class="ttname"><a href="DiscreteFourierTransform_8hpp.html">DiscreteFourierTransform.hpp</a></div><div class="ttdoc">Defines the DiscreteFourierTransform class for discrete Fourier transform operations.</div></div>
 <div class="ttc" id="anamespaceTypedefs_html"><div class="ttname"><a href="namespaceTypedefs.html">Typedefs</a></div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00013">typedefs.hpp:13</a></div></div>
 <div class="ttc" id="anamespaceTypedefs_html_a8adf1ea1e0f419a87998c38498e91123"><div class="ttname"><a href="namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123">Typedefs::vcpx</a></div><div class="ttdeci">std::vector&lt; cpx &gt; vcpx</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00019">typedefs.hpp:19</a></div></div>
+<div class="ttc" id="anamespaceTypedefs_html_ab5a798a7631b9323caeb2c88b6bdd816"><div class="ttname"><a href="namespaceTypedefs.html#ab5a798a7631b9323caeb2c88b6bdd816">Typedefs::DType</a></div><div class="ttdeci">float DType</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8hpp_source.html#l00014">typedefs.hpp:14</a></div></div>
 <div class="ttc" id="anamespacetr_html"><div class="ttname"><a href="namespacetr.html">tr</a></div><div class="ttdef"><b>Definition:</b> <a href="bitreverse_8hpp_source.html#l00014">bitreverse.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

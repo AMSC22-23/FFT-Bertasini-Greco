@@ -1,17 +1,17 @@
 var namespaces_dup =
 [
     [ "compression", "namespacecompression.html", [
-      [ "c", "namespacecompression.html#abb66facd58f173f3fea05441a7c02d07", null ],
-      [ "compression_coeff", "namespacecompression.html#a1b011f011b3f91ecff82beadb355f27c", null ],
-      [ "f", "namespacecompression.html#ac7a61e390e9d7046c495f61d6c06cade", null ],
-      [ "R", "namespacecompression.html#a6f1d12b8ec27ff71492e1dc7c99b2fee", null ],
+      [ "c", "namespacecompression.html#aaa9860c49d7a32983f0fd4e1dabf2245", null ],
+      [ "compression_coeff", "namespacecompression.html#aa3899f6f3e8f0d2f2fa5158643409c29", null ],
+      [ "f", "namespacecompression.html#abc46d27d18eca0151b7efbf92139fa27", null ],
+      [ "R", "namespacecompression.html#ac9b97638f1f9f34643abb5aa987b9c86", null ],
       [ "tr_mat", "namespacecompression.html#a437ac2cee5913fb8cb34502170d43f2b", null ]
     ] ],
     [ "tr", "namespacetr.html", "namespacetr" ],
     [ "TRANSFORM_MATRICES", "namespaceTRANSFORM__MATRICES.html", "namespaceTRANSFORM__MATRICES" ],
     [ "Typedefs", "namespaceTypedefs.html", [
       [ "cpx", "namespaceTypedefs.html#a59acb6042b9c009d7b35a7330a91793c", null ],
-      [ "DType", "namespaceTypedefs.html#a39fb93d67835634d22fe8e43dd3e9ad5", null ],
+      [ "DType", "namespaceTypedefs.html#ab5a798a7631b9323caeb2c88b6bdd816", null ],
       [ "vcpx", "namespaceTypedefs.html#a8adf1ea1e0f419a87998c38498e91123", null ],
       [ "vcpx2D", "namespaceTypedefs.html#a5da46746f89e1b3403e76f013c6d1527", null ],
       [ "vcpx3D", "namespaceTypedefs.html#a8422e5d9232d50518ca750779a05b125", null ],
