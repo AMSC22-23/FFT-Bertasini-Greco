@@ -126,9 +126,13 @@ By default the application will load the lena image and apply the DWT transforma
 The result will be shown in a window, to close the window press any key. Moreover the application will save the transformed image in the `output` folder.
 
 N.B: for the dwt filtering the application asks for a percentage of the coefficients to discard, since the DWT does not provide any way to filter a specific percentage of the coefficients, the application will discard as many levels as needed to not exceed the percentage of discarded coefficients, eg (extremes included):
+
 0 - 0.74              -> no compression
+
 0.75 - 0.9374         -> 1 level of compression
+
 0.9375 - 0.984374     -> 2 levels of compression
+
 0.984375 - 0.99609375 -> 3 levels of compression
 
 
