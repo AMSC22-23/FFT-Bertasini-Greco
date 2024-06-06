@@ -47,7 +47,7 @@ else
 endif
 
 NVCC := $(shell command -v nvcc 2> /dev/null)
-NVCC_FLAGS :=  -I$(IDIR) -std=c++17 -arch=sm_80 -O$(O_LEVEL) -Xcompiler -Wall,-Wextra
+NVCC_FLAGS :=  -I$(IDIR) -std=c++20 -arch=sm_80 -O$(O_LEVEL) -Xcompiler -Wall,-Wextra
 NVCC_LIBS := -lcuda -lcudart
 
 # if nvcc is installed, use it

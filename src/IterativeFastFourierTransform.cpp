@@ -39,7 +39,7 @@ auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -
 
 #else
 auto IterativeFastFourierTransform::fft (vcpx& x, const bool is_inverse) const -> void {
-  fftCU(x, is_inverse);
+  cudabackend::fftCU(x, is_inverse);
 }
 #endif
 

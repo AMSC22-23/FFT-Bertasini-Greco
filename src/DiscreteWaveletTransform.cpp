@@ -76,7 +76,7 @@ auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const boo
 } 
 #else 
 auto DiscreteWaveletTransform::operator()(std::vector<double> &signal, const bool is_inverse) const -> void{
-    dwtCU(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
+    cudabackend::dwtCU(signal, is_inverse, transform_matrix, inverse_matrix, user_levels);
 }
 #endif
   

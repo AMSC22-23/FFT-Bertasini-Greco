@@ -8,7 +8,6 @@
 #include <cmath>
 
 using cpx = cuda::std::complex<double>;
-using namespace cudabackend;
 
 __global__ void fft_kernel(cpx *x, int N, int m, int is_inverse) {
     int k = blockIdx.x * blockDim.x + threadIdx.x;
@@ -41,12 +40,12 @@ void fft_cpu_kernel(Typedefs::cpx *x, int N, int m, int is_inverse) {
     }
 }
 
-auto fftCU (Typedefs::vcpx& x, const bool is_inverse) -> void{
+auto cudabackend::fftCU (Typedefs::vcpx& x, const bool is_inverse) -> void{
     size_t N = x.size();
     if (N == 1) return;
 
     // Bit reverse copy
-    bit_reverse_copy(x);
+    tr::bitreverse::bit_reverse_copy(x);
 
     cpx *d_x;
     cudaMalloc((void**)&d_x, N * sizeof(cpx));
