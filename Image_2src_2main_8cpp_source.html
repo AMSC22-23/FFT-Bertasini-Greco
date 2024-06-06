@@ -204,13 +204,14 @@ $(document).ready(function(){initNavTree('Image_2src_2main_8cpp_source.html','')
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    namedWindow(<span class="stringliteral">&quot;TR Image filtered&quot;</span>, WINDOW_NORMAL);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    imshow(<span class="stringliteral">&quot;TR Image filtered&quot;</span>, tr_filtered);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    namedWindow(<span class="stringliteral">&quot;Inverse TR Image&quot;</span>, WINDOW_NORMAL);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    imshow(<span class="stringliteral">&quot;Inverse TR Image&quot;</span>, output_image);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    imwrite(<span class="stringliteral">&quot;output/output_image.png&quot;</span>, output_image);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    waitKey(0);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    imwrite(<span class="stringliteral">&quot;output/tr_filtered.png&quot;</span>, tr_filtered);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    namedWindow(<span class="stringliteral">&quot;Inverse TR Image&quot;</span>, WINDOW_NORMAL);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    imshow(<span class="stringliteral">&quot;Inverse TR Image&quot;</span>, output_image);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    imwrite(<span class="stringliteral">&quot;output/output_image_&quot;</span> + std::to_string(percentile_cutoff) + <span class="stringliteral">&quot;.png&quot;</span>, output_image);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    waitKey(0);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
 <div class="ttc" id="aCompression_2src_2main_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="Compression_2src_2main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> <a href="Compression_2src_2main_8cpp_source.html#l00026">main.cpp:26</a></div></div>
 <div class="ttc" id="aDiscreteWaveletTransform2D_8hpp_html"><div class="ttname"><a href="DiscreteWaveletTransform2D_8hpp.html">DiscreteWaveletTransform2D.hpp</a></div><div class="ttdoc">Defines the DiscreteWaveletTransform2D class, which inherits from the Transform class for 2D discrete...</div></div>
 <div class="ttc" id="aFourierTransform2D_8hpp_html"><div class="ttname"><a href="FourierTransform2D_8hpp.html">FourierTransform2D.hpp</a></div><div class="ttdoc">Defines the FourierTransform2D class for 2D Fourier transform operations.</div></div>
